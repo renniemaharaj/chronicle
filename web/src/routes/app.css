@@ -56,3 +56,6 @@
 @import '../lib/styles/resize-handles.css';
 @import '../lib/styles/map.css';
 @import '../lib/styles/map-places.css';
+@import '../lib/styles/story-mode.css';
+@import '../lib/styles/story-mode-controls.css';
+@import '../lib/styles/story-map-sources.css';

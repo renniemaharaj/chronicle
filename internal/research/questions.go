@@ -28,6 +28,9 @@ func historicalQuestions(name, kind string, proposed []domain.Question) []domain
 	questions := make([]domain.Question, 0, len(topics))
 	for index, topic := range topics {
 		question := fmt.Sprintf("%s (%s): %s", name, kind, topic.question)
+		if index == 2 {
+			question += " Resolve event places using geographic sources with explicit coordinates; include coordinate quotations and representative regional references. Preserve ambiguous place identities as gaps."
+		}
 		if index < len(proposed) {
 			question += " Additional research lead: " + proposed[index].Question
 		}

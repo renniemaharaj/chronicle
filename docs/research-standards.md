@@ -27,6 +27,15 @@ inspiration or causal influence. An era name provides orientation, not an explan
 Scoped `contextPeriods` carry claims, evidence and uncertain intervals. Editorial context windows are labeled
 as interpretation. Do not assert that a subject experienced an event simply because it happened nearby.
 
+## Geographic references
+
+Research geographic references for canonical event places as part of the investigation. Capture coordinate
+sources, attach exact quotations to entity claims, and save their IDs with `attributes.mapLocation`.
+Do not ask the user to locate ordinary researched places. Prefer scholarly gazetteers and authoritative
+geographic records; accessible encyclopedias can supply attributed coordinate references.
+Use broad regional framing for regions, provinces, rivers and seas. A representative point does not establish
+an event site, a journey, historical borders or continuous presence. Preserve ambiguous identifications as gaps.
+
 ## Endings and aftermath
 
 Separate the date, place, reported immediate cause, underlying cause, source attribution and uncertainty.

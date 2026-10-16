@@ -5,11 +5,13 @@
   import { speech } from '../../speech/preferences.svelte';
   import { StoryPlayer } from '../../speech/player';
   import { eventStory, contextFor, contextText } from '../../speech/story';
+  import { storyPlayback } from '../../state/story-playback.svelte';
 
   const player = new StoryPlayer();
   let ready = $state(false);
   let previousChapter = '';
   let previousProject = '';
+  let previousRestart = 0;
   let contextIntro = '';
   let chapterKey = '';
   onMount(() => {
@@ -31,6 +33,7 @@
     const text = eventStory(ws.project, event, ws.activeClaims);
     const contexts = contextFor(ws.project, event);
     const projectId = ws.project.id;
+    const restartToken = storyPlayback.restartToken;
     untrack(() => {
       if (previousProject !== projectId) {
         player.stop();
@@ -38,6 +41,10 @@
         previousChapter = '';
         chapterKey = '';
         contextIntro = '';
+      }
+      if (restartToken !== previousRestart) {
+        previousChapter = '';
+        previousRestart = restartToken;
       }
       if (playing && chapter && chapter.id !== previousChapter) {
         contextIntro = contexts.map((item) => `${item.title}. ${contextText(ws.project, item)}`).join(' ');
@@ -48,7 +55,7 @@
         focusChapter(ws, chapter.id, false);
       }
       const narration = `${event?.title ?? ''}. ${event?.id === chapterKey ? contextIntro : ''} ${text}`;
-      const key = JSON.stringify([projectId, event?.id, provider, voice, language, speed, narration]);
+      const key = JSON.stringify([projectId, event?.id, provider, voice, language, speed, narration, restartToken]);
       if (playing) {
         speech.status = provider === 'screen' ? 'Reading on screen' : 'Reading aloud';
         speech.error = '';

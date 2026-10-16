@@ -1,0 +1,30 @@
+.story-location {
+  max-height: 50%;
+  overflow: auto;
+  scrollbar-width: thin;
+}
+
+.story-map-sources {
+  margin-top: 8px;
+  font-size: var(--font-caption);
+}
+
+.story-map-sources > div {
+  padding-block: 8px;
+  border-top: 1px solid var(--line);
+}
+
+.story-map-sources small {
+  display: block;
+  margin-top: 4px;
+}
+
+.story-map-sources a {
+  color: var(--blue);
+  text-decoration: underline;
+}
+
+.story-map-sources blockquote {
+  margin: 8px 0;
+  overflow-wrap: anywhere;
+}

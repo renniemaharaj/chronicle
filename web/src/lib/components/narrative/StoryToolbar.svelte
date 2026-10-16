@@ -1,13 +1,15 @@
 <script lang="ts">
   import Button from '$lib/components/ui/Button.svelte';
   import { Checkbox, Label } from 'flowbite-svelte';
-  import { Volume2 } from '@lucide/svelte';
+  import { Map, Volume2 } from '@lucide/svelte';
   import { workspace as ws } from '../../state/workspace.svelte';
   import { showAllHistory } from '../../state/chapter-focus';
   import { speech } from '../../speech/preferences.svelte';
+  import { openStoryMode } from '../../state/story-mode';
 </script>
 
 <div class="story-toolbar">
+  <Button onclick={() => openStoryMode(ws)}><Map size={16} />Story mode</Button>
   <Button
     onclick={() => {
       ws.dialog = 'Voice & playback';

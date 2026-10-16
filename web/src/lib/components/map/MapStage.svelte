@@ -6,8 +6,17 @@
   import type { HistoricalEvent } from '../../types/knowledge';
   import type { MapPlace } from '../../utils/map-projection';
   import { drawMap } from './map-layers';
+  import StoryCamera from './StoryCamera.svelte';
+  import type { MapCameraFrame } from '../../utils/story-geography';
+  import { storyCoordinates } from './story-camera';
+  import { locationZoom } from '../../utils/geography';
 
-  let { places, visits }: { places: MapPlace[]; visits: HistoricalEvent[] } = $props();
+  let { places, visits, camera, followCamera = true }: {
+    places: MapPlace[];
+    visits: HistoricalEvent[];
+    camera?: MapCameraFrame;
+    followCamera?: boolean;
+  } = $props();
   let container: HTMLDivElement;
   let map = $state.raw<Leaflet.Map>();
   let library = $state.raw<typeof Leaflet>();
@@ -35,7 +44,11 @@
       observer.observe(container);
       library = L;
       map = instance;
-    }).catch(() => { error = 'The map could not load. You can still explore places using the list and Open map links.'; });
+    }).catch(() => {
+      error = camera
+        ? 'The map could not load. Story reading and playback remain available.'
+        : 'The map could not load. You can still explore places using the list and Open map links.';
+    });
 
     return () => {
       cancelled = true;
@@ -48,12 +61,14 @@
     if (!library || !map) {
       return;
     }
-    drawMap(library, layer, places, visits, ws.selectedId, (id) => ws.select(id, 'entity'));
+    const select = camera ? undefined : (id: string) => ws.select(id, 'entity');
+    const positions = camera ? storyCoordinates(camera, map.getCenter().lng) : undefined;
+    drawMap(library, layer, places, visits, camera?.overview ? '' : ws.selectedId, select, positions);
   });
 
   $effect(() => {
     const token = `${ws.fitToken}:${ws.focusToken}`;
-    if (!library || !map || !places.length || (hasFit && token === previousFit)) {
+    if (camera || !library || !map || !places.length || (hasFit && token === previousFit)) {
       return;
     }
     hasFit = true;
@@ -64,6 +79,9 @@
   });
 
   $effect(() => {
+    if (camera) {
+      return;
+    }
     const id = ws.selectedId;
     const instance = map;
     const current = places;
@@ -77,15 +95,18 @@
     }
     const position: Leaflet.LatLngTuple = [place.location.latitude, place.location.longitude];
     if (place.entity.id === id) {
-      const kind = place.location.kind;
-      const zoom = kind === 'country' ? 4 : ['state', 'administrative'].includes(kind) ? 6 : kind === 'city' ? 11 : 14;
-      instance.setView(position, zoom);
+      instance.setView(position, locationZoom(place.location.kind));
     } else if (!untrack(() => instance.getBounds().contains(position))) {
       instance.panTo(position);
     }
   });
 </script>
 
-<div class="map-stage" bind:this={container} aria-label="OpenStreetMap places" role="region"></div>
+<div class="map-stage" bind:this={container} aria-label={camera ? 'Story location map' : 'OpenStreetMap places'} role="region"></div>
+{#if camera}<StoryCamera {map} {library} frame={camera} follow={followCamera} />{/if}
 {#if error}<p class="map-error" role="alert">{error}</p>{/if}
-{#if tilesFailed && !error}<p class="map-tile-notice" role="status">Some map tiles are unavailable. Place links remain available.</p>{/if}
+{#if tilesFailed && !error}
+  <p class="map-tile-notice" role="status">
+    {camera ? 'Some map tiles are unavailable. Story reading and playback remain available.' : 'Some map tiles are unavailable. Place links remain available.'}
+  </p>
+{/if}

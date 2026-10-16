@@ -3,6 +3,8 @@
   import { toggleStory } from '$lib/state/playback-controls';
   import EraStrip from '$lib/components/narrative/EraStrip.svelte';
   import StoryPlayback from '$lib/components/narrative/StoryPlayback.svelte';
+  import StoryMode from '$lib/components/narrative/StoryMode.svelte';
+  import { closeStoryMode } from '$lib/state/story-mode';
   import EmptyWorkspace from '$lib/components/shell/EmptyWorkspace.svelte';
   import { watchWorkspace } from '$lib/api/workspace-stream';
   import { watchRun } from '$lib/api/stream';
@@ -39,7 +41,13 @@
   });
 
   function keyboard(event: KeyboardEvent) {
-    if (event.key === 'Escape') ws.dialog = '';
+    if (event.key === 'Escape') {
+      if (ws.dialog) {
+        ws.dialog = '';
+      } else if (ws.view === 'Story' && !document.fullscreenElement) {
+        closeStoryMode(ws);
+      }
+    }
     if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === 'k') {
       event.preventDefault();
       ws.dialog = 'Research';
@@ -48,7 +56,10 @@
       event.preventDefault();
       saveProject();
     }
-    if (!ws.hasProject || (event.target as HTMLElement)?.matches('input, textarea, select')) return;
+    const target = event.target as HTMLElement;
+    if (!ws.hasProject || ws.dialog || target?.closest('input, textarea, select, [contenteditable="true"]')) {
+      return;
+    }
     if (event.key === 'ArrowRight') ws.step(1);
     if (event.key === 'ArrowLeft') ws.step(-1);
     if (event.code === 'Space' && !ws.dialog && !(event.target as HTMLElement)?.closest('button')) {
@@ -65,7 +76,9 @@
 
 <div class="app-shell" class:light={!ws.dark} class:dark={ws.dark}>
   <Topbar /><StoryPlayback />
-  {#if ws.hasProject}
+  {#if ws.hasProject && ws.view === 'Story'}
+    <StoryMode />
+  {:else if ws.hasProject}
     <div
       class="workspace"
       style={`--left-width: ${ws.leftOpen ? ws.leftWidth : 0}px; --right-width: ${ws.rightOpen ? ws.rightWidth : 0}px;`}
@@ -106,6 +119,6 @@
       >
     </div>
   </footer>
-  <DialogHost />
+  {#if ws.view !== 'Story' || !ws.hasProject}<DialogHost />{/if}
   {#if ws.toast}<div class="toast" role="status"><Check size={14} />{ws.toast}</div>{/if}
 </div>

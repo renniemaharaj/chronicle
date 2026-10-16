@@ -45,13 +45,18 @@ The JSON file contains the tool's arguments, not a JSON-RPC envelope.
 6. Add an event `narration` with readable `text`, supporting `claimIds`, and an `interpretation` flag.
    Use `contextPeriods` for researched eras or regional settings, each with `id`, `title`, `scope`, `time`,
    `summary`, `claimIds`, and `interpretation`. Do not invent universal era boundaries. See `docs/speech.md`.
-7. Call `chronicle_validate_project` with `{ "project": ..., "rebuildNarrative": true }`.
-8. Inspect assessments and conflicts, then call `chronicle_save_project` with the same argument shape.
-9. Collect media in `media` with source/entity IDs, observed URLs, caption, credits, license and identifying
+7. Resolve event places using captured gazetteers or other geographic sources. Save `attributes.mapLocation`
+   with source-listed `latitude`, `longitude`, `kind`, `label`, `sourceURL`, `sourceId`, `claimIds`, `provider`
+   and `retrievedAt`. Add entity claims and exact coordinate quotations. Use regional representative points
+   for regions, rivers and seas, record their limits, and disclose unresolved identities. This is research
+   work for the assistant, not a manual setup task for the user. See [Places and travel](maps.md).
+8. Call `chronicle_validate_project` with `{ "project": ..., "rebuildNarrative": true }`.
+9. Inspect assessments and conflicts, then call `chronicle_save_project` with the same argument shape.
+10. Collect media in `media` with source/entity IDs, observed URLs, caption, credits, license and identifying
    claim IDs. `subjectLinks` preserves official references and social links with the verification method.
    The backend recomputes link verification; it never trusts submitted flags or fabricated resources.
    Follow [Research standards](research-standards.md), including origin context and documented endings/aftermath.
-10. Report coverage and limitations. The app opens the first saved project or announces additions in Library.
+11. Report coverage and limitations. The app opens the first saved project or announces additions in Library.
 
 Only quotations found in backend-captured text become newly verified through assistant tools. Unchanged evidence
 previously verified by a backend research run retains its provenance. Unmatched excerpts

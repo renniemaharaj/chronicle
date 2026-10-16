@@ -1,0 +1,125 @@
+.story-mode {
+  height: calc(100dvh - 74px);
+  min-height: 480px;
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr) auto;
+  background: var(--surface);
+}
+
+.story-mode:fullscreen {
+  height: 100dvh;
+}
+
+.story-mode-header,
+.story-transport,
+.story-mode-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.story-mode-header {
+  justify-content: space-between;
+  padding: 10px 18px;
+  border-bottom: 1px solid var(--line);
+}
+
+.story-mode-title {
+  display: grid;
+  text-align: center;
+  gap: 2px;
+}
+
+.story-mode-title span {
+  color: var(--muted);
+  font-size: var(--font-caption);
+}
+
+.story-scene {
+  position: relative;
+  min-height: 0;
+  overflow: hidden;
+  display: flex;
+  justify-content: flex-end;
+  padding: 24px 24px 40px;
+}
+
+.story-map-shade {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(90deg, transparent 30%, rgb(12 22 35 / 0.35));
+}
+
+.story-reading {
+  position: relative;
+  z-index: 1;
+  width: min(460px, 40%);
+  overflow: auto;
+  padding: clamp(18px, 2.5vw, 32px);
+  border: 1px solid var(--line-strong);
+  border-radius: 12px;
+  background: color-mix(in srgb, var(--surface) 96%, transparent);
+  box-shadow: 0 12px 45px rgb(0 0 0 / 0.22);
+  scrollbar-width: thin;
+}
+
+.story-reading h1 {
+  margin: 12px 0 18px;
+  font: 700 clamp(24px, 2.3vw, 34px) / 1.2 Manrope, sans-serif;
+}
+
+.story-passage {
+  margin: 0 0 18px;
+  font-size: clamp(16px, 1.25vw, 19px);
+  line-height: 1.8;
+}
+
+.story-interpretation {
+  display: block;
+  margin-bottom: 12px;
+  color: var(--gold);
+  font-size: var(--font-caption);
+}
+
+.story-location {
+  position: absolute;
+  z-index: 1;
+  left: 24px;
+  bottom: 32px;
+  max-width: min(480px, 48%);
+  padding: 12px 16px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--surface);
+}
+
+.story-location > span {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-weight: 700;
+}
+
+.story-location p {
+  margin: 6px 0;
+  font-size: var(--font-caption);
+}
+
+.story-location small {
+  color: var(--muted);
+  font-size: var(--font-min);
+}
+
+.story-mode .map-tile-notice {
+  left: 60px;
+  right: auto;
+}
+
+.story-reading .story-provenance,
+.story-reading .historical-context {
+  margin-top: 20px;
+  padding-top: 14px;
+  border-top: 1px solid var(--line);
+  font-size: var(--font-caption);
+}

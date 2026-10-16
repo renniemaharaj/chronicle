@@ -4,6 +4,7 @@ import (
 	"fmt"
 
 	"chronicle/internal/domain"
+	"chronicle/internal/geography"
 )
 
 func mergeBatch(project domain.Project, batch extraction, source domain.Source) (domain.Project, error) {
@@ -21,9 +22,7 @@ func mergeBatch(project domain.Project, batch extraction, source domain.Source) 
 		old := entity.ID
 		entity.ID = stableID("entity", entity.Kind+":"+entity.Name)
 		entity.Version = 1
-		if entity.Attributes == nil {
-			entity.Attributes = map[string]any{}
-		}
+		entity.Attributes = geography.WithoutReference(entity.Attributes)
 		for index, existing := range result.Entities {
 			if normalizeName(existing.Name) == normalizeName(entity.Name) && existing.Kind == entity.Kind {
 				entity.ID = existing.ID
@@ -128,6 +127,7 @@ func mergeBatch(project domain.Project, batch extraction, source domain.Source) 
 		result.Conflicts = append(result.Conflicts, conflict)
 	}
 	mergeContext(&result, batch.ContextPeriods, ids)
+	mergeGeography(&result, batch.Entities, source, ids)
 	mergeMedia(&result, batch, source.ID, ids)
 	if err := domain.ValidateProject(result); err != nil {
 		return project, err

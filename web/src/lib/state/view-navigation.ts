@@ -1,5 +1,6 @@
 import type { HistoricalEvent } from '../types/knowledge';
 import type { Workspace } from './workspace.svelte';
+import { openStoryMode } from './story-mode';
 
 const dialogs = [
   'Sources',
@@ -8,13 +9,16 @@ const dialogs = [
   'Overview',
   'Major Themes',
   'Contemporaries',
-  'Story',
   'Social Networks & Website',
   'Images',
   'Videos',
 ];
 
 export function navigateView(ws: Workspace, name: string) {
+  if (name === 'Story') {
+    openStoryMode(ws);
+    return;
+  }
   if (dialogs.includes(name)) {
     ws.dialog = name;
     return;

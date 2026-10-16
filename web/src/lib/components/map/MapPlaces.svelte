@@ -40,7 +40,15 @@
           <Button onclick={() => onlocate(place)}>{location ? 'Change' : 'Locate'}</Button>
         </div>
         {#if ws.selectedId === place.id}
-          {#if location}<p class="map-note">Modern {location.kind.replaceAll('_', ' ')} reference{#if locationSourceURL(location)} · <a href={locationSourceURL(location)} target="_blank" rel="noreferrer">Map record</a>{/if}</p>{/if}
+          {#if location}
+            <p class="map-note">
+              Geographic {location.kind.replaceAll('_', ' ')} reference
+              {#if locationSourceURL(location)}
+                · <a href={locationSourceURL(location)} target="_blank" rel="noreferrer">Coordinate source</a>
+              {/if}
+              {location.note ?? ''}
+            </p>
+          {/if}
           {#each linked as event}
             <Button class="place-event" onclick={() => ws.select(event.id)}>{intervalLabel(event.time)} · {event.title}</Button>
           {/each}

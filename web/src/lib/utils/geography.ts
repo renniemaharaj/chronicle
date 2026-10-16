@@ -8,6 +8,9 @@ export interface MapLocation {
   kind: string;
   provider: string;
   retrievedAt: string;
+  sourceId?: string;
+  claimIds?: string[];
+  note?: string;
 }
 
 export type PlaceResult = Omit<MapLocation, 'provider' | 'retrievedAt'>;
@@ -29,13 +32,16 @@ export function mapLocation(entity: Entity): MapLocation | undefined {
     sourceURL: typeof location.sourceURL === 'string' ? location.sourceURL : '',
     provider: typeof location.provider === 'string' ? location.provider : '',
     retrievedAt: typeof location.retrievedAt === 'string' ? location.retrievedAt : '',
+    sourceId: typeof location.sourceId === 'string' ? location.sourceId : undefined,
+    claimIds: Array.isArray(location.claimIds) ? location.claimIds.filter((id) => typeof id === 'string') : [],
+    note: typeof location.note === 'string' ? location.note : '',
   };
 }
 
 export function openMapURL(entity: Entity) {
   const location = mapLocation(entity);
   if (location) {
-    return `https://www.openstreetmap.org/?mlat=${location.latitude}&mlon=${location.longitude}#map=12/${location.latitude}/${location.longitude}`;
+    return `https://www.openstreetmap.org/?mlat=${location.latitude}&mlon=${location.longitude}#map=${locationZoom(location.kind)}/${location.latitude}/${location.longitude}`;
   }
 
   return `https://www.openstreetmap.org/search?query=${encodeURIComponent(entity.name)}`;
@@ -44,7 +50,7 @@ export function openMapURL(entity: Entity) {
 export function locationSourceURL(location: MapLocation) {
   try {
     const url = new URL(location.sourceURL);
-    if (url.protocol === 'https:' && url.hostname === 'www.openstreetmap.org') {
+    if (url.protocol === 'https:') {
       return url.href;
     }
   } catch {
@@ -52,4 +58,24 @@ export function locationSourceURL(location: MapLocation) {
   }
 
   return '';
+}
+
+export function locationZoom(kind: string) {
+  if (['sea', 'ocean'].includes(kind)) {
+    return 3;
+  }
+  if (['country', 'region', 'province'].includes(kind)) {
+    return 4;
+  }
+  if (kind === 'peninsula') {
+    return 5;
+  }
+  if (['state', 'administrative', 'county', 'river'].includes(kind)) {
+    return 6;
+  }
+  if (['city', 'town', 'village'].includes(kind)) {
+    return 10;
+  }
+
+  return 12;
 }

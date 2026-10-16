@@ -15,3 +15,6 @@ current session, invoke the same tools with `node scripts/chronicle-tool.mjs` an
 Use available web search to investigate independently, then capture source passages through the backend.
 Never populate research by editing storage files. Validate before saving, preserve competing claims,
 and disclose coverage gaps. Assistant-led research does not need a separately configured LLM.
+Resolve event places from captured geographic sources during research. Save sourced map references
+on canonical place records; do not delegate routine location research to the user. Preserve broad
+regions, uncertain identifications, coordinate provenance and unresolved location gaps.
