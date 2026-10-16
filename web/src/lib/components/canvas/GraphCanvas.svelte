@@ -6,10 +6,15 @@
   import { projectGraph } from '../../graph/projector';
   import type { CardData } from '../../graph/types';
 
+  let { onselect, chapterId }: {
+    onselect?: (node: Node<CardData>) => void;
+    chapterId?: string;
+  } = $props();
+
   const nodeTypes = { chronicle: TemporalNode };
   const projection = $derived(
     projectGraph(ws.project, {
-      chapterId: ws.focusedChapterId,
+      chapterId: chapterId ?? ws.focusedChapterId,
       resolution: ws.resolution,
       from: ws.startYear,
       to: ws.endYear,
@@ -31,6 +36,10 @@
   });
 
   function select(node: Node<CardData>) {
+    if (onselect) {
+      onselect(node);
+      return;
+    }
     if (node.data.recordType === 'conflict') {
       ws.inspectorTab = 'Conflicts';
       ws.rightOpen = true;

@@ -14,15 +14,36 @@ Multiple recorded locations are framed together. Repeated locations keep the
 camera steady, and reduced motion preferences disable animated map movement.
 **Follow location** can be switched off to explore the map manually.
 
+![Céline Dion's Story mode at Birth in Québec, with Charlemagne on the map and chapter and event navigation below the reading panel](images/chronicle-celine-dion-story-mode.png)
+
 Passages without mapped locations show the chapter's wider mapped context
 (or the story's context when no chapter applies). The location caption explains
 missing references. Research supplies source-backed coordinates; playback does not
 infer them from narration. The base map does not depict period borders.
 
-Use Play, Pause, previous/next, the passage slider or the chapter selector to
-navigate. Existing voice, speed and evidence controls remain available.
+The chapter sidebar shows each chapter's recorded date range and passage count.
+Choose a chapter or an event card below the player to jump into the story.
+The current chapter and nearby passages stay highlighted as narration advances.
+The sidebar's **Places** and **Sources** panels expose linked locations and passage
+evidence. Available source-linked images illustrate their associated passages;
+unillustrated passages use a book icon in the navigation.
+
+Switch between **Map**, **Timeline**, and **Graph** without losing the selected
+passage. Timeline lists the story's dated events; Graph shows the current chapter's
+canonical records and relationships. The reading panel keeps the narrative,
+historical context and evidence accessible beside each view.
+
+Use Play, Pause, previous/next or the passage slider to navigate. Voice and speed
+controls remain available. The slider represents passage order, not elapsed audio.
+The player follows the active light or dark theme, and its sidebar can be collapsed.
 **Exit story mode** or Escape returns to the previous view at the current event.
 The fullscreen button expands the player; Escape first leaves fullscreen.
+
+The selected passage is reflected in the reading panel, chapter navigation and
+event cards. Here, **The Colosseum opens** is selected within **The imperial system**;
+the map shows the event's recorded Rome context.
+
+![Rome Story mode showing The Colosseum opens, with its chapter and event card highlighted and the location context visible](images/chronicle-rome-story-colosseum.png)
 
 ## Geographic references
 

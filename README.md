@@ -9,7 +9,7 @@ Chronicle is a local academic research workspace that automatically investigates
 a subject's documented history and rebuilds its story with sources you can inspect.
 Built for students, educators, researchers, and curious minds.
 
-![Celine Dion's Eurovision story playing aloud in Chronicle, with its timeline and supporting evidence](docs/images/chronicle-celine-dion-story.png)
+![Céline Dion's researched history in Chronicle, showing the interactive graph, Story pane, and inspector at Birth in Québec](docs/images/chronicle-celine-dion-story.png)
 
 ## Research anything
 
@@ -27,9 +27,9 @@ historical context, and legacy or latest documented state.
 - **Academic exploration:** inspect source passages, compare competing claims, and preserve uncertain dates and coverage gaps.
 - **Your research workspace:** annotate, save, import, and export projects; resize panes and switch themes.
 
-| Map documented visits | Explore music and videos |
+| Follow places in Story mode | Explore music and videos |
 | --- | --- |
-| ![Celine Dion's world map with dated visits and performances](docs/images/chronicle-celine-dion-travel.png) | ![Celine Dion's video collection, including Dansons, with links to the original sources](docs/images/chronicle-celine-dion-videos.png) |
+| ![Céline Dion's Story mode at Birth in Québec, with a map of Charlemagne, chapter navigation, reading panel, and event cards](docs/images/chronicle-celine-dion-story-mode.png) | ![Céline Dion's updated video collection, including Dansons, with search and links to the original sources](docs/images/chronicle-celine-dion-videos.png) |
 
 ## Follow the story through time and place
 
@@ -40,18 +40,20 @@ regional context as the story unfolds.
 
 This keeps the where alongside the when: follow a person's changing surroundings,
 an institution's reach, or the geographic setting of a historical turning point.
-In the Rome example, the story moves from events in the city to developments across
-the Italian peninsula, helping connect a local episode with its wider setting.
+In the Rome examples, the selected chapter and event cards move from the Republic
+to the imperial system while the map keeps the city's geographic setting in view.
 
-![Chronicle Story mode narrating a passage about the Gracchi while the map focuses on Rome](docs/images/chronicle-rome-story-city.png)
-
-| Moving to the next location | The wider regional setting |
-| --- | --- |
-| ![Story mode changing from Rome to the Italian peninsula as the next passage begins, with map tiles still loading](docs/images/chronicle-rome-story-transition.png) | ![Story mode framing the Italian peninsula alongside the next narrated passage and its position on the subject's timeline](docs/images/chronicle-rome-story-region.png) |
+![Chronicle Story mode at From kings to the Republic, showing Rome on the map, the selected chapter, reading panel, and nearby events](docs/images/chronicle-rome-story-republic.png)
 
 Pause, skip passages, seek along the story, choose a chapter, or adjust the voice
 and speed. Switch off **Follow location** to explore the map yourself, or expand
 the player to fullscreen. Opening Story mode keeps the current passage and playback.
+The player includes a chapter sidebar, a reading panel, and nearby event cards.
+Switch between Map, Timeline, and Graph while following the same selected passage;
+open Places or Sources in the sidebar to inspect the story's geographic context
+and evidence. Linked images appear with attribution when the project has them.
+
+![Story mode at The Colosseum opens, with The imperial system chapter and the current event highlighted beside its narrative and map](docs/images/chronicle-rome-story-colosseum.png)
 
 Research supplies geographic references from sources you can inspect under
 **Map sources**. Several recorded locations are framed together; missing locations

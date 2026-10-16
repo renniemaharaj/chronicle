@@ -3,16 +3,11 @@
   import Button from '../ui/Button.svelte';
   import { workspace as ws } from '../../state/workspace.svelte';
   import { toggleStory } from '../../state/playback-controls';
-  import { focusChapter } from '../../state/chapter-focus';
   import { speech } from '../../speech/preferences.svelte';
   import { restartStory } from '../../state/story-playback.svelte';
 
   const events = $derived(ws.orderedEvents);
   const index = $derived(events.findIndex((event) => event.id === ws.selectedId));
-  const chapter = $derived(ws.project.chapters.find((item) => item.eventIds.includes(ws.selectedId)));
-  const chapters = $derived(ws.project.chapters.filter((item) =>
-    events.some((event) => item.eventIds.includes(event.id)),
-  ));
 </script>
 
 <footer class="story-mode-controls">
@@ -55,14 +50,15 @@
       </Button>
       <Button
         variant="primary"
+        class="story-play-toggle"
         aria-label={ws.playing ? 'Pause story' : 'Play story'}
         disabled={!events.length}
         onclick={() => toggleStory(ws)}
       >
         {#if ws.playing}
-          <Pause size={18} />Pause
+          <Pause size={20} fill="currentColor" />
         {:else}
-          <Play size={18} />{ws.storyFinished ? 'Replay' : 'Play'}
+          <Play size={20} fill="currentColor" />
         {/if}
       </Button>
       <Button
@@ -74,20 +70,6 @@
         <ChevronRight size={20} />
       </Button>
     </div>
-    <label class="story-chapter-picker">
-      Chapter
-      <select
-        aria-label="Story chapter"
-        value={chapter?.id ?? ''}
-        disabled={!chapters.length}
-        onchange={(event) => focusChapter(ws, event.currentTarget.value)}
-      >
-        <option value="" disabled>Choose a chapter</option>
-        {#each chapters as item}
-          <option value={item.id}>{item.title}</option>
-        {/each}
-      </select>
-    </label>
     <div class="story-mode-actions">
       <select aria-label="Playback speed" bind:value={ws.speed}>
         <option value={0.75}>0.75x</option>
@@ -96,8 +78,8 @@
         <option value={1.5}>1.5x</option>
         <option value={2}>2x</option>
       </select>
-      <Button onclick={() => { ws.dialog = 'Voice & playback'; }}>
-        <Volume2 size={16} />Voice & playback
+      <Button aria-label="Voice & playback" onclick={() => { ws.dialog = 'Voice & playback'; }}>
+        <Volume2 size={16} /><span class="story-voice-label">Voice & playback</span>
       </Button>
     </div>
   </div>

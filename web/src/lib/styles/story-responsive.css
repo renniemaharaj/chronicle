@@ -1,0 +1,118 @@
+@media (max-width: 1100px) {
+  .story-view-suffix {
+    display: none;
+  }
+
+  .story-scene-toolbar {
+    gap: 6px;
+  }
+
+  .story-scene-toolbar button {
+    padding-inline: 8px;
+  }
+}
+
+@media (max-width: 759px) {
+  .story-mode {
+    min-height: 800px;
+  }
+
+  .story-mode .story-player-main {
+    grid-template-rows: minmax(420px, 1fr) auto auto;
+  }
+
+  .story-scene-toolbar {
+    top: 10px;
+    left: 8px;
+    right: 8px;
+  }
+
+  .story-scene-toolbar .story-mode-actions {
+    gap: 4px;
+  }
+
+  .story-follow-label {
+    display: none;
+  }
+
+  .story-reading {
+    top: auto;
+    bottom: 24px;
+    left: 10px;
+    right: 10px;
+    width: auto;
+    height: 46%;
+    padding: 16px;
+  }
+
+  .story-reading h1 {
+    font-size: 24px;
+  }
+
+  .story-location {
+    top: 64px;
+    bottom: auto;
+    left: 54px;
+    max-width: calc(100% - 68px);
+    max-height: 30%;
+    padding: 8px 10px;
+  }
+
+  .story-location p,
+  .story-location small {
+    font-size: 10px;
+  }
+
+  .story-alternate-stage {
+    inset: 54px 10px calc(46% + 36px) 10px;
+  }
+
+  .story-timeline {
+    padding: 0 8px 8px;
+  }
+
+  .story-track-chapter {
+    padding-block: 8px;
+  }
+
+  .story-timeline-events {
+    grid-template-columns: 52px minmax(0, 1fr);
+    gap: 7px;
+  }
+
+  .story-chronology-event {
+    grid-template-columns: 80px minmax(0, 1fr);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .story-mode * {
+    scroll-behavior: auto;
+  }
+}
+
+@media (max-width: 520px) {
+  .app-shell:has(.story-mode) .global-search {
+    min-width: 0;
+  }
+
+  .app-shell:has(.story-mode) .top-actions .header-action,
+  .app-shell:has(.story-mode) .top-actions .inspector-reveal,
+  .app-shell:has(.story-mode) .global-search kbd {
+    display: none;
+  }
+
+  .story-view-tabs button > span,
+  .story-voice-label {
+    display: none;
+  }
+
+  .story-view-tabs button {
+    width: 34px;
+    padding: 8px;
+  }
+
+  .story-mode-controls select {
+    width: 64px;
+  }
+}

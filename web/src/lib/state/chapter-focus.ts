@@ -1,6 +1,12 @@
 import type { Workspace } from './workspace.svelte';
 import { knownYear } from '../types/temporal';
 
+export function chapterForEvent(ws: Workspace, eventId: string) {
+  const chapters = ws.project.chapters;
+  return chapters.find((chapter) => chapter.id === ws.focusedChapterId && chapter.eventIds.includes(eventId)) ??
+    chapters.find((chapter) => chapter.eventIds.includes(eventId));
+}
+
 export function focusChapter(ws: Workspace, id: string, selectFirst = true) {
   const chapter = ws.project.chapters.find((item) => item.id === id);
   if (!chapter) {

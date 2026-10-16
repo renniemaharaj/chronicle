@@ -1,0 +1,115 @@
+.story-scene {
+  position: relative;
+  min-width: 0;
+  min-height: 0;
+  overflow: hidden;
+  background: var(--surface-soft);
+}
+
+.story-map-shade {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(90deg, transparent 15%, rgb(6 18 32 / 0.12) 60%, rgb(6 18 32 / 0.4));
+}
+
+.dark .story-mode .leaflet-tile-pane {
+  filter: brightness(0.72) saturate(0.7);
+}
+
+.story-scene-toolbar {
+  position: absolute;
+  z-index: 3;
+  top: 14px;
+  left: 14px;
+  right: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  pointer-events: none;
+}
+
+.story-scene-toolbar button {
+  min-height: 34px;
+  padding: 8px 10px;
+  border: 1px solid var(--line-strong);
+  border-radius: 7px;
+  background: var(--surface);
+  color: var(--text);
+  font-size: 12px;
+  box-shadow: 0 3px 10px rgb(0 0 0 / 0.1);
+  pointer-events: auto;
+}
+
+.story-scene-toolbar button[aria-pressed='true'] {
+  border-color: var(--blue);
+  background: var(--blue-soft);
+  color: var(--text);
+}
+
+.story-view-tabs {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.story-location {
+  position: absolute;
+  z-index: 1;
+  left: 14px;
+  bottom: 24px;
+  max-width: min(420px, calc(100% - var(--story-reader-width) - 44px));
+  padding: 10px 14px;
+  border: 1px solid var(--line-strong);
+  border-radius: 9px;
+  background: color-mix(in srgb, var(--surface) 96%, transparent);
+  box-shadow: 0 6px 24px rgb(0 0 0 / 0.12);
+}
+
+.story-location > span {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 13px;
+  font-weight: 650;
+}
+
+.story-location p {
+  margin: 5px 0;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.story-location small {
+  color: var(--muted);
+  font-size: 11px;
+}
+
+.story-mode .leaflet-top.leaflet-left {
+  top: 62px;
+}
+
+.story-mode .map-tile-notice,
+.story-mode .map-error {
+  top: 66px;
+  left: 56px;
+  right: auto;
+  max-width: 250px;
+}
+
+.story-alternate-stage {
+  position: absolute;
+  inset: 62px calc(var(--story-reader-width) + 28px) 14px 14px;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--surface);
+}
+
+.story-graph,
+.story-graph > .graph-canvas {
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+}

@@ -1,5 +1,5 @@
 import { notify } from './notifications';
-import { focusChapter } from './chapter-focus';
+import { chapterForEvent, focusChapter } from './chapter-focus';
 import { emptyProject, emptySubject } from './empty';
 import { nearestEvent, orderedEvents, projectBounds } from './navigation';
 import type { Project, ResearchRun } from '../types/project';
@@ -101,7 +101,7 @@ export class Workspace {
     if (!event) {
       this.playing = false;
     }
-    const chapter = this.project.chapters.find((item) => item.eventIds.includes(id));
+    const chapter = chapterForEvent(this, id);
     if (chapter && this.followChapter && (this.playing || this.focusedChapterId)) {
       if (this.focusedChapterId !== chapter.id) {
         focusChapter(this, chapter.id, false);

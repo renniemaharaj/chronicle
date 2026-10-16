@@ -8,19 +8,23 @@ Subject imagery, when supplied by research records, must retain source and right
 
 ## README screenshots
 
-The six PNG files in `docs/images/` are the user's original Chronicle screenshots,
-copied without image edits. They show researched Céline Dion and Rome projects;
+The five PNG files in `docs/images/` are the user's original Chronicle screenshots,
+copied without image edits. They show researched Céline Dion and Rome projects
+using the current interface, including the redesigned Story mode player;
 screenshots illustrate the interface and do not establish historical completeness.
 
-The Rome Story mode screenshots show a city view, a location transition while map
-tiles load, and the resulting regional view. Their order illustrates how geographic
-context follows successive passages along the subject's timeline.
+The Céline Dion screenshots show the graph and inspector, Story mode focused on
+Charlemagne, Québec, and the video collection. The Rome screenshots show the
+Republic and Colosseum passages, with the selected chapters and event cards
+alongside the reading panel and map. These replace the earlier interface images.
 
 | Repository image | Original screenshot |
 | --- | --- |
-| `chronicle-rome-story-city.png` | `screenshot-2026-10-16_12-56-11.png` |
-| `chronicle-rome-story-transition.png` | `screenshot-2026-10-16_12-56-31.png` |
-| `chronicle-rome-story-region.png` | `screenshot-2026-10-16_12-56-46.png` |
+| `chronicle-celine-dion-story.png` | `screenshot-2026-10-16_14-46-12.png` |
+| `chronicle-celine-dion-story-mode.png` | `screenshot-2026-10-16_14-46-43.png` |
+| `chronicle-celine-dion-videos.png` | `screenshot-2026-10-16_14-47-09.png` |
+| `chronicle-rome-story-republic.png` | `screenshot-2026-10-16_14-48-11.png` |
+| `chronicle-rome-story-colosseum.png` | `screenshot-2026-10-16_14-48-41.png` |
 
 The example project's Céline Dion portrait is
 [Celine Dion Live 2017](https://commons.wikimedia.org/wiki/File:Celine_Dion_Live_2017.jpg)

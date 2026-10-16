@@ -1,0 +1,102 @@
+.story-sidebar {
+  display: grid;
+  grid-template-rows: auto auto auto minmax(0, 1fr) auto;
+  min-width: 0;
+  min-height: 0;
+  border-right: 1px solid var(--line-strong);
+  background: linear-gradient(160deg, var(--surface), var(--bg));
+}
+
+.story-sidebar-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 9px;
+  border-bottom: 1px solid var(--line);
+}
+
+.story-sidebar-header button {
+  padding: 6px;
+  color: var(--muted);
+  font-size: var(--font-caption);
+}
+
+.story-subject {
+  display: grid;
+  grid-template-columns: 64px minmax(0, 1fr);
+  gap: 12px;
+  padding: 16px 14px;
+}
+
+.story-subject h2 {
+  margin: 0 0 5px;
+  font: 600 21px Georgia, serif;
+  overflow-wrap: anywhere;
+}
+
+.story-subject p {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  margin: 0;
+  color: var(--muted);
+  font-size: var(--font-caption);
+  line-height: 1.5;
+}
+
+.story-sidebar-tabs {
+  display: flex;
+  gap: 5px;
+  padding: 0 12px 14px;
+  border-bottom: 1px solid var(--line);
+}
+
+.story-sidebar-tabs button {
+  flex: 1;
+  min-width: 0;
+  gap: 4px;
+  padding: 7px 5px;
+  border: 1px solid var(--line);
+  border-radius: 7px;
+  font-size: 12px;
+  color: var(--muted);
+  background: var(--surface-raised);
+}
+
+.story-sidebar-tabs button[aria-pressed='true'] {
+  border-color: var(--blue);
+  background: var(--blue-soft);
+  color: var(--text);
+}
+
+.story-sidebar-content {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.story-sidebar-section-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 14px 14px 10px;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.story-sidebar-section-heading h2 {
+  margin: 0;
+  color: var(--text);
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.story-sidebar-footnote {
+  padding: 10px 14px;
+  border-top: 1px solid var(--line);
+  color: var(--quiet);
+  font-size: 11px;
+}

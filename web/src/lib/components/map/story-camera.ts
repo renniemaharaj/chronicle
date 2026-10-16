@@ -44,10 +44,12 @@ export function moveStoryCamera(L: typeof Leaflet, map: Leaflet.Map, frame: MapC
   }
 
   const size = map.getSize();
-  const wide = size.x >= 760;
-  const paddingTopLeft: Leaflet.PointTuple = [48, 48];
+  const wide = window.matchMedia('(min-width: 760px)').matches;
+  const reader = map.getContainer().closest('.story-scene')?.querySelector('.story-reading');
+  const readerWidth = reader?.getBoundingClientRect().width ?? Math.min(400, size.x * 0.4);
+  const paddingTopLeft: Leaflet.PointTuple = [48, wide ? 76 : 180];
   const paddingBottomRight: Leaflet.PointTuple = wide
-    ? [Math.min(460, size.x * 0.4) + 48, 110]
+    ? [readerWidth + 42, 110]
     : [40, size.y * 0.53];
   const maxZoom = frame.overview ? 5 : Math.min(...frame.places.map((place) => locationZoom(place.location.kind)));
   const options = { paddingTopLeft, paddingBottomRight, maxZoom, animate, duration: 1.2 };

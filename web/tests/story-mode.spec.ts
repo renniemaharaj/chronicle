@@ -37,7 +37,7 @@ test('story mode follows event locations while preserving speech and navigation'
   await mode.getByRole('button', { name: 'Next milestone', exact: true }).click();
   await expect(mode.getByRole('heading', { level: 1 })).toHaveText(project.events[2].title);
   await mode.getByRole('button', { name: 'Follow location', exact: true }).click();
-  await mode.getByLabel('Story chapter', { exact: true }).selectOption('last');
+  await mode.locator('.story-chapter-row').filter({ hasText: 'Synthetic last chapter' }).click();
   await expect(mode.locator('.story-location')).toContainText('Synthetic western city / Synthetic eastern city');
   await expect(mode.locator('.leaflet-interactive')).toHaveCount(2);
   await mode.getByRole('button', { name: 'Next milestone', exact: true }).click();
@@ -65,7 +65,7 @@ test('story fullscreen keeps voice settings available and returns to the map vie
   await page.getByRole('button', { name: 'Story', exact: true }).click();
   const mode = page.getByRole('main', { name: 'Story mode', exact: true });
   await mode.getByRole('button', { name: 'Toggle story fullscreen', exact: true }).click();
-  await expect.poll(() => page.evaluate(() => document.fullscreenElement?.className)).toBe('story-mode');
+  await expect.poll(() => page.evaluate(() => document.fullscreenElement?.classList.contains('story-mode'))).toBe(true);
   await mode.getByRole('button', { name: 'Voice & playback', exact: true }).click();
   await expect(page.getByRole('dialog', { name: 'Voice & playback', exact: true })).toBeVisible();
   await page.getByLabel('Voice', { exact: true }).selectOption('test-b');
