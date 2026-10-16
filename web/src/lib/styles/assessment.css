@@ -1,0 +1,47 @@
+.source-review {
+  margin: 3px 2px 8px;
+  color: var(--muted);
+  font-size: var(--font-min);
+}
+
+.source-review summary {
+  padding: 4px 0;
+  cursor: pointer;
+}
+
+.source-review label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin: 7px 0;
+  line-height: 1.5;
+}
+
+.source-review input:not([type='checkbox']) {
+  width: 120px;
+  padding: 4px;
+  border: 1px solid var(--line-strong);
+  border-radius: 4px;
+  background: var(--surface);
+  color: var(--blue);
+  font-size: var(--font-caption);
+}
+
+.source-review input[type='checkbox'] {
+  accent-color: var(--blue);
+}
+
+.source-review .button {
+  padding: 5px 8px;
+  font-size: var(--font-min);
+}
+
+.active-date {
+  padding: 7px;
+  border: 1px solid var(--line-strong);
+  border-radius: 5px;
+  background: var(--surface-soft);
+  color: var(--red);
+  font-size: var(--font-min);
+  line-height: 1.5;
+}

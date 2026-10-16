@@ -1,0 +1,67 @@
+.empty-workspace {
+  min-height: calc(100vh - 74px);
+  display: grid;
+  align-content: center;
+  justify-items: center;
+  gap: 24px;
+  padding: 48px 24px;
+  background: radial-gradient(ellipse at 50% 35%, var(--blue-soft), transparent 65%);
+}
+
+.empty-research {
+  display: grid;
+  justify-items: center;
+  gap: 18px;
+  max-width: 620px;
+  text-align: center;
+}
+
+.empty-research h1 {
+  margin: 0;
+  font-size: var(--font-max);
+  font-weight: 650;
+}
+
+.empty-research p {
+  margin: 0 0 12px;
+  font-size: var(--font-subtitle);
+  color: var(--muted);
+}
+
+.empty-research .eyebrow {
+  margin-top: 8px;
+  color: var(--quiet);
+}
+
+.empty-research .button {
+  padding: 10px 18px;
+  font-size: var(--font-control);
+}
+
+.empty-library {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  padding: 4px;
+  border: 0;
+  background: transparent;
+  color: var(--blue);
+  font-size: var(--font-body);
+}
+
+.empty-principle {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  margin-top: 36px;
+  color: var(--quiet);
+  font-size: var(--font-caption);
+}
+
+.empty-progress {
+  width: min(620px, 100%);
+  padding: 20px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--surface);
+}

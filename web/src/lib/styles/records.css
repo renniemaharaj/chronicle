@@ -1,0 +1,108 @@
+.record-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  width: 100%;
+  margin-bottom: 8px;
+  padding: 12px;
+  border: 1px solid var(--line-strong);
+  border-radius: 6px;
+  background: var(--surface-soft);
+  color: var(--text);
+  font-size: var(--font-control);
+  text-align: left;
+}
+
+.record-row > button:not(.button) {
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--text);
+  text-align: left;
+}
+
+.record-row small {
+  display: block;
+  margin-top: 4px;
+  color: var(--muted);
+  font-size: var(--font-caption);
+}
+
+.coverage-period {
+  display: grid;
+  gap: 7px;
+  width: 100%;
+  margin-bottom: 10px;
+  padding: 14px;
+  border: 1px solid var(--line-strong);
+  border-left: 3px solid var(--gold);
+  border-radius: 6px;
+  background: var(--surface-raised);
+  color: var(--gold);
+  text-align: left;
+}
+
+.coverage-period.disputed {
+  border-left-color: var(--red);
+}
+.coverage-period.unexplored {
+  border-left-color: var(--line-strong);
+}
+.coverage-period.researched {
+  border-left-color: var(--teal);
+}
+.coverage-period strong {
+  display: flex;
+  justify-content: space-between;
+  font-size: var(--font-subtitle);
+}
+.coverage-period strong span {
+  color: var(--muted);
+  font-size: var(--font-body);
+  font-weight: 400;
+}
+.coverage-period b {
+  color: var(--text);
+  font-size: var(--font-control);
+  font-weight: 500;
+}
+.coverage-period small {
+  color: var(--muted);
+  font-size: var(--font-body);
+}
+.narrative-chapter {
+  margin-bottom: 20px;
+  color: var(--text);
+  font-size: var(--font-subtitle);
+  line-height: 1.6;
+}
+.narrative-chapter span {
+  color: var(--gold);
+  font-size: var(--font-caption);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+.narrative-chapter h3 {
+  margin: 6px 0;
+  color: var(--text);
+  font-size: var(--font-heading);
+}
+.narrative-chapter small {
+  color: var(--muted);
+  font-size: var(--font-caption);
+}
+.overview-metrics {
+  display: flex;
+  gap: 25px;
+  margin: 24px 0;
+}
+.overview-metrics strong {
+  display: block;
+  color: var(--blue);
+  font-size: var(--font-max);
+}
+.overview-metrics span {
+  color: var(--muted);
+  font-size: var(--font-body);
+}

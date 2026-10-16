@@ -1,0 +1,59 @@
+.phase-ruler {
+  height: 73px;
+  padding: 0 14px;
+  border-bottom: 1px solid var(--line);
+  background: var(--surface);
+}
+
+.ruler-ticks {
+  height: 27px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  color: var(--muted);
+  font: var(--font-min) 'DM Mono',
+    monospace;
+}
+
+.phase-bars {
+  height: 35px;
+  display: grid;
+  grid-template-columns: 1fr 1.1fr 0.9fr 1fr;
+  gap: 3px;
+  padding-left: 8%;
+}
+
+.phase {
+  display: grid;
+  place-items: center;
+  border-radius: 4px;
+  border-top: 2px solid;
+  font-size: var(--font-caption);
+}
+
+.phase small {
+  margin-top: -6px;
+  font: var(--font-min) 'DM Mono',
+    monospace;
+  color: var(--text);
+}
+
+.phase-blue {
+  background: var(--blue-soft);
+  border-color: var(--blue);
+}
+
+.phase-green {
+  background: var(--teal-soft);
+  border-color: var(--teal);
+}
+
+.phase-gold {
+  background: var(--gold-soft);
+  border-color: var(--gold);
+}
+
+.phase-violet {
+  background: var(--violet-soft);
+  border-color: var(--violet);
+}

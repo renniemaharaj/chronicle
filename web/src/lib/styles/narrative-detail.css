@@ -1,0 +1,67 @@
+.narrative-milestones {
+  display: grid;
+  gap: 3px;
+  margin-top: 8px;
+}
+.narrative-milestones button {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  width: 100%;
+  padding: 4px 6px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  background: none;
+  color: var(--text);
+  text-align: left;
+  font-size: var(--font-min);
+}
+.narrative-milestones button span {
+  color: var(--muted);
+  font: var(--font-min) monospace;
+}
+.narrative-milestones button svg {
+  margin-left: auto;
+}
+.narrative-milestones .active {
+  border-color: var(--line-strong);
+  background: var(--blue-soft);
+  color: var(--text);
+}
+.theme-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  width: 100%;
+  height: 28px;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--text);
+  text-align: left;
+  font-size: var(--font-min);
+}
+.theme-row > span {
+  flex: 1;
+}
+.theme-row strong {
+  padding: 2px 5px;
+  border: 1px solid var(--line-strong);
+  border-radius: 8px;
+  color: var(--text);
+  font: var(--font-min) monospace;
+}
+.story-browse {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin-top: 8px;
+  padding: 6px 0;
+  border: 0;
+  background: none;
+  color: var(--blue);
+  font-size: var(--font-min);
+}
+.story-content {
+  grid-template-columns: 195px minmax(140px, 1fr) 160px;
+}

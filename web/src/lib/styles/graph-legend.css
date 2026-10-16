@@ -1,0 +1,69 @@
+.graph-legend {
+  z-index: 2;
+  position: absolute;
+  top: 12px;
+  left: 9px;
+  display: grid;
+  gap: 7px;
+  color: var(--muted);
+  font-size: var(--font-min);
+  pointer-events: none;
+}
+
+.graph-legend div {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.legend-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  box-shadow: 0 0 8px currentColor;
+}
+
+.blue-dot {
+  color: var(--blue);
+  background: var(--blue);
+}
+
+.orange-dot {
+  color: var(--gold);
+  background: var(--gold-soft);
+}
+
+.green-dot {
+  color: var(--teal);
+  background: var(--teal-soft);
+}
+
+.gold-dot {
+  color: var(--gold);
+  background: var(--gold-soft);
+}
+
+.violet-dot {
+  color: var(--violet);
+  background: var(--violet-soft);
+}
+
+.context-ribbon {
+  z-index: 1;
+  position: absolute;
+  bottom: 4px;
+  left: 23%;
+  right: 4%;
+  display: flex;
+  justify-content: space-between;
+  pointer-events: none;
+}
+
+.context-ribbon span {
+  padding: 4px 12px;
+  border: 1px solid var(--line-strong);
+  border-radius: 4px;
+  background: color-mix(in srgb, var(--blue-soft) 80%, transparent);
+  color: var(--text);
+  font-size: var(--font-min);
+}

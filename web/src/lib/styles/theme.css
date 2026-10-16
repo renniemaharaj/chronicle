@@ -1,0 +1,26 @@
+.light {
+  --bg: #eaf0f6;
+  --surface: #f9fbfe;
+  --surface-raised: #ffffff;
+  --surface-soft: #e9eff7;
+  --line: #c8d4e3;
+  --line-soft: #dbe3ee;
+  --line-strong: #a0b2c9;
+  --text: #182b43;
+  --muted: #435c78;
+  --quiet: #526a84;
+  --blue: #2058a2;
+  --teal: #176752;
+  --gold: #755510;
+  --red: #a02d3d;
+  --violet: #6b4399;
+  --blue-soft: #dceafd;
+  --teal-soft: #dcf0e8;
+  --gold-soft: #f6edcf;
+  --red-soft: #fbe5e8;
+  --violet-soft: #ede3f8;
+  --primary: #2865d1;
+  --on-primary: #ffffff;
+  --shadow-rgb: 41 65 96;
+  color-scheme: light;
+}

@@ -1,0 +1,103 @@
+.right-panel {
+  padding: 10px 10px 9px;
+}
+
+.panel-toggle {
+  position: absolute;
+  top: 10px;
+  z-index: 2;
+  width: 20px;
+  height: 20px;
+  display: grid;
+  place-items: center;
+  border: 0;
+  border-radius: 4px;
+  background: transparent;
+  color: var(--muted);
+}
+
+.left-toggle {
+  right: 5px;
+  display: none;
+}
+
+.right-toggle {
+  right: 7px;
+}
+
+.inspector-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 1px 4px 11px;
+  color: var(--text);
+  font-size: var(--font-caption);
+}
+
+.inspector-head > div:first-child {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.event-icon {
+  width: 16px;
+  height: 16px;
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--blue);
+  border-radius: 50%;
+  color: var(--blue);
+}
+
+.inspector-pagination {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.inspector-pagination button {
+  display: flex;
+  padding: 2px;
+  border: 0;
+  background: transparent;
+  color: var(--muted);
+}
+
+.inspector-pagination span {
+  color: var(--text);
+  font-size: var(--font-min);
+}
+
+.event-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+}
+
+.event-title h2 {
+  margin: 0;
+  font: 700 var(--font-heading) Manrope,
+    sans-serif;
+  letter-spacing: -0.25px;
+}
+
+.major-tag {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 6px;
+  border: 1px solid var(--gold);
+  border-radius: 5px;
+  background: var(--gold-soft);
+  color: var(--gold);
+  font-size: var(--font-min);
+}
+
+.event-date {
+  margin: 5px 0 9px;
+  color: var(--text);
+  font-size: var(--font-body);
+}

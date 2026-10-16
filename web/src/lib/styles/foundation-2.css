@@ -1,0 +1,46 @@
+.top-actions button,
+.graph-tools button,
+.timeline-controls button,
+.story-heading button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  border: 1px solid transparent;
+  background: transparent;
+  color: var(--text);
+  font-size: var(--font-body);
+  white-space: nowrap;
+}
+
+.header-action {
+  padding: 7px 8px;
+}
+
+.header-action:hover,
+.icon-action:hover {
+  background: var(--blue-soft);
+  border-radius: 7px;
+}
+
+.primary-soft {
+  color: var(--gold) !important;
+  background: var(--surface-raised) !important;
+  border-color: var(--line) !important;
+  border-radius: 7px;
+}
+
+.icon-action {
+  width: 29px;
+  height: 29px;
+  border-radius: 7px;
+}
+
+.new-research {
+  height: 32px;
+  padding: 0 11px;
+  color: white !important;
+  border-radius: 7px;
+  background: var(--blue) !important;
+  box-shadow: 0 5px 14px rgb(var(--shadow-rgb) / 0.27);
+}

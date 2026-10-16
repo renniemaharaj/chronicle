@@ -1,0 +1,62 @@
+.coverage-summary {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  margin-top: 12px;
+}
+.coverage-summary > strong {
+  font: 500 var(--font-display) 'DM Mono',
+    monospace;
+  color: var(--teal);
+}
+.coverage-summary strong span {
+  font-size: var(--font-subtitle);
+  color: var(--quiet);
+}
+.coverage-summary > span {
+  color: var(--muted);
+  font-size: var(--font-min);
+}
+.coverage-note {
+  margin: 5px 0 8px;
+  color: var(--muted);
+  font-size: var(--font-min);
+  line-height: 1.5;
+}
+.coverage-segments {
+  display: flex;
+  gap: 3px;
+  height: 5px;
+  margin-bottom: 8px;
+}
+.coverage-segments button {
+  flex: 1;
+  border: 0;
+  border-radius: 2px;
+  background: var(--gold-soft);
+}
+.coverage-segments .unexplored {
+  background: var(--surface-soft);
+}
+.coverage-segments .disputed {
+  background: var(--red-soft);
+}
+.coverage-segments .researched {
+  background: var(--teal-soft);
+}
+.coverage-details {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  margin-top: 9px;
+  padding: 7px 0 0;
+  border: 0;
+  border-top: 1px solid var(--line);
+  background: none;
+  color: var(--muted);
+  font-size: var(--font-min);
+}
+.coverage-icon {
+  color: var(--teal);
+}

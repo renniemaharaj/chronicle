@@ -1,0 +1,55 @@
+{
+  "formatVersion": 1,
+  "id": "person",
+  "subjectId": "person",
+  "title": "Alex Meridian \u00b7 synthetic",
+  "fixture": true,
+  "entities": [
+    {"id": "person","name": "Alex Meridian","kind": "person","summary": "Synthetic research fixture for ontology and conflict exploration.","time": {"start": {"year": 1800,"precision": "year","calendar": "julian"},"end": {"year": 1920,"precision": "year","calendar": "julian"}},"attributes": {},"version": 1},
+    {"id": "person-related","name": "Taylor Meridian","kind": "person","summary": "Synthetic participant.","time": {},"attributes": {},"version": 1}
+  ],
+  "events": [
+    {"id": "birth","title": "Birth","kind": "Life event","summary": "Synthetic event for demonstration. This is not a historical assertion.","time": {"start": {"year": 1800,"precision": "year","calendar": "julian"}},"participants": ["person"],"locationIds": [],"claimIds": ["claim-person-0"],"importance": 10,"phase": "Origins"},
+    {"id": "person-1","title": "Expansion and change","kind": "Development","summary": "Synthetic event for demonstration. This is not a historical assertion.","time": {"start": {"year": 1840,"precision": "year","calendar": "julian"}},"participants": ["person"],"locationIds": [],"claimIds": ["claim-person-1"],"importance": 9,"phase": "Development"},
+    {"id": "person-2","title": "A turning point","kind": "Development","summary": "Synthetic event for demonstration. This is not a historical assertion.","time": {"start": {"year": 1880,"precision": "year","calendar": "julian"}},"participants": ["person"],"locationIds": [],"claimIds": ["claim-person-2"],"importance": 8,"phase": "Transition"},
+    {"id": "person-3","title": "Latest documented state","kind": "Development","summary": "Synthetic event for demonstration. This is not a historical assertion.","time": {"start": {"year": 1920,"precision": "year","calendar": "julian"}},"participants": ["person"],"locationIds": [],"claimIds": ["claim-person-3"],"importance": 7,"phase": "Legacy"},
+    {"id": "person-additional-0","title": "Synthetic follow-up 1","kind": "Life event","summary": "Synthetic event for demonstration. This is not a historical assertion.","time": {"start": {"year": 1805,"precision": "year","calendar": "julian"}},"participants": ["person"],"locationIds": [],"claimIds": [],"importance": 10,"phase": "Origins"},
+    {"id": "person-additional-1","title": "Synthetic follow-up 2","kind": "Development","summary": "Synthetic event for demonstration. This is not a historical assertion.","time": {"start": {"year": 1845,"precision": "year","calendar": "julian"}},"participants": ["person"],"locationIds": [],"claimIds": [],"importance": 9,"phase": "Development"},
+    {"id": "person-additional-2","title": "Synthetic follow-up 3","kind": "Development","summary": "Synthetic event for demonstration. This is not a historical assertion.","time": {"start": {"year": 1885,"precision": "year","calendar": "julian"}},"participants": ["person"],"locationIds": [],"claimIds": [],"importance": 8,"phase": "Transition"},
+    {"id": "person-additional-3","title": "Synthetic follow-up 4","kind": "Development","summary": "Synthetic event for demonstration. This is not a historical assertion.","time": {"start": {"year": 1925,"precision": "year","calendar": "julian"}},"participants": ["person"],"locationIds": [],"claimIds": [],"importance": 7,"phase": "Legacy"}
+  ],
+  "relationships": [
+    {"id": "relation-person","fromId": "person","toId": "person-related","kind": "colleague","time": {"start": {"year": 1840,"precision": "year","calendar": "julian"},"end": {"year": 1870,"precision": "year","calendar": "julian"}},"claimIds": []}
+  ],
+  "claims": [
+    {"id": "claim-person-0","text": "Documented origins in 1800","status": "unverified","eventId": "birth","evidenceIds": ["synthetic-evidence"],"assessment": ["Synthetic fixture. No historical evidence supplied."]},
+    {"id": "claim-person-1","text": "Expansion and change in 1840","status": "unverified","eventId": "person-1","evidenceIds": [],"assessment": ["Synthetic fixture. No historical evidence supplied."]},
+    {"id": "claim-person-2","text": "A turning point in 1880","status": "unverified","eventId": "person-2","evidenceIds": [],"assessment": ["Synthetic fixture. No historical evidence supplied."]},
+    {"id": "claim-person-3","text": "Latest documented state in 1920","status": "unverified","eventId": "person-3","evidenceIds": [],"assessment": ["Synthetic fixture. No historical evidence supplied."]},
+    {"id": "alternative-person","text": "Alternative turning point in 1830","status": "disputed","eventId": "person-2","time": {"start": {"year": 1830,"precision": "year","calendar": "julian"}},"evidenceIds": [],"assessment": ["Deliberate synthetic contradiction."]}
+  ],
+  "sources": [
+    {"id": "synthetic-source","title": "Synthetic archive text for deterministic tests","author": "Test author","publisher": "Test archive","url": "https://example.org/synthetic","retrievedAt": "2026-01-01T00:00:00Z","classification": "primary","independenceGroup": "synthetic","independenceReviewed": false,"verification": "synthetic"}
+  ],
+  "evidence": [
+    {"id": "synthetic-evidence","sourceId": "synthetic-source","claimId": "claim-person-0","excerpt": "Synthetic birth record in 1800.","location": "Synthetic section 1","relation": "supporting","mode": "quotation","verified": false}
+  ],
+  "conflicts": [
+    {"id": "conflict-person","title": "Competing dates for the turning point","claimIds": ["claim-person-2","alternative-person"],"kind": "date","explanation": "Synthetic records place the same event in 1880 and 1830.","consequences": ["Adopting 1830 moves the turning point before the 1840 expansion."],"severity": "definite"}
+  ],
+  "chapters": [
+    {"id": "chapter-person-0","title": "Documented origins","summary": "A synthetic chapter demonstrating a reusable ontology.","eventIds": ["birth"],"claimIds": ["claim-person-0"],"interpretation": true},
+    {"id": "chapter-person-1","title": "Expansion and change","summary": "A synthetic chapter demonstrating a reusable ontology.","eventIds": ["person-1"],"claimIds": ["claim-person-1"],"interpretation": true},
+    {"id": "chapter-person-2","title": "A turning point","summary": "A synthetic chapter demonstrating a reusable ontology.","eventIds": ["person-2"],"claimIds": ["claim-person-2"],"interpretation": true},
+    {"id": "chapter-person-3","title": "Latest documented state","summary": "A synthetic chapter demonstrating a reusable ontology.","eventIds": ["person-3"],"claimIds": ["claim-person-3"],"interpretation": true}
+  ],
+  "coverage": [
+    {"startYear": 1800,"endYear": 1839,"status": "unexplored","question": "Documented origins","notes": "Synthetic fixture; no research has been performed."},
+    {"startYear": 1840,"endYear": 1879,"status": "unexplored","question": "Expansion and change","notes": "Synthetic fixture; no research has been performed."},
+    {"startYear": 1880,"endYear": 1919,"status": "unexplored","question": "A turning point","notes": "Synthetic fixture; no research has been performed."},
+    {"startYear": 1920,"endYear": 1959,"status": "unexplored","question": "Latest documented state","notes": "Synthetic fixture; no research has been performed."}
+  ],
+  "notes": [
+  ],
+  "layout": {}
+}

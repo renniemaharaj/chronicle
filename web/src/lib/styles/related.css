@@ -1,0 +1,71 @@
+.related-section {
+  padding: 7px 2px 12px;
+  border-top: 1px solid var(--line);
+}
+
+.related-section h2 {
+  margin: 2px 3px 7px;
+  color: var(--text);
+  font: 600 var(--font-body) Manrope,
+    sans-serif;
+}
+
+.related-item {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 2px;
+  text-align: left;
+  border: 0;
+  background: transparent;
+}
+
+.related-thumb {
+  flex: 0 0 34px;
+  height: 34px;
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--line-strong);
+  border-radius: 6px;
+  background: linear-gradient(135deg, var(--surface-soft), var(--surface-soft));
+  color: var(--gold);
+  font-size: var(--font-title);
+}
+
+.related-thumb.portrait-small {
+  background: radial-gradient(circle at 50% 30%, var(--gold-soft) 0 17%, var(--surface-soft) 19% 43%, var(--surface-soft) 46%);
+  color: transparent;
+}
+
+.related-item strong,
+.related-item small {
+  display: block;
+}
+
+.related-item strong {
+  color: var(--text);
+  font-size: var(--font-caption);
+  font-weight: 600;
+}
+
+.related-item small {
+  margin-top: 3px;
+  color: var(--muted);
+  font-size: var(--font-min);
+}
+
+.explore-related {
+  width: 100%;
+  height: 25px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  margin-top: 6px;
+  border: 1px solid var(--line-strong);
+  border-radius: 6px;
+  background: var(--surface-raised);
+  color: var(--text);
+  font-size: var(--font-caption);
+}

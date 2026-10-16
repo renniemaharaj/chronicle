@@ -1,0 +1,79 @@
+.conflict-card {
+  margin-top: 9px;
+  padding: 9px;
+  border: 1px solid var(--red);
+  border-radius: 7px;
+  background: var(--surface-raised);
+}
+
+.conflict-card-title {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--red);
+}
+
+.conflict-card-title strong {
+  flex: 1;
+  font-size: var(--font-caption);
+}
+
+.conflict-card-title span {
+  padding: 3px 5px;
+  border: 1px solid var(--red);
+  border-radius: 4px;
+  color: var(--red);
+  font-size: var(--font-min);
+}
+
+.conflict-card p {
+  color: var(--text);
+  font-size: var(--font-min);
+  line-height: 1.5;
+}
+
+.conflict-card > button {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  padding: 6px 7px;
+  border: 1px solid var(--line-strong);
+  border-radius: 5px;
+  background: var(--surface-soft);
+  color: var(--red);
+  font-size: var(--font-min);
+}
+
+.hypothesis {
+  margin-top: 7px;
+  padding: 7px;
+  border-left: 2px solid var(--gold);
+  background: var(--gold-soft);
+}
+
+.hypothesis.alt {
+  border-color: var(--violet);
+  background: var(--violet-soft);
+}
+
+.hypothesis small,
+.hypothesis strong,
+.hypothesis span {
+  display: block;
+}
+
+.hypothesis small {
+  color: var(--gold);
+  font-size: var(--font-min);
+}
+
+.hypothesis strong {
+  margin: 3px 0;
+  color: var(--gold);
+  font-size: var(--font-min);
+}
+
+.hypothesis span {
+  color: var(--muted);
+  font-size: var(--font-min);
+}

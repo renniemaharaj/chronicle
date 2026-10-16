@@ -1,0 +1,72 @@
+.source-list {
+  display: grid;
+  gap: 6px;
+  margin: 9px 0 10px;
+}
+
+.source-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 5px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: var(--surface-raised);
+  text-align: left;
+}
+
+.source-row > span:nth-child(2) {
+  flex: 1;
+}
+
+.source-row strong,
+.source-row small {
+  display: block;
+}
+
+.source-row strong {
+  color: var(--text);
+  font-size: var(--font-min);
+}
+
+.source-row small {
+  margin-top: 4px;
+  color: var(--muted);
+  font-size: var(--font-min);
+}
+
+.source-row > svg {
+  color: var(--muted);
+}
+
+.source-marker {
+  width: 24px;
+  height: 24px;
+  display: grid;
+  place-items: center;
+  border-radius: 5px;
+  background: var(--surface-soft);
+  color: var(--text);
+}
+
+.source-marker.gold {
+  background: var(--gold-soft);
+  color: var(--gold);
+}
+
+.source-marker.blue {
+  background: var(--blue-soft);
+  color: var(--blue);
+}
+
+.source-marker.violet {
+  background: var(--violet-soft);
+  color: var(--violet);
+}
+
+.source-note {
+  margin: 3px 2px;
+  color: var(--gold);
+  font-size: var(--font-min);
+  line-height: 1.5;
+}

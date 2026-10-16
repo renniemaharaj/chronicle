@@ -1,0 +1,93 @@
+:root {
+  --font-min: 10px;
+  --font-caption: 11px;
+  --font-body: 12px;
+  --font-control: 13px;
+  --font-subtitle: 14px;
+  --font-section: 16px;
+  --font-heading: 18px;
+  --font-title: 20px;
+  --font-display: 24px;
+  --font-max: 27px;
+}
+
+.app-shell {
+  font-size: var(--font-body);
+  line-height: 1.5;
+}
+
+button,
+input,
+textarea,
+select {
+  font-family: inherit;
+  line-height: inherit;
+}
+
+small,
+kbd {
+  font-size: var(--font-min);
+}
+
+h1,
+h2,
+h3,
+h4 {
+  line-height: 1.3;
+  letter-spacing: -0.02em;
+}
+
+.brand-mark {
+  padding: 0;
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+.brand-mark img {
+  width: 32px;
+  height: 32px;
+  display: block;
+}
+
+.graph-heading {
+  min-height: 68px;
+  height: auto;
+  flex-wrap: wrap;
+  padding-block: 10px;
+}
+
+.graph-tools {
+  flex-wrap: wrap;
+}
+
+.graph-tools :is(button, select),
+.timeline-controls :is(button, select) {
+  min-height: 29px;
+}
+
+.inspector-tabs button {
+  padding-inline: 4px;
+}
+
+.graph-panel {
+  display: flex;
+  flex-direction: column;
+}
+
+.graph-canvas {
+  flex: 1;
+  height: auto;
+}
+
+.phase-ruler,
+.timeline-controls,
+.graph-heading {
+  flex-shrink: 0;
+}
+
+.conflict-lane-banner {
+  position: static;
+  flex-shrink: 0;
+  margin: 6px 12px;
+}

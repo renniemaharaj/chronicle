@@ -1,0 +1,89 @@
+.graph-canvas {
+  height: calc(100% - 57px - 73px - 57px);
+  min-height: 245px;
+  position: relative;
+  overflow: hidden;
+  background: var(--surface);
+}
+
+.graph-canvas .svelte-flow {
+  background-color: transparent;
+}
+
+.graph-canvas .svelte-flow__node {
+  min-width: 120px;
+  border-radius: 7px;
+}
+
+.graph-canvas .svelte-flow__node-default {
+  width: 145px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--text);
+}
+
+.graph-canvas .svelte-flow__node.selected .event-node,
+.graph-canvas .svelte-flow__node.selected .entity-node {
+  box-shadow: 0 0 0 2px rgb(var(--shadow-rgb) / 0.30),
+    0 0 22px rgb(var(--shadow-rgb) / 0.30);
+}
+
+.graph-canvas .svelte-flow__node-default > div {
+  width: 100%;
+}
+
+.graph-canvas .svelte-flow__node-default {
+  border: 1px solid var(--line-strong);
+  background: var(--surface-raised);
+}
+
+.graph-canvas .svelte-flow__node-default .svelte-flow__handle {
+  background: var(--blue);
+  border-color: var(--line);
+  width: 6px;
+  height: 6px;
+}
+
+.graph-canvas .svelte-flow__edge-path {
+  stroke: var(--blue);
+  stroke-width: 1.35;
+}
+
+.graph-canvas .svelte-flow__edge-text {
+  fill: var(--muted);
+  font: var(--font-min) 'DM Sans',
+    sans-serif;
+}
+
+.graph-canvas .svelte-flow__edge-textbg {
+  fill: var(--quiet);
+}
+
+.graph-canvas .svelte-flow__edge.animated .svelte-flow__edge-path {
+  stroke: var(--blue);
+  stroke-dasharray: 5 3;
+}
+
+.graph-canvas .svelte-flow__controls {
+  overflow: hidden;
+  border: 1px solid var(--line-strong);
+  border-radius: 6px;
+  box-shadow: none;
+}
+
+.graph-canvas .svelte-flow__controls-button {
+  width: 23px;
+  height: 23px;
+  border-bottom-color: var(--line);
+  background: var(--surface-raised);
+  fill: var(--text);
+}
+
+.graph-canvas .svelte-flow__minimap {
+  width: 105px;
+  height: 72px;
+  border: 1px solid var(--line-strong);
+  border-radius: 5px;
+  background: var(--surface-raised);
+}

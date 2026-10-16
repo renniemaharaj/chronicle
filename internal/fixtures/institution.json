@@ -1,0 +1,52 @@
+{
+  "formatVersion": 1,
+  "id": "institution",
+  "subjectId": "institution",
+  "title": "Meridian Observatory · synthetic",
+  "fixture": true,
+  "entities": [
+    {"id": "institution", "name": "Meridian Observatory", "kind": "organization", "summary": "Synthetic research fixture for ontology and conflict exploration.", "time": {"start": {"year": 1800, "precision": "year", "calendar": "julian"}, "end": {"year": 1920, "precision": "year", "calendar": "julian"}}, "attributes": {}, "version": 1},
+    {"id": "institution-related", "name": "Alex Meridian", "kind": "person", "summary": "Synthetic participant.", "time": {"start": {"year": 1820, "precision": "year", "calendar": "julian"}, "end": {"year": 1900, "precision": "year", "calendar": "julian"}}, "attributes": {}, "version": 1}
+  ],
+  "events": [
+    {"id": "institution-0", "title": "Documented origins", "kind": "Development", "summary": "Synthetic event for demonstration. This is not a historical assertion.", "time": {"start": {"year": 1800, "precision": "year", "calendar": "julian"}}, "participants": ["institution"], "locationIds": [], "claimIds": ["claim-institution-0"], "importance": 10, "phase": "Origins"},
+    {"id": "institution-1", "title": "Expansion and change", "kind": "Development", "summary": "Synthetic event for demonstration. This is not a historical assertion.", "time": {"start": {"year": 1840, "precision": "year", "calendar": "julian"}}, "participants": ["institution"], "locationIds": [], "claimIds": ["claim-institution-1"], "importance": 9, "phase": "Development"},
+    {"id": "institution-2", "title": "A turning point", "kind": "Development", "summary": "Synthetic event for demonstration. This is not a historical assertion.", "time": {"start": {"year": 1880, "precision": "year", "calendar": "julian"}}, "participants": ["institution"], "locationIds": [], "claimIds": ["claim-institution-2"], "importance": 8, "phase": "Transition"},
+    {"id": "institution-3", "title": "Latest documented state", "kind": "Development", "summary": "Synthetic event for demonstration. This is not a historical assertion.", "time": {"start": {"year": 1920, "precision": "year", "calendar": "julian"}}, "participants": ["institution"], "locationIds": [], "claimIds": ["claim-institution-3"], "importance": 7, "phase": "Legacy"}
+  ],
+  "relationships": [
+    {"id": "relation-institution", "fromId": "institution", "toId": "institution-related", "kind": "director", "time": {"start": {"year": 1840, "precision": "year", "calendar": "julian"}, "end": {"year": 1870, "precision": "year", "calendar": "julian"}}, "claimIds": []}
+  ],
+  "claims": [
+    {"id": "claim-institution-0", "text": "Documented origins in 1800", "status": "unverified", "eventId": "institution-0", "evidenceIds": [], "assessment": ["Synthetic fixture. No historical evidence supplied."]},
+    {"id": "claim-institution-1", "text": "Expansion and change in 1840", "status": "unverified", "eventId": "institution-1", "evidenceIds": [], "assessment": ["Synthetic fixture. No historical evidence supplied."]},
+    {"id": "claim-institution-2", "text": "A turning point in 1880", "status": "unverified", "eventId": "institution-2", "evidenceIds": [], "assessment": ["Synthetic fixture. No historical evidence supplied."]},
+    {"id": "claim-institution-3", "text": "Latest documented state in 1920", "status": "unverified", "eventId": "institution-3", "evidenceIds": [], "assessment": ["Synthetic fixture. No historical evidence supplied."]},
+    {"id": "alternative-institution", "text": "Alternative turning point in 1830", "status": "disputed", "eventId": "institution-2", "time": {"start": {"year": 1830, "precision": "year", "calendar": "julian"}}, "evidenceIds": [], "assessment": ["Deliberate synthetic contradiction."]}
+  ],
+  "sources": [
+
+  ],
+  "evidence": [
+
+  ],
+  "conflicts": [
+    {"id": "conflict-institution", "title": "Competing dates for the turning point", "claimIds": ["claim-institution-2", "alternative-institution"], "kind": "date", "explanation": "Synthetic records place the same event in 1880 and 1830.", "consequences": ["Adopting 1830 moves the turning point before the 1840 expansion."], "severity": "definite"}
+  ],
+  "chapters": [
+    {"id": "chapter-institution-0", "title": "Documented origins", "summary": "A synthetic chapter demonstrating a reusable ontology.", "eventIds": ["institution-0"], "claimIds": ["claim-institution-0"], "interpretation": true},
+    {"id": "chapter-institution-1", "title": "Expansion and change", "summary": "A synthetic chapter demonstrating a reusable ontology.", "eventIds": ["institution-1"], "claimIds": ["claim-institution-1"], "interpretation": true},
+    {"id": "chapter-institution-2", "title": "A turning point", "summary": "A synthetic chapter demonstrating a reusable ontology.", "eventIds": ["institution-2"], "claimIds": ["claim-institution-2"], "interpretation": true},
+    {"id": "chapter-institution-3", "title": "Latest documented state", "summary": "A synthetic chapter demonstrating a reusable ontology.", "eventIds": ["institution-3"], "claimIds": ["claim-institution-3"], "interpretation": true}
+  ],
+  "coverage": [
+    {"startYear": 1800, "endYear": 1839, "status": "unexplored", "question": "Documented origins", "notes": "Synthetic fixture; no research has been performed."},
+    {"startYear": 1840, "endYear": 1879, "status": "unexplored", "question": "Expansion and change", "notes": "Synthetic fixture; no research has been performed."},
+    {"startYear": 1880, "endYear": 1919, "status": "unexplored", "question": "A turning point", "notes": "Synthetic fixture; no research has been performed."},
+    {"startYear": 1920, "endYear": 1959, "status": "unexplored", "question": "Latest documented state", "notes": "Synthetic fixture; no research has been performed."}
+  ],
+  "notes": [
+
+  ],
+  "layout": {}
+}

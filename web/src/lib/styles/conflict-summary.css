@@ -1,0 +1,41 @@
+.conflicts-period {
+  margin-top: 8px;
+  padding: 8px;
+  border: 1px solid var(--line);
+  border-radius: 7px;
+  background: var(--surface-raised);
+}
+
+.conflicts-period > div {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 5px;
+  color: var(--red);
+  font-size: var(--font-min);
+}
+
+.conflicts-period > div span {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.conflicts-period > div b {
+  color: var(--red);
+}
+
+.conflicts-period button {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  padding: 4px 2px;
+  border: 0;
+  background: transparent;
+  color: var(--text);
+  text-align: left;
+  font-size: var(--font-min);
+}
+
+.conflicts-period button span {
+  color: var(--red);
+}

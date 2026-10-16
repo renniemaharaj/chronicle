@@ -1,0 +1,58 @@
+.subject-card {
+  display: flex;
+  gap: 9px;
+  padding: 2px 1px 14px;
+}
+
+.portrait {
+  flex: 0 0 62px;
+  height: 72px;
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--line-strong);
+  border-radius: 9px;
+  background: radial-gradient(ellipse at 50% 34%, var(--gold-soft) 0 15%, var(--surface-raised) 16% 38%, var(--surface) 64%);
+  color: var(--gold);
+  font: var(--font-max) Georgia,
+    serif;
+  box-shadow: inset 0 0 20px rgb(var(--shadow-rgb) / 0.30);
+}
+
+.subject-info {
+  min-width: 0;
+  padding-top: 2px;
+}
+
+.subject-info h1 {
+  overflow: hidden;
+  margin: 0 0 4px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font: 700 var(--font-section) Manrope,
+    sans-serif;
+}
+
+.subject-info p {
+  margin: 0 0 4px;
+  color: var(--muted);
+  font-size: var(--font-caption);
+}
+
+.subject-info .subject-role {
+  color: var(--quiet);
+  font-size: var(--font-min);
+}
+
+.chips {
+  display: flex;
+  gap: 4px;
+  margin-top: 7px;
+}
+
+.chips span {
+  padding: 3px 6px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  color: var(--text);
+  font-size: var(--font-min);
+}

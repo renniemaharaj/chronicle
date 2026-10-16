@@ -1,0 +1,8 @@
+web/node_modules/
+web/.svelte-kit/
+web/build/
+.chronicle/
+.env
+*.log
+web/test-results/
+web/playwright-report/

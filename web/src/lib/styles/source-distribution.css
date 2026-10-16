@@ -1,0 +1,117 @@
+.distribution-card {
+  margin-top: 9px;
+  padding: 8px;
+  border: 1px solid var(--line);
+  border-radius: 7px;
+  background: var(--surface-raised);
+}
+
+.distribution-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.distribution-heading strong {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font: 600 var(--font-caption) Manrope,
+    sans-serif;
+}
+
+.distribution-heading span {
+  display: grid;
+  place-items: center;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--red-soft);
+  color: var(--text);
+  font-size: var(--font-min);
+}
+
+.distribution-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  gap: 10px;
+  padding: 8px 2px 2px;
+}
+
+.donut {
+  width: 61px;
+  height: 61px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: conic-gradient(var(--blue) 0 22%, var(--gold-soft) 22% 55%, var(--teal-soft) 55% 72%, var(--violet-soft) 72% 85%, var(--surface-soft) 85% 100%);
+}
+
+.donut::before {
+  position: absolute;
+  content: '';
+  width: 43px;
+  height: 43px;
+  border-radius: 50%;
+  background: var(--surface-raised);
+}
+
+.donut span {
+  z-index: 1;
+  text-align: center;
+  font: 700 var(--font-subtitle) 'DM Mono',
+    monospace;
+}
+
+.donut small {
+  display: block;
+  margin-top: 1px;
+  color: var(--text);
+  font: var(--font-min) 'DM Sans',
+    sans-serif;
+}
+
+.distribution-legend {
+  display: grid;
+  gap: 4px;
+  flex: 1;
+  color: var(--text);
+  font-size: var(--font-min);
+}
+
+.distribution-legend span {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.distribution-legend i {
+  width: 7px;
+  height: 7px;
+  border-radius: 2px;
+  background: var(--blue);
+}
+
+.distribution-legend .books {
+  background: var(--gold-soft);
+}
+
+.distribution-legend .journals {
+  background: var(--teal-soft);
+}
+
+.distribution-legend .bio {
+  background: var(--violet-soft);
+}
+
+.distribution-legend .other {
+  background: var(--surface-soft);
+}
+
+.distribution-legend b {
+  margin-left: auto;
+  color: var(--text);
+  font: var(--font-min) 'DM Mono',
+    monospace;
+}

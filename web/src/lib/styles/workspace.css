@@ -1,0 +1,41 @@
+.workspace {
+  height: calc(100vh - 50px);
+  min-height: 740px;
+  display: grid;
+  grid-template-columns: 235px minmax(560px, 1fr) 335px;
+  gap: 8px;
+  padding: 7px 8px 8px;
+}
+
+.left-panel,
+.right-panel {
+  position: relative;
+  min-height: 0;
+  overflow: auto;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 9px;
+  scrollbar-width: thin;
+  scrollbar-color: var(--surface-soft) transparent;
+}
+
+.left-panel {
+  padding: 9px 7px 8px;
+}
+
+.main-column {
+  min-width: 0;
+  display: grid;
+  grid-template-rows: minmax(420px, 1fr) 244px;
+  gap: 8px;
+}
+
+.graph-panel,
+.story-panel {
+  min-height: 0;
+  position: relative;
+  overflow: hidden;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 9px;
+}

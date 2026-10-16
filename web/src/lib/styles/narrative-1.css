@@ -1,0 +1,144 @@
+.story-panel {
+  padding: 0 10px 8px;
+}
+
+.story-heading {
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--line);
+}
+
+.story-heading > div {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.story-heading h2 {
+  margin: 0;
+  font: 700 var(--font-control) Manrope,
+    sans-serif;
+}
+
+.story-heading svg {
+  color: var(--text);
+}
+
+.evidence-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  color: var(--teal);
+  font-size: var(--font-min);
+}
+
+.story-heading button {
+  height: 23px;
+  padding: 0 8px;
+  border-color: var(--line-strong);
+  border-radius: 6px;
+  color: var(--text);
+  font-size: var(--font-min);
+}
+
+.story-content {
+  height: calc(100% - 36px);
+  display: grid;
+  grid-template-columns: 205px minmax(150px, 1fr) 190px;
+  gap: 13px;
+  padding-top: 9px;
+}
+
+.chapter-list {
+  display: grid;
+  align-content: start;
+  gap: 4px;
+}
+
+.chapter {
+  min-height: 27px;
+  display: flex;
+  justify-content: space-between;
+  gap: 4px;
+  align-items: center;
+  padding: 0 7px;
+  border: 1px solid transparent;
+  border-radius: 5px;
+  background: transparent;
+  color: var(--text);
+  text-align: left;
+}
+
+.chapter span {
+  font-size: var(--font-min);
+}
+
+.chapter small {
+  color: var(--muted);
+  font: var(--font-min) 'DM Mono',
+    monospace;
+  white-space: nowrap;
+}
+
+.chapter.current {
+  border-color: var(--blue);
+  background: var(--blue-soft);
+  color: var(--text);
+}
+
+.chapter-copy {
+  overflow: hidden;
+}
+
+.eyebrow {
+  color: var(--gold);
+  font: var(--font-min) 'DM Mono',
+    monospace;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.chapter-copy h3 {
+  margin: 5px 0;
+  font: 700 var(--font-subtitle) Manrope,
+    sans-serif;
+}
+
+.chapter-copy p {
+  margin: 0;
+  color: var(--text);
+  font-size: var(--font-caption);
+  line-height: 1.52;
+}
+
+.story-sources {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 5px;
+  margin-top: 8px;
+}
+
+.story-sources > span {
+  width: 100%;
+  color: var(--muted);
+  font-size: var(--font-min);
+}
+
+.story-sources button {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 6px;
+  border: 1px solid var(--line);
+  border-radius: 5px;
+  background: var(--surface-raised);
+  color: var(--text);
+  font-size: var(--font-min);
+}
+
+.story-sources button span {
+  color: var(--teal);
+}

@@ -1,0 +1,90 @@
+.graph-canvas {
+  background-image: linear-gradient(color-mix(in srgb, var(--surface-soft) 13%, transparent) 1px, transparent 1px), linear-gradient(90deg, color-mix(in srgb, var(--surface-soft) 13%, transparent) 1px, transparent 1px);
+  background-size: 25px 25px;
+}
+
+.graph-canvas .svelte-flow__edge-label {
+  padding: 3px 6px;
+  border: 1px solid var(--line-strong);
+  border-radius: 4px;
+  background: var(--surface-raised);
+  color: var(--blue);
+  font-size: var(--font-min);
+}
+
+.graph-canvas .svelte-flow__minimap {
+  bottom: 14px;
+  right: 31px;
+  width: 112px;
+  height: 72px;
+  opacity: 0.9;
+}
+
+.graph-canvas .svelte-flow__controls {
+  bottom: 14px;
+  right: 0;
+}
+
+.graph-canvas .svelte-flow__edge.selected .svelte-flow__edge-path {
+  stroke: var(--blue);
+}
+
+.graph-canvas .shadow-hypothesis .temporal-node {
+  border-style: dashed;
+}
+
+@media (max-width: 1200px) {
+  .story-content {
+    grid-template-columns: 160px 1fr;
+  }
+  .theme-list {
+    display: none;
+  }
+}
+
+@media (max-width: 850px) {
+  .workspace {
+    grid-template-columns: 0 minmax(400px, 1fr) 0;
+    min-height: 650px;
+  }
+  .left-panel,
+  .right-panel,
+  .resize-handle {
+    display: none;
+  }
+  .left-panel {
+    position: fixed;
+    display: block;
+    z-index: 20;
+    top: 58px;
+    bottom: 32px;
+    left: 8px;
+    width: 230px;
+  }
+  .right-panel {
+    position: fixed;
+    display: block;
+    z-index: 20;
+    top: 58px;
+    bottom: 32px;
+    right: 8px;
+    width: 310px;
+  }
+  .topbar {
+    gap: 8px;
+  }
+  .brand-lockup {
+    min-width: 130px;
+  }
+  .global-search {
+    flex: 1;
+    width: auto;
+  }
+  .header-action,
+  .top-actions .new-research {
+    display: none;
+  }
+  .workspace-status > div:first-child {
+    display: none;
+  }
+}

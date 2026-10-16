@@ -1,0 +1,10 @@
+.conflict-lane-banner span {
+  flex: 1;
+}
+
+.conflict-lane-banner button {
+  display: flex;
+  border: 0;
+  background: transparent;
+  color: var(--red);
+}

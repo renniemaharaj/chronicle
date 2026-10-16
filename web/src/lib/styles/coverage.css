@@ -1,0 +1,103 @@
+.progress-card {
+  padding: 10px 9px 8px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: linear-gradient(145deg, var(--surface-raised), var(--surface));
+}
+
+.progress-title {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: var(--font-caption);
+}
+
+.progress-title strong {
+  flex: 1;
+}
+
+.progress-title button {
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--muted);
+}
+
+.live-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--teal-soft);
+  box-shadow: 0 0 8px rgb(var(--shadow-rgb) / 0.30);
+}
+
+.progress-row {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  margin: 10px 0 8px;
+}
+
+.progress-row strong,
+.progress-row small {
+  display: block;
+}
+
+.progress-row strong {
+  margin-bottom: 3px;
+  font-size: var(--font-caption);
+}
+
+.progress-row small {
+  color: var(--muted);
+  font-size: var(--font-min);
+}
+
+.ring {
+  width: 41px;
+  height: 41px;
+  display: grid;
+  place-items: center;
+  border: 4px solid var(--teal);
+  border-top-color: var(--teal);
+  border-right-color: var(--teal);
+  border-radius: 50%;
+}
+
+.ring span {
+  font: 600 var(--font-caption) 'DM Mono',
+    monospace;
+}
+
+.coverage-line {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 6px;
+  color: var(--muted);
+  font-size: var(--font-min);
+}
+
+.coverage-line strong {
+  color: var(--text);
+  font: 500 var(--font-min) 'DM Mono',
+    monospace;
+}
+
+.coverage-line strong.warn {
+  color: var(--red);
+}
+
+.mini-track {
+  height: 3px;
+  overflow: hidden;
+  margin-top: 4px;
+  border-radius: 5px;
+  background: var(--surface-soft);
+}
+
+.mini-track i {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: var(--blue);
+}

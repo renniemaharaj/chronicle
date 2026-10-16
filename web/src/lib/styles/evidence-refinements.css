@@ -1,0 +1,149 @@
+.event-subtitle,
+.participant-list,
+.annotation-box form {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 5px;
+}
+
+.participant-list {
+  align-items: flex-start !important;
+  flex-direction: column;
+}
+
+.participant-list button {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--text);
+  font-size: var(--font-min);
+}
+
+.annotation-box {
+  margin-bottom: 8px;
+}
+
+.annotation-box input {
+  flex: 1;
+  min-width: 0;
+  padding: 7px 8px;
+  border: 1px solid var(--line);
+  border-radius: 5px;
+  background: var(--surface-raised);
+  color: var(--text);
+  font-size: var(--font-min);
+}
+
+.annotation-box button {
+  border: 0;
+  background: none;
+  color: var(--text);
+}
+
+.annotation-box p {
+  display: flex;
+  justify-content: space-between;
+  color: var(--text);
+  font-size: var(--font-caption);
+}
+
+.evidence-section h3 span {
+  margin-left: auto;
+  color: var(--muted);
+}
+
+.claim-card .claim-status {
+  display: inline-block;
+  margin-top: 7px;
+}
+
+.claim-status.disputed {
+  border-color: var(--red);
+  background: var(--red-soft);
+  color: var(--red);
+}
+
+.claim-card a {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-top: 5px;
+  color: var(--blue);
+  font-size: var(--font-min);
+  text-decoration: none;
+}
+
+.claim-card .evidence-limit,
+.claim-card .assessment-reason {
+  margin-top: 5px;
+  color: var(--gold);
+  font-size: var(--font-min);
+}
+
+.source-row {
+  text-decoration: none;
+}
+
+.source-metadata,
+.provenance-summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 5px;
+  padding: 1px 4px;
+  color: var(--muted);
+  font-size: var(--font-min);
+}
+
+.source-metadata {
+  margin: -3px 0 4px;
+  font-size: var(--font-min);
+}
+
+.hypothesis button {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin-top: 7px;
+  padding: 4px 6px;
+  border: 1px solid var(--gold);
+  border-radius: 4px;
+  background: var(--gold-soft);
+  color: var(--gold);
+  font-size: var(--font-min);
+}
+
+.hypothesis.adopted {
+  outline: 1px solid var(--gold);
+}
+.consequences {
+  margin-top: 10px;
+  color: var(--text);
+  font-size: var(--font-caption);
+}
+.conflict-mode-buttons {
+  display: flex;
+  gap: 4px;
+}
+.conflict-mode-buttons button {
+  padding: 4px;
+  border: 1px solid var(--line-strong);
+  border-radius: 4px;
+  background: var(--surface-soft);
+  color: var(--text);
+  font-size: var(--font-min);
+}
+.conflict-mode-buttons button.active {
+  border-color: var(--red);
+  color: var(--text);
+}
+.empty-state {
+  padding: 12px 2px;
+  color: var(--muted);
+  font-size: var(--font-body);
+  line-height: 1.6;
+}

@@ -1,0 +1,14 @@
+{
+  "name": "chronicle",
+  "private": true,
+  "version": "0.1.0",
+  "scripts": {
+    "postinstall": "node scripts/install.mjs",
+    "dev": "node scripts/dev.mjs",
+    "start": "go run ./cmd/chronicle",
+    "build": "npm --prefix web run build && go build -o .chronicle/bin/chronicle ./cmd/chronicle",
+    "check": "node scripts/check-lines.mjs && npm --prefix web run check",
+    "test": "go test -race ./... && npm --prefix web test",
+    "test:browser": "npm --prefix web run test:browser"
+  }
+}

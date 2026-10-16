@@ -1,0 +1,57 @@
+.theme-list h3 {
+  margin: 0 0 7px;
+  color: var(--text);
+  font: 600 var(--font-caption) Manrope,
+    sans-serif;
+}
+
+.theme-list > div {
+  height: 28px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  color: var(--text);
+  font-size: var(--font-min);
+}
+
+.theme-icon {
+  width: 17px;
+  height: 17px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+}
+
+.theme-icon.gold {
+  color: var(--gold);
+  background: var(--gold-soft);
+}
+
+.theme-icon.yellow {
+  color: var(--gold);
+  background: var(--teal-soft);
+}
+
+.theme-icon.blue {
+  color: var(--blue);
+  background: var(--blue-soft);
+}
+
+.theme-icon.violet {
+  color: var(--blue);
+  background: var(--surface-soft);
+}
+
+.theme-list > div span {
+  flex: 1;
+  white-space: nowrap;
+}
+
+.theme-list > div strong {
+  padding: 2px 5px;
+  border: 1px solid var(--line-strong);
+  border-radius: 8px;
+  color: var(--text);
+  font: var(--font-min) 'DM Mono',
+    monospace;
+}

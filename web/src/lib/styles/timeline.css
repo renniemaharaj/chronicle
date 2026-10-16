@@ -1,0 +1,92 @@
+.timeline-controls {
+  height: 57px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 0 10px;
+  border-top: 1px solid var(--line);
+  background: var(--surface);
+}
+
+.play-controls,
+.timeline-slider-wrap,
+.time-tools {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.timeline-controls button {
+  min-width: 23px;
+  height: 24px;
+  border-color: var(--line);
+  border-radius: 6px;
+  background: var(--surface-raised);
+}
+
+.timeline-controls .play-button {
+  width: 29px;
+  height: 29px;
+  border-color: var(--blue);
+  background: var(--blue);
+  color: white;
+}
+
+.timeline-controls .speed-button {
+  width: 41px;
+  margin-left: 3px;
+  font-size: var(--font-caption);
+}
+
+.timeline-slider-wrap {
+  flex: 1;
+  position: relative;
+  gap: 8px;
+  color: var(--muted);
+  font: var(--font-min) 'DM Mono',
+    monospace;
+}
+
+.timeline-slider-wrap input {
+  flex: 1;
+  height: 3px;
+  accent-color: var(--blue);
+  cursor: pointer;
+}
+
+.timeline-slider-wrap strong {
+  position: absolute;
+  left: 55%;
+  top: -18px;
+  padding: 3px 6px;
+  border: 1px solid var(--line-strong);
+  border-radius: 4px;
+  background: var(--surface-soft);
+  color: var(--text);
+  font-size: var(--font-caption);
+}
+
+.time-tools .year-input {
+  width: 41px;
+  height: 22px;
+  padding: 0 4px;
+  border: 1px solid var(--line-strong);
+  border-radius: 5px;
+  background: var(--surface-raised);
+  color: var(--text);
+  font-size: var(--font-min);
+}
+
+.time-tools button {
+  min-width: 0;
+  padding: 0 6px;
+  color: var(--muted);
+  font-size: var(--font-min);
+}
+
+.time-tools button.active {
+  border-color: var(--blue);
+  background: var(--blue-soft);
+  color: var(--text);
+}

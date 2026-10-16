@@ -1,0 +1,128 @@
+.graph-tools select,
+.time-tools select,
+.speed-select,
+.story-heading select {
+  min-width: 0;
+  padding: 5px 6px;
+  border: 1px solid var(--line-strong);
+  border-radius: 5px;
+  background: var(--surface-raised);
+  color: var(--text);
+  font-size: var(--font-min);
+  cursor: pointer;
+}
+
+.phase {
+  cursor: pointer;
+  color: var(--text);
+  border-right: 0;
+  border-bottom: 0;
+  border-left: 0;
+}
+
+.graph-canvas .svelte-flow__minimap {
+  bottom: 74px;
+  width: 114px;
+  height: 70px;
+}
+
+.graph-canvas .svelte-flow__edge-path {
+  stroke-width: 1.1;
+}
+
+.graph-canvas .participant-edge .svelte-flow__edge-path {
+  stroke: var(--teal);
+  opacity: 0.58;
+}
+
+.graph-canvas .relationship-edge .svelte-flow__edge-path {
+  stroke: var(--violet);
+  opacity: 0.7;
+}
+
+.graph-canvas .conflict-edge .svelte-flow__edge-path {
+  stroke: var(--red);
+  stroke-dasharray: 5 4;
+  opacity: 0.65;
+}
+
+.graph-canvas .shadow-hypothesis {
+  opacity: 0.58;
+}
+
+.graph-canvas .active-hypothesis {
+  opacity: 1;
+  filter: drop-shadow(0 0 7px color-mix(in srgb, var(--red-soft) 33%, transparent));
+}
+
+.graph-limit {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  padding: 6px;
+  border-radius: 5px;
+  background: var(--gold-soft);
+  color: var(--gold);
+  font-size: var(--font-caption);
+}
+
+.date-window {
+  position: absolute;
+  right: 10px;
+  bottom: 48px;
+  z-index: 8;
+  display: grid;
+  gap: 10px;
+  width: 240px;
+  padding: 14px;
+  border: 1px solid var(--line-strong);
+  border-radius: 8px;
+  background: var(--surface-raised);
+  box-shadow: 0 12px 35px rgb(var(--shadow-rgb) / 0.30);
+  font-size: var(--font-body);
+}
+
+.date-window label {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.date-window input {
+  width: 120px;
+  padding: 5px;
+  border: 1px solid var(--line-strong);
+  border-radius: 4px;
+  background: var(--surface);
+  color: var(--text);
+}
+
+.quarter-buttons {
+  display: flex;
+  gap: 8px;
+}
+
+.coverage-timeline {
+  position: absolute;
+  left: 30px;
+  right: 30px;
+  bottom: -6px;
+  display: flex;
+  gap: 2px;
+  height: 3px;
+}
+
+.coverage-timeline i {
+  flex: 1;
+  background: var(--gold-soft);
+}
+
+.coverage-timeline i.disputed {
+  background: var(--red-soft);
+}
+.coverage-timeline i.unexplored {
+  background: var(--surface-soft);
+}
+.coverage-timeline i.researched {
+  background: var(--teal-soft);
+}
