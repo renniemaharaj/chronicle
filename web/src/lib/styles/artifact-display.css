@@ -25,27 +25,40 @@
   display: block;
   font-size: var(--font-min);
 }
+
 .selection-banner {
-  display: flex;
+  display: grid;
+  grid-template-columns: 27px minmax(0, 1fr);
   align-items: center;
-  justify-content: center;
-  gap: 15px;
+  gap: 12px;
+  padding: 14px;
+  min-width: 0;
   min-height: 105px;
   border: 1px solid var(--line-strong);
   border-radius: 7px;
   background: radial-gradient(ellipse at center, var(--blue-soft), var(--surface-raised));
   color: var(--blue);
 }
+
 .selection-banner span {
+  min-width: 0;
+  overflow-wrap: anywhere;
   font: 600 var(--font-heading) Manrope,
     sans-serif;
 }
+
 .selection-banner small {
   display: block;
   margin-top: 5px;
   color: var(--muted);
   font: var(--font-caption) monospace;
 }
+
+.selection-banner > svg {
+  width: 27px;
+  height: 27px;
+}
+
 .entity-portrait-banner {
   height: 145px;
   display: flex;

@@ -1,5 +1,6 @@
 <script lang="ts">
   import Button from '$lib/components/ui/Button.svelte';
+  import BrandMark from '$lib/components/ui/BrandMark.svelte';
   import { Input } from 'flowbite-svelte';
   import { BookOpen, Command, Menu, Moon, Network, PanelRight, Plus, Search, Settings, Sun } from '@lucide/svelte';
   import { workspace as ws } from '../../state/workspace.svelte';
@@ -15,7 +16,7 @@
 <header class="topbar">
   <div class="brand-lockup">
     <Button icon class="brand-mark" aria-label="Toggle explorer" onclick={() => (ws.leftOpen = !ws.leftOpen)}>
-      <img src="/favicon.svg" alt="" />
+      <BrandMark />
     </Button>
     <span class="brand-name">Chronicle</span>
     <span class="brand-tagline">Research Anything. Explore Everything.</span>

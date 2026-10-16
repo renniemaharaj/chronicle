@@ -8,13 +8,17 @@
 .phase-bars {
   display: grid;
   grid-template-columns: repeat(var(--chapters), minmax(0, 1fr));
+  min-width: 0;
   gap: 0;
 }
 
 .phase {
   display: grid;
+  grid-template-columns: minmax(0, 1fr);
   gap: 2px;
   min-width: 0;
+  max-width: 100%;
+  overflow: hidden;
   padding: 7px 9px 8px;
   border: 0;
   border-bottom: 4px solid var(--phase-color);
@@ -26,8 +30,10 @@
   font-size: var(--font-caption);
 }
 
-.phase span {
+.phase > :is(span, small) {
   display: block;
+  min-width: 0;
+  max-width: 100%;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
@@ -36,7 +42,6 @@
 .phase small {
   color: var(--muted);
   font: var(--font-min) 'DM Mono', monospace;
-  white-space: nowrap;
 }
 
 .phase.current {

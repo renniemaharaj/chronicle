@@ -44,12 +44,6 @@ h4 {
   box-shadow: none;
 }
 
-.brand-mark img {
-  width: 32px;
-  height: 32px;
-  display: block;
-}
-
 .graph-heading {
   min-height: 68px;
   height: auto;

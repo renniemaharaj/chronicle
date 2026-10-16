@@ -1,6 +1,8 @@
 # Assets
 
 The favicon and application mark share `web/static/favicon.svg`, an original SVG asset.
+The artwork has a transparent background. In the app, `BrandMark.svelte` uses its
+shape as a CSS mask colored by the active theme; the favicon follows browser color preferences.
 The interface bundles no subject portraits or historical demonstration images.
 Subject imagery, when supplied by research records, must retain source and rights information.
 

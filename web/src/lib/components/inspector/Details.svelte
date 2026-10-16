@@ -50,7 +50,12 @@
     </div>{/if}
   <div>
     <dt>Assessment</dt>
-    <dd><span class="pill blue-pill"><ShieldCheck size={10} /> Evidence inspectable</span></dd>
+    <dd>
+      <span class="pill blue-pill">
+        <ShieldCheck size={14} />
+        <span>Evidence inspectable</span>
+      </span>
+    </dd>
   </div>
 </dl>
 <div class="annotation-box">

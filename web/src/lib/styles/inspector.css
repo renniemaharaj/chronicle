@@ -30,6 +30,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 8px;
   margin: 1px 4px 11px;
   color: var(--text);
   font-size: var(--font-caption);
@@ -39,9 +40,17 @@
   display: flex;
   align-items: center;
   gap: 7px;
+  min-width: 0;
+}
+
+.inspector-head > div:first-child > span:last-child {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
 .event-icon {
+  flex-shrink: 0;
   width: 16px;
   height: 16px;
   display: grid;
@@ -55,6 +64,7 @@
   display: flex;
   align-items: center;
   gap: 5px;
+  flex-shrink: 0;
 }
 
 .inspector-pagination button {

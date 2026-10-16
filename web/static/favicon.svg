@@ -1,5 +1,17 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
-  <rect width="32" height="32" rx="8" fill="#10243d"/>
-  <path d="M16 7v18M7 12l18 8M7 20l18-8" stroke="#7bb9f2" stroke-width="1.5"/>
-  <g fill="#a4d6fc"><circle cx="16" cy="6" r="3"/><circle cx="16" cy="26" r="3"/><circle cx="6" cy="11" r="3"/><circle cx="26" cy="11" r="3"/><circle cx="6" cy="21" r="3"/><circle cx="26" cy="21" r="3"/></g>
+  <style>
+    svg { color: #2058a2; }
+    @media (prefers-color-scheme: dark) {
+      svg { color: #8abbff; }
+    }
+  </style>
+  <path d="M16 7v18M7 12l18 8M7 20l18-8" stroke="currentColor" stroke-width="1.5"/>
+  <g fill="currentColor">
+    <circle cx="16" cy="6" r="3"/>
+    <circle cx="16" cy="26" r="3"/>
+    <circle cx="6" cy="11" r="3"/>
+    <circle cx="26" cy="11" r="3"/>
+    <circle cx="6" cy="21" r="3"/>
+    <circle cx="26" cy="21" r="3"/>
+  </g>
 </svg>

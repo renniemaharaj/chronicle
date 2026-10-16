@@ -1,5 +1,6 @@
 <script lang="ts">
   import Button from '$lib/components/ui/Button.svelte';
+  import BrandMark from '$lib/components/ui/BrandMark.svelte';
   import { ArrowUpRight, BookOpen, Database, Search } from '@lucide/svelte';
   import { workspace as ws } from '../../state/workspace.svelte';
   import RunProgress from '../research/RunProgress.svelte';
@@ -7,7 +8,7 @@
 
 <main class="empty-workspace">
   <section class="empty-research">
-    <img src="/favicon.svg" alt="" width="56" height="56" />
+    <BrandMark size={56} />
     <span class="eyebrow">Your local research instrument</span>
     <h1>Begin with a subject.</h1>
     <p>Reconstruct a history. Follow its relationships. Examine the evidence.</p>
