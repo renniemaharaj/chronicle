@@ -16,7 +16,7 @@ export default defineConfig({
     url: 'http://127.0.0.1:18080/api/health',
     env: {
       CHRONICLE_ADDR: '127.0.0.1:18080',
-      CHRONICLE_WORKSPACE: resolve('test-results/workspace'),
+      CHRONICLE_WORKSPACE: resolve(`test-results/workspace-${process.pid}`),
     },
     reuseExistingServer: false,
     timeout: 30000,

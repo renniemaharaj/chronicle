@@ -57,7 +57,7 @@ func detectParents(project *domain.Project) {
 
 func detectPresence(project *domain.Project) {
 	for i, event := range project.Events {
-		if !event.RequiresPresence || len(event.LocationIDs) == 0 {
+		if !presenceObservation(event) || len(event.LocationIDs) == 0 {
 			continue
 		}
 		start, end, known := event.Time.Bounds()
@@ -65,7 +65,7 @@ func detectPresence(project *domain.Project) {
 			continue
 		}
 		for _, other := range project.Events[i+1:] {
-			if !other.RequiresPresence || len(other.LocationIDs) == 0 || slices.Equal(event.LocationIDs, other.LocationIDs) {
+			if !presenceObservation(other) || len(other.LocationIDs) == 0 || slices.Equal(event.LocationIDs, other.LocationIDs) {
 				continue
 			}
 			otherStart, otherEnd, otherKnown := other.Time.Bounds()
@@ -83,6 +83,16 @@ func detectPresence(project *domain.Project) {
 			}
 		}
 	}
+}
+
+func presenceObservation(event domain.Event) bool {
+	date := event.Time.Start
+	// A broad date envelope describes possible timing, not continuous occupancy.
+	// Its overlap with another visit cannot establish simultaneous presence.
+	if !event.RequiresPresence || date == nil || event.Time.End != nil {
+		return false
+	}
+	return (date.Precision == "day" || date.Precision == "exact") && !date.Approximate && date.UncertaintyYears == 0
 }
 
 func presenceSeverity(event domain.Event) string {

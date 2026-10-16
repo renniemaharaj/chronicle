@@ -1,5 +1,7 @@
 .side-nav {
   display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  min-width: 0;
   gap: 2px;
   padding: 9px 0;
   border-top: 1px solid var(--line);
@@ -7,6 +9,7 @@
 
 .nav-item {
   width: 100%;
+  min-width: 0;
   height: 30px;
   display: flex;
   align-items: center;
@@ -22,6 +25,14 @@
 
 .nav-item span {
   flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.nav-item > :is(svg, small) {
+  flex-shrink: 0;
 }
 
 .nav-item small {

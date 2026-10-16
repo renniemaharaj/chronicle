@@ -8,18 +8,23 @@ import (
 	"net/url"
 	"strings"
 
+	"chronicle/internal/geography"
 	"chronicle/internal/research"
 	"chronicle/internal/storage"
 )
 
 type Server struct {
-	store    storage.Store
-	research *research.Manager
+	store     storage.Store
+	research  *research.Manager
+	geography *geography.Searcher
 }
 
 func New(store storage.Store, manager *research.Manager) http.Handler {
-	s := &Server{store: store, research: manager}
+	s := &Server{store: store, research: manager, geography: geography.NewSearcher()}
 	mux := http.NewServeMux()
+	mux.HandleFunc("GET /api/places/search", s.searchPlaces)
+	mux.HandleFunc("GET /api/speech/voices", s.speechVoices)
+	mux.HandleFunc("POST /api/speech/synthesize", s.speechAudio)
 	mux.HandleFunc("GET /api/health", func(w http.ResponseWriter, _ *http.Request) { write(w, 200, map[string]string{"status": "ok"}) })
 	mux.HandleFunc("GET /api/projects", s.projects)
 	mux.HandleFunc("PUT /api/projects/{id}", s.saveProject)

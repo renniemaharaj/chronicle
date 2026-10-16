@@ -9,7 +9,9 @@ body {
 }
 
 button,
-input {
+input,
+select,
+textarea {
   font: inherit;
 }
 
@@ -18,8 +20,7 @@ button {
   cursor: pointer;
 }
 
-button:focus-visible,
-input:focus-visible {
+:is(button, input, select, textarea, a):focus-visible {
   outline: 2px solid var(--blue);
   outline-offset: 2px;
 }

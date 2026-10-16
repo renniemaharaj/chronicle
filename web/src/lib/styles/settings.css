@@ -1,0 +1,77 @@
+.settings-form {
+  gap: 24px;
+}
+
+.settings-section {
+  display: grid;
+  min-width: 0;
+  gap: 14px;
+  margin: 0;
+  padding: 16px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--surface);
+}
+
+.settings-section legend {
+  padding: 0 8px;
+  font-size: var(--font-subtitle);
+  font-weight: 600;
+}
+
+.settings-section legend span {
+  display: inline-grid;
+  place-items: center;
+  width: 23px;
+  height: 23px;
+  margin-right: 7px;
+  border: 1px solid var(--line-strong);
+  border-radius: 50%;
+  color: var(--blue);
+  font-size: var(--font-caption);
+}
+
+.settings-section > p {
+  margin: 0;
+  color: var(--muted);
+  font-size: var(--font-control);
+  line-height: 1.6;
+}
+
+.settings-form :is(input, select) {
+  min-width: 0;
+  min-height: 42px;
+  background-color: var(--surface-raised);
+}
+
+.settings-form label {
+  min-width: 0;
+}
+
+.settings-discover {
+  justify-self: start;
+}
+
+.settings-footer {
+  position: sticky;
+  bottom: -23px;
+  margin: 0 -23px -23px;
+  padding: 16px 23px 20px;
+  border-top: 1px solid var(--line);
+  background: var(--surface-raised);
+}
+
+.settings-footer .dialog-actions,
+.settings-footer .form-message {
+  margin: 0;
+}
+
+.settings-footer .form-message {
+  margin-bottom: 12px;
+}
+
+@media (max-width: 550px) {
+  .form-row {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

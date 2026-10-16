@@ -1,4 +1,6 @@
 <script lang="ts">
+  import Button from '$lib/components/ui/Button.svelte';
+  import { Input } from 'flowbite-svelte';
   import { onMount } from 'svelte';
   import { ArrowRight, Search, Settings } from '@lucide/svelte';
   import { workspace as ws } from '../../state/workspace.svelte';
@@ -39,20 +41,20 @@
     research();
   }}
 >
-  <Search size={19} /><input
+  <Search size={19} /><Input
     aria-label="Research subject"
     bind:value={subject}
     placeholder="A person, place, institution, family, idea..."
     required
-  /><button class="button" disabled={busy || !subject.trim() || ws.run?.status === 'running'}
-    >Research <ArrowRight size={14} /></button
+  /><Button type="submit" variant="primary" disabled={busy || !subject.trim() || ws.run?.status === 'running'}
+    >Research <ArrowRight size={14} /></Button
   >
 </form>
 {#if error}<p class="run-error" role="alert">{error}</p>{/if}
 {#if !ws.connected}<p class="form-message">
     The research API is offline. Start the Go backend to run autonomous research.
   </p>{/if}
-<button class="settings-inline" onclick={() => (ws.dialog = 'Settings')}
-  ><Settings size={13} /> Configure model and MCP tools</button
+<Button class="settings-inline" onclick={() => (ws.dialog = 'Settings')}
+  ><Settings size={13} /> Configure model and MCP tools</Button
 >
 <RunProgress />

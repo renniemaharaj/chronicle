@@ -1,3 +1,4 @@
+import { mediaMarkdown } from './media-report';
 import type { Project } from '../types/project';
 import { intervalLabel } from '../types/temporal';
 
@@ -13,12 +14,16 @@ export function reportMarkdown(project: Project): string {
   for (const chapter of project.chapters) {
     lines.push(`## ${chapter.title}`, '', `${chapter.interpretation ? 'Interpretation: ' : ''}${chapter.summary}`, '');
   }
+  lines.push('## Historical context', '');
+  for (const period of project.contextPeriods ?? []) {
+    lines.push(`### ${period.title}`, '', `${period.scope}; ${intervalLabel(period.time)}`, '', period.summary, '', `Claims: ${period.claimIds.join(', ')}`, '');
+  }
   lines.push('## Chronology', '');
   for (const event of project.events) {
     lines.push(
       `### ${intervalLabel(event.time)}: ${event.title}`,
       '',
-      event.summary,
+      event.narration?.text || event.summary,
       '',
       `Calendar: ${event.time.start?.calendar ?? 'unknown'}; precision: ${event.time.start?.precision ?? 'unknown'}.`,
       '',
@@ -48,7 +53,7 @@ export function reportMarkdown(project: Project): string {
       '',
     );
   }
-  lines.push('## Sources', '');
+  lines.push(...mediaMarkdown(project), '', '## Sources', '');
   for (const source of project.sources)
     lines.push(
       `- [${source.title}](${source.url}) — ${source.author}; ${source.publisher}. ${source.classification}; retrieved ${source.retrievedAt}; independence group ${source.independenceGroup}.`,

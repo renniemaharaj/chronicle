@@ -26,6 +26,7 @@ export interface EventGroup {
 }
 
 export interface ProjectionOptions {
+  chapterId?: string;
   resolution: Resolution;
   from: number | null;
   to: number | null;

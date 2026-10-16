@@ -5,7 +5,7 @@ Enter a subject, connect your model and MCP tools, then inspect an evidence-link
 
 ## Run
 
-Requires Node.js 22+ and Go 1.25+.
+Requires Node.js 22+ and Go 1.26+.
 
 ```sh
 npm install
@@ -99,3 +99,5 @@ Every authored text file contains fewer than 150 lines. `scripts/check-lines.mjs
 generated dependency locks retain all their data in compact JSON. Build output, dependencies, and runtime data are excluded.
 
 See [architecture](docs/architecture.md), [research behavior](docs/research.md), and [asset credits](docs/assets.md).
+
+Story playback and optional Google Cloud voice setup are described in [Speech](docs/speech.md).

@@ -1,18 +1,17 @@
 <script lang="ts">
-  import { BookOpen, ChevronRight, Lightbulb, ShieldCheck } from '@lucide/svelte';
+  import Button from '$lib/components/ui/Button.svelte';
+  import { Select } from 'flowbite-svelte';
+  import { BookOpen, ChevronRight, ShieldCheck } from '@lucide/svelte';
   import { workspace as ws } from '../../state/workspace.svelte';
-  import { intervalLabel } from '../../types/temporal';
-  const activeClaim = $derived(
-    ws.project.claims.find(
-      (claim) => Object.values(ws.activeClaims).includes(claim.id) && claim.eventId === ws.selectedId,
-    ),
-  );
+  import { focusChapter } from '../../state/chapter-focus';
+  import { eventStory } from '../../speech/story';
+  import NarrativeThemes from './NarrativeThemes.svelte';
+  import ContextEvidence from './ContextEvidence.svelte';
+  import StoryToolbar from './StoryToolbar.svelte';
+  import HistoricalContext from './HistoricalContext.svelte';
+  import StoryMedia from './StoryMedia.svelte';
   const chapter = $derived(ws.chapter);
-  const supported = $derived(
-    ws.project.claims.some(
-      (claim) => claim.eventId === ws.selectedId && !['unverified', 'rejected_superseded'].includes(claim.status),
-    ),
-  );
+  const story = $derived(eventStory(ws.project, ws.event, ws.activeClaims));
   const milestones = $derived(ws.project.events.filter((event) => chapter?.eventIds.includes(event.id)).slice(0, 5));
 </script>
 
@@ -20,28 +19,29 @@
   <div class="story-heading">
     <div>
       <BookOpen size={15} />
-      <h2>Narrative</h2>
+      <h2>Story</h2>
       <span class="evidence-badge"><ShieldCheck size={11} /> Evidence linked</span>
     </div>
-    <select aria-label="Narrative perspective" bind:value={ws.perspective}
+    <Select class="w-auto" placeholder="" aria-label="Story perspective" bind:value={ws.perspective}
       ><option>Chronological</option><option>Biographical</option><option>Genealogical</option><option
         >Institutional</option
-      ><option>Geographical</option><option>Cause and consequence</option></select
+      ><option>Geographical</option><option>Cause and consequence</option></Select
     >
   </div>
+  <StoryToolbar />
   <div class="story-content">
     <div class="chapter-list">
       {#each ws.project.chapters as item, index}
         {@const first = ws.project.events.find((event) => item.eventIds.includes(event.id))}
-        <button
-          class:current={item.id === chapter?.id}
+        <Button
+          current={item.id === chapter?.id}
           class="chapter"
           onclick={() => {
-            if (first) ws.select(first.id);
+            focusChapter(ws, item.id);
           }}
         >
           <span>{index + 1}. {item.title}</span><small>{first?.time.start?.year ?? '?'}</small>
-        </button>
+        </Button>
       {/each}
     </div>
     <article class="chapter-copy">
@@ -49,37 +49,19 @@
         {chapter?.interpretation ? 'Historical interpretation' : 'Documented chronology'} · {ws.perspective}
       </div>
       <h3>{ws.event?.title ?? chapter?.title ?? 'A history waiting to be researched'}</h3>
-      <p>
-        {ws.event && !(activeClaim ? !['unverified', 'rejected_superseded'].includes(activeClaim.status) : supported)
-          ? 'Unverified assertion: '
-          : ''}{ws.event?.summary ??
-          chapter?.summary ??
-          'Start a research session to assemble an evidence-backed narrative.'}
-      </p>
+      <p class="event-story">{story}</p>
+      <StoryMedia />
+      <HistoricalContext />
+      <details class="story-provenance">
+        <summary>Story evidence</summary>
+        <ContextEvidence claimIds={ws.event?.narration?.claimIds ?? ws.event?.claimIds ?? []} />
+      </details>
+      <NarrativeThemes />
       <div class="narrative-milestones">
-        {#each milestones as event}<button class:active={ws.selectedId === event.id} onclick={() => ws.select(event.id)}
-            ><span>{event.time.start?.year ?? '?'}</span>{event.title}<ChevronRight size={11} /></button
+        {#each milestones as event}<Button active={ws.selectedId === event.id} onclick={() => ws.select(event.id)}
+            ><span>{event.time.start?.year ?? '?'}</span>{event.title}<ChevronRight size={11} /></Button
           >{/each}
       </div>
     </article>
-    <div class="theme-list">
-      <h3>Key themes</h3>
-      {#each [...new Set(ws.project.events.map((event) => event.kind))].slice(0, 4) as kind, index}
-        <button
-          class="theme-row"
-          onclick={() => {
-            const event = ws.project.events.find((event) => event.kind === kind);
-            if (event) ws.select(event.id);
-          }}
-        >
-          <i class="theme-icon {['gold', 'blue', 'violet', 'yellow'][index]}"><Lightbulb size={11} /></i><span
-            >{kind}</span
-          ><strong>{ws.project.events.filter((event) => event.kind === kind).length}</strong>
-        </button>
-      {/each}
-      <button class="story-browse" onclick={() => (ws.dialog = 'Narrative')}
-        ><BookOpen size={11} /> Read all chapters</button
-      >
-    </div>
   </div>
 </section>

@@ -1,3 +1,5 @@
+import type { MediaAsset, SubjectLink } from './media';
+import type { HistoricalInterval } from './temporal';
 import type { Claim, Conflict, Entity, Evidence, HistoricalEvent, Relationship, Source } from './knowledge';
 
 export interface Chapter {
@@ -17,7 +19,20 @@ export interface Coverage {
   notes: string;
 }
 
+export interface HistoricalContext {
+  id: string;
+  title: string;
+  scope: string;
+  time: HistoricalInterval;
+  summary: string;
+  claimIds: string[];
+  interpretation: boolean;
+}
+
 export interface Project {
+  media?: MediaAsset[];
+  subjectLinks?: SubjectLink[];
+  contextPeriods?: HistoricalContext[];
   researchRecords?: Omit<
     ResearchRun,
     'project' | 'question' | 'phase' | 'updatedAt' | 'subjectId' | 'sources' | 'claims' | 'conflicts'

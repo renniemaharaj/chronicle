@@ -25,7 +25,7 @@ The JSON file contains the tool's arguments, not a JSON-RPC envelope.
 
 - `chronicle_list_projects`: saved research summaries, with no seeded examples.
 - `chronicle_get_project`: complete portable project by `id`.
-- `chronicle_capture_source`: retrieve HTML/plain text and preserve source text, hash, and retrieval time.
+- `chronicle_capture_source`: retrieve HTML/plain text and preserve source text, hash, retrieval time, and observed image/video/link resources.
 - `chronicle_read_source`: page captured text by source `id` and character `offset`.
 - `chronicle_validate_project`: assess evidence and conflicts without saving.
 - `chronicle_save_project`: save validated research and stream changes into the app.
@@ -42,9 +42,16 @@ The JSON file contains the tool's arguments, not a JSON-RPC envelope.
    publisher, and primary/secondary/tertiary classification; leave unknown author/publisher empty.
 5. Construct one universal project with all collections present, including empty collections.
    Use explicit precision, calendars, uncertainty, claim IDs and passage locations. Never invent dates.
-6. Call `chronicle_validate_project` with `{ "project": ..., "rebuildNarrative": true }`.
-7. Inspect assessments and conflicts, then call `chronicle_save_project` with the same argument shape.
-8. Report coverage and limitations. The app opens the first saved project or announces additions in Library.
+6. Add an event `narration` with readable `text`, supporting `claimIds`, and an `interpretation` flag.
+   Use `contextPeriods` for researched eras or regional settings, each with `id`, `title`, `scope`, `time`,
+   `summary`, `claimIds`, and `interpretation`. Do not invent universal era boundaries. See `docs/speech.md`.
+7. Call `chronicle_validate_project` with `{ "project": ..., "rebuildNarrative": true }`.
+8. Inspect assessments and conflicts, then call `chronicle_save_project` with the same argument shape.
+9. Collect media in `media` with source/entity IDs, observed URLs, caption, credits, license and identifying
+   claim IDs. `subjectLinks` preserves official references and social links with the verification method.
+   The backend recomputes link verification; it never trusts submitted flags or fabricated resources.
+   Follow [Research standards](research-standards.md), including origin context and documented endings/aftermath.
+10. Report coverage and limitations. The app opens the first saved project or announces additions in Library.
 
 Only quotations found in backend-captured text become newly verified through assistant tools. Unchanged evidence
 previously verified by a backend research run retains its provenance. Unmatched excerpts

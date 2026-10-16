@@ -1,0 +1,41 @@
+.official-links {
+  display: grid;
+  gap: 12px;
+}
+
+.official-link-title {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  color: var(--text);
+  text-decoration: none;
+}
+
+.official-link-title > span {
+  flex: 1;
+  min-width: 0;
+}
+
+.official-link p {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: var(--font-caption);
+  color: var(--teal);
+}
+
+.subject-media-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 12px 0;
+}
+
+.subject-media-actions button {
+  padding: 6px 8px;
+  border: 1px solid var(--line);
+  border-radius: 5px;
+  background: var(--surface-raised);
+  color: var(--blue);
+  font-size: var(--font-caption);
+}

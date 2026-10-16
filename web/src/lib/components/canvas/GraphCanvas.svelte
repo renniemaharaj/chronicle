@@ -1,5 +1,6 @@
 <script lang="ts">
-  import { Background, Controls, MiniMap, SvelteFlow, useSvelteFlow, type Node } from '@xyflow/svelte';
+  import GraphCamera from './GraphCamera.svelte';
+  import { Background, Controls, MiniMap, SvelteFlow, type Node } from '@xyflow/svelte';
   import TemporalNode from '../../TemporalNode.svelte';
   import { workspace as ws } from '../../state/workspace.svelte';
   import { projectGraph } from '../../graph/projector';
@@ -8,6 +9,7 @@
   const nodeTypes = { chronicle: TemporalNode };
   const projection = $derived(
     projectGraph(ws.project, {
+      chapterId: ws.focusedChapterId,
       resolution: ws.resolution,
       from: ws.startYear,
       to: ws.endYear,
@@ -22,19 +24,10 @@
   );
   let nodes = $state<Node<CardData>[]>([]);
   let edges = $state<import('@xyflow/svelte').Edge[]>([]);
-  const flow = useSvelteFlow();
 
   $effect(() => {
     nodes = projection.nodes;
     edges = projection.edges;
-  });
-
-  $effect(() => {
-    const token = ws.fitToken;
-    const resolution = ws.resolution;
-    const mode = ws.conflictMode;
-    const timer = setTimeout(() => flow?.fitView({ padding: 0.12, duration: 450 }), 90);
-    return () => clearTimeout(timer);
   });
 
   function select(node: Node<CardData>) {
@@ -56,18 +49,20 @@
     <div><i class="legend-dot gold-dot"></i>Works & ideas</div>
     <div><i class="legend-dot violet-dot"></i>Institutions</div>
   </div>
+  <GraphCamera nodes={projection.nodes} />
   <SvelteFlow
     bind:nodes
     bind:edges
     {nodeTypes}
-    fitView
-    fitViewOptions={{ padding: 0.12 }}
-    minZoom={0.15}
+    initialViewport={{ x: 0, y: 0, zoom: 0.75 }}
+    colorMode={ws.dark ? 'dark' : 'light'}
+    style="--xy-background-color: var(--surface);"
+    minZoom={0.05}
     maxZoom={2}
     nodesConnectable={false}
     onlyRenderVisibleElements={true}
     proOptions={{ hideAttribution: true }}
-    oninit={() => flow.fitView({ padding: 0.12 })}
+    oninit={() => ws.focusToken++}
     onnodeclick={({ node }) => select(node as Node<CardData>)}
     onnodedragstop={({ nodes: moved }) => {
       for (const node of moved) ws.project.layout[node.id] = node.position;
@@ -100,13 +95,6 @@
               : 'var(--blue)'}
     />
   </SvelteFlow>
-  {#if ws.showContext}
-    <div class="context-ribbon">
-      <span>Historical context · {ws.subject.kind}</span><span
-        >{ws.project.fixture ? 'Curated example · coverage incomplete' : 'Evidence before narrative'}</span
-      >
-    </div>
-  {/if}
   {#if projection.hidden}<div class="graph-limit">
       {projection.hidden} nodes outside display budget. Narrow the period.
     </div>{/if}

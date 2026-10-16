@@ -8,6 +8,7 @@ import (
 )
 
 func Build(project *domain.Project) {
+	EnsureStories(project)
 	ordered := append([]domain.Event{}, project.Events...)
 	sort.SliceStable(ordered, func(i, j int) bool {
 		left, _, known := ordered[i].Time.Bounds()

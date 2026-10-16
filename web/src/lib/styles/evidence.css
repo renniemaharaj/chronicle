@@ -46,7 +46,7 @@
 
 .claim-card strong {
   flex: 1;
-  font-size: var(--font-min);
+  font-size: var(--font-body);
   font-weight: 600;
 }
 
@@ -56,7 +56,7 @@
   border-radius: 4px;
   background: var(--teal-soft);
   color: var(--teal);
-  font-size: var(--font-min);
+  font-size: var(--font-body);
 }
 
 .claim-status.well-status {
@@ -68,14 +68,14 @@
 .claim-card p {
   margin: 6px 0 4px;
   color: var(--text);
-  font-size: var(--font-min);
+  font-size: var(--font-body);
   line-height: 1.45;
 }
 
 .claim-card small {
   display: block;
   color: var(--muted);
-  font-size: var(--font-min);
+  font-size: var(--font-body);
   line-height: 1.4;
 }
 
@@ -90,5 +90,5 @@
   border-radius: 5px;
   background: var(--surface-raised);
   color: var(--text);
-  font-size: var(--font-min);
+  font-size: var(--font-body);
 }

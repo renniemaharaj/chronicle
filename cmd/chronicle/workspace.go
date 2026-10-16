@@ -6,6 +6,7 @@ import (
 	"os"
 
 	"chronicle/internal/domain"
+	"chronicle/internal/narrative"
 	"chronicle/internal/storage"
 )
 
@@ -43,6 +44,23 @@ func prepareWorkspace(ctx context.Context, store storage.Store) error {
 			if err := store.Put(ctx, "research", run.ID, run); err != nil {
 				return err
 			}
+		}
+	}
+	projects, err := store.List(ctx, "projects")
+	if err != nil {
+		return err
+	}
+	for _, data := range projects {
+		var project domain.Project
+		if err := json.Unmarshal(data, &project); err != nil {
+			return err
+		}
+		if project.Fixture {
+			continue
+		}
+		narrative.EnsureStories(&project)
+		if err := store.Put(ctx, "projects", project.ID, project); err != nil {
+			return err
 		}
 	}
 	return nil

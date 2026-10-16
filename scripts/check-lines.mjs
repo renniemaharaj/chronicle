@@ -10,6 +10,8 @@ let count = 0;
 async function visit(directory) {
   for (const entry of await readdir(directory, { withFileTypes: true })) {
     if (ignored.has(entry.name)) continue;
+    // Dependency lockfiles are generated, not authored source.
+    if (entry.name === 'package-lock.json') continue;
     const path = join(directory, entry.name);
     if (entry.isDirectory()) {
       await visit(path);

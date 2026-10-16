@@ -1,4 +1,8 @@
 <script lang="ts">
+  import Button from '$lib/components/ui/Button.svelte';
+  import { toggleStory } from '$lib/state/playback-controls';
+  import EraStrip from '$lib/components/narrative/EraStrip.svelte';
+  import StoryPlayback from '$lib/components/narrative/StoryPlayback.svelte';
   import EmptyWorkspace from '$lib/components/shell/EmptyWorkspace.svelte';
   import { watchWorkspace } from '$lib/api/workspace-stream';
   import { watchRun } from '$lib/api/stream';
@@ -12,6 +16,7 @@
   import ResizeHandle from '$lib/components/shell/ResizeHandle.svelte';
   import GraphToolbar from '$lib/components/canvas/GraphToolbar.svelte';
   import GraphCanvas from '$lib/components/canvas/GraphCanvas.svelte';
+  import MapCanvas from '$lib/components/map/MapCanvas.svelte';
   import PhaseRuler from '$lib/components/timeline/PhaseRuler.svelte';
   import TimeControls from '$lib/components/timeline/TimeControls.svelte';
   import NarrativePanel from '$lib/components/narrative/NarrativePanel.svelte';
@@ -33,12 +38,6 @@
     if (ready) cacheWorkspace();
   });
 
-  $effect(() => {
-    if (!ws.playing) return;
-    const timer = setInterval(() => ws.step(1), 4500 / ws.speed);
-    return () => clearInterval(timer);
-  });
-
   function keyboard(event: KeyboardEvent) {
     if (event.key === 'Escape') ws.dialog = '';
     if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === 'k') {
@@ -52,9 +51,9 @@
     if (!ws.hasProject || (event.target as HTMLElement)?.matches('input, textarea, select')) return;
     if (event.key === 'ArrowRight') ws.step(1);
     if (event.key === 'ArrowLeft') ws.step(-1);
-    if (event.code === 'Space' && !ws.dialog) {
+    if (event.code === 'Space' && !ws.dialog && !(event.target as HTMLElement)?.closest('button')) {
       event.preventDefault();
-      ws.playing = !ws.playing;
+      toggleStory(ws);
     }
   }
 </script>
@@ -64,26 +63,26 @@
 >
 <svelte:window onkeydown={keyboard} />
 
-<div class="app-shell" class:light={!ws.dark}>
-  <Topbar />
+<div class="app-shell" class:light={!ws.dark} class:dark={ws.dark}>
+  <Topbar /><StoryPlayback />
   {#if ws.hasProject}
     <div
       class="workspace"
       style={`--left-width: ${ws.leftOpen ? ws.leftWidth : 0}px; --right-width: ${ws.rightOpen ? ws.rightWidth : 0}px;`}
     >
       {#if ws.leftOpen}<Explorer /><ResizeHandle side="left" />{/if}
-      <main class="main-column">
+      <main class="main-column" style={`--story-height: ${ws.storyHeight}%`}>
         <div class="graph-panel">
-          <GraphToolbar /><PhaseRuler />
-          {#if ws.showConflicts && ws.conflictMode !== 'Shadows'}<div class="conflict-lane-banner">
+          <GraphToolbar /><PhaseRuler /><EraStrip />
+          {#if ws.view !== 'Map' && ws.showConflicts && ws.conflictMode !== 'Shadows'}<div class="conflict-lane-banner">
               <GitBranch size={13} /><strong>{ws.conflictMode}</strong><span
                 >Competing claims preserved. Select a branch to inspect its evidence.</span
               >
             </div>{/if}
-          <SvelteFlowProvider><GraphCanvas /></SvelteFlowProvider>
+          {#if ws.view === 'Map'}<MapCanvas />{:else}<SvelteFlowProvider><GraphCanvas /></SvelteFlowProvider>{/if}
           <TimeControls />
         </div>
-        <NarrativePanel />
+        <ResizeHandle side="story" /><NarrativePanel />
       </main>
       {#if ws.rightOpen}<ResizeHandle side="right" /><Inspector />{/if}
     </div>
@@ -99,11 +98,11 @@
         : 'Ready to research'}
     </div>
     <div>
-      <button disabled={!ws.hasProject} onclick={() => (ws.leftOpen = !ws.leftOpen)}
-        ><PanelLeft size={11} /> Explorer</button
-      ><button disabled={!ws.hasProject} onclick={() => saveProject()}><Save size={11} /> Save project</button><button
+      <Button disabled={!ws.hasProject} onclick={() => (ws.leftOpen = !ws.leftOpen)}
+        ><PanelLeft size={11} /> Explorer</Button
+      ><Button disabled={!ws.hasProject} onclick={() => saveProject()}><Save size={11} /> Save project</Button><Button
         disabled={!ws.hasProject}
-        onclick={() => (ws.rightOpen = !ws.rightOpen)}><PanelRight size={11} /> Inspector</button
+        onclick={() => (ws.rightOpen = !ws.rightOpen)}><PanelRight size={11} /> Inspector</Button
       >
     </div>
   </footer>

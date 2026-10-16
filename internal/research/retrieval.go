@@ -8,6 +8,7 @@ import (
 	"time"
 
 	"chronicle/internal/domain"
+	"chronicle/internal/evidence"
 	"chronicle/internal/mcp"
 	"chronicle/internal/providers"
 )
@@ -64,7 +65,8 @@ func (j *job) investigate(client *mcp.Client, settings domain.Settings, question
 		document = string([]rune(document)[:min(16000, len([]rune(document)))])
 		j.activity("Document context bounded; remaining passages are unreviewed", "", nil, "")
 	}
-	batch, err := providers.Structured[extraction](j.ctx, j, extractionInstructions, inputJSON(map[string]any{"question": question, "subject": j.snapshot().Project.Entities[0], "sourceUrl": selection.URL, "document": document}))
+	resources := evidence.ExtractResources(document, selection.URL)
+	batch, err := providers.Structured[extraction](j.ctx, j, extractionInstructions, inputJSON(map[string]any{"question": question, "subject": j.snapshot().Project.Entities[0], "sourceUrl": selection.URL, "document": document, "resources": resources}))
 	if err != nil {
 		return empty, source, err
 	}
@@ -83,6 +85,7 @@ func (j *job) investigate(client *mcp.Client, settings domain.Settings, question
 		classification = "tertiary"
 	}
 	source = domain.Source{ID: stableID("source", selection.URL), Title: title, Author: batch.Author, Publisher: batch.Publisher, URL: selection.URL, RetrievedAt: time.Now().UTC().Format(time.RFC3339Nano), Classification: classification, IndependenceGroup: strings.ToLower(parsed.Hostname()), Verification: "retrieved"}
+	source.Resources = resources
 	source.ContentHash = fmt.Sprintf("%x", contentHash)
 	source.ID = stableID("source", selection.URL+"#"+source.ContentHash)
 	if truncated {

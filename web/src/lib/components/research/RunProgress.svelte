@@ -1,4 +1,5 @@
 <script lang="ts">
+  import Button from '$lib/components/ui/Button.svelte';
   import { Pause, Play, Square, Check, Activity } from '@lucide/svelte';
   import { api } from '../../api/client';
   import { workspace as ws } from '../../state/workspace.svelte';
@@ -40,14 +41,14 @@
       </div>{/each}
   </div>
   <div class="dialog-actions">
-    {#if ws.run.status === 'running'}<button class="button secondary" onclick={() => control('pause')}
-        ><Pause size={13} /> Pause</button
-      ><button class="button danger" onclick={() => control('cancel')}><Square size={12} /> Cancel</button>{/if}
-    {#if ['paused', 'failed', 'cancelled'].includes(ws.run.status)}<button
-        class="button"
-        onclick={() => control('resume')}><Play size={13} /> Resume</button
+    {#if ws.run.status === 'running'}<Button variant="secondary" onclick={() => control('pause')}
+        ><Pause size={13} /> Pause</Button
+      ><Button variant="danger" onclick={() => control('cancel')}><Square size={12} /> Cancel</Button>{/if}
+    {#if ['paused', 'failed', 'cancelled'].includes(ws.run.status)}<Button
+        variant="primary"
+        onclick={() => control('resume')}><Play size={13} /> Resume</Button
       >{/if}
-    {#if ws.run.project}<button class="button" onclick={() => ws.open(ws.run!.project!)}>Explore research graph</button
+    {#if ws.run.project}<Button variant="primary" onclick={() => ws.open(ws.run!.project!)}>Explore research graph</Button
       >{/if}
   </div>
 {/if}

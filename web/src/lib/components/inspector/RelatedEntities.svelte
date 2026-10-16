@@ -1,4 +1,6 @@
 <script lang="ts">
+  import Button from '$lib/components/ui/Button.svelte';
+  import SubjectAvatar from '../subjects/SubjectAvatar.svelte';
   import { ArrowRight, Search, Users } from '@lucide/svelte';
   import { workspace as ws } from '../../state/workspace.svelte';
   const related = $derived(
@@ -20,17 +22,17 @@
 <div class="source-list">
   {#each related as entity}
     <div class="related-record">
-      <button class="source-row" onclick={() => ws.select(entity.id, 'entity')}>
-        <span class="related-thumb"><Users size={17} /></span><span
+      <Button class="source-row" onclick={() => ws.select(entity.id, 'entity')}>
+        <SubjectAvatar {entity} project={ws.project} size={38} /><span
           ><strong>{entity.name}</strong><small>{entity.kind}</small></span
         ><ArrowRight size={13} />
-      </button>
-      <button
+      </Button>
+      <Button
         class="related-research"
         onclick={() => {
           sessionStorage.setItem('chronicle-subject', entity.name);
           ws.dialog = 'Research';
-        }}><Search size={11} /> Research independently</button
+        }}><Search size={11} /> Research independently</Button
       >
     </div>
   {/each}

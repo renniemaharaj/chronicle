@@ -41,6 +41,8 @@ func (s *Server) prepareAssistantProject(ctx context.Context, input projectInput
 	if input.RebuildNarrative || len(project.Chapters) == 0 {
 		narrative.Build(&project)
 	}
+	narrative.EnsureStories(&project)
+	s.assessMedia(ctx, &project)
 	if err := domain.ValidateProject(project); err != nil {
 		return project, err
 	}

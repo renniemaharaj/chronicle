@@ -1,6 +1,10 @@
 <script lang="ts">
+  import Button from '$lib/components/ui/Button.svelte';
+  import { Tabs, TabItem } from 'flowbite-svelte';
   import { Activity, ChevronLeft, ChevronRight, Sparkles, X } from '@lucide/svelte';
   import { workspace as ws } from '../../state/workspace.svelte';
+  import { portraitFor } from '../../utils/subjects';
+  import { eventStory } from '../../speech/story';
   import { intervalLabel } from '../../types/temporal';
   import Details from './Details.svelte';
   import EvidenceList from '../evidence/EvidenceList.svelte';
@@ -8,6 +12,7 @@
   import ConflictList from '../evidence/ConflictList.svelte';
   import SourceDistribution from '../evidence/SourceDistribution.svelte';
   import RelatedEntities from './RelatedEntities.svelte';
+  import ConflictSummary from '../evidence/ConflictSummary.svelte';
 
   const alternative = $derived(
     ws.project.claims.find(
@@ -34,10 +39,10 @@
   <div class="inspector-head">
     <div><span class="event-icon"><Activity size={12} /></span><span>{ws.selection.kind}</span></div>
     <div class="inspector-pagination">
-      <button aria-label="Previous event" onclick={() => ws.step(-1)}><ChevronLeft size={13} /></button>
+      <Button icon aria-label="Previous event" onclick={() => ws.step(-1)}><ChevronLeft size={13} /></Button>
       <span>{Math.max(1, index + 1)} of {ws.project.events.length}</span>
-      <button aria-label="Next event" onclick={() => ws.step(1)}><ChevronRight size={13} /></button>
-      <button aria-label="Close inspector" onclick={() => (ws.rightOpen = false)}><X size={15} /></button>
+      <Button icon aria-label="Next event" onclick={() => ws.step(1)}><ChevronRight size={13} /></Button>
+      <Button icon aria-label="Close inspector" onclick={() => (ws.rightOpen = false)}><X size={15} /></Button>
     </div>
   </div>
   <div class="event-title"><h2>{title}</h2></div>
@@ -50,9 +55,9 @@
   {#if alternative}<p class="active-date">
       Active view: {intervalLabel(alternative)}. The canonical record above is preserved.
     </p>{/if}
-  {#if ws.entity?.attributes.portrait}
+  {#if ws.entity && portraitFor(ws.entity, ws.project).url}
     <div class="entity-portrait-banner">
-      <img src={String(ws.entity.attributes.portrait)} alt={ws.entity.name} /><span>{ws.entity.summary}</span>
+      <img src={portraitFor(ws.entity, ws.project).url} title={portraitFor(ws.entity, ws.project).credit} alt={ws.entity.name} /><span>{ws.entity.summary}</span>
     </div>
   {:else}
     <div class="selection-banner">
@@ -60,31 +65,30 @@
     </div>
   {/if}
   <p class="event-summary">
-    {ws.selection.summary ||
+    {(ws.event ? eventStory(ws.project, ws.event, ws.activeClaims) : ws.selection.summary) ||
       'This related entity was discovered in the current project. Its history has not been researched independently.'}
   </p>
-  <div class="inspector-tabs">
-    {#each tabs as tab}<button
-        class:active={ws.inspectorTab === tab.title}
-        onclick={() => (ws.inspectorTab = tab.title)}>{tab.title}{tab.count !== null ? ` (${tab.count})` : ''}</button
-      >{/each}
+  <Tabs class="inspector-tabs" tabStyle="underline" divider={false} bind:selected={ws.inspectorTab}
+    classes={{ content: 'inspector-tab-content' }}>
+    {#each tabs as tab}
+      <TabItem key={tab.title} title={`${tab.title}${tab.count !== null ? ` (${tab.count})` : ''}`}>
+        {#if tab.title === 'Details'}
+          <Details /><EvidenceList {claims} {evidence} />
+        {:else if tab.title === 'Sources'}
+          <SourceList {sources} />
+        {:else if tab.title === 'Conflicts'}
+          <ConflictList />
+        {:else}
+          <RelatedEntities />
+        {/if}
+      </TabItem>
+    {/each}
+  </Tabs>
+  <div class="subject-media-actions">
+    {#each ['Images', 'Videos', 'Social Networks & Website'] as section}
+      <Button onclick={() => { ws.dialog = section; }}>{section}</Button>
+    {/each}
   </div>
-  {#if ws.inspectorTab === 'Details'}
-    <Details /><EvidenceList {claims} {evidence} />
-  {:else if ws.inspectorTab === 'Sources'}
-    <SourceList {sources} />
-  {:else if ws.inspectorTab === 'Conflicts'}
-    <ConflictList />
-  {:else}
-    <RelatedEntities />
-  {/if}
   <SourceDistribution />
-  {#if ws.project.conflicts.length}
-    <div class="conflicts-period">
-      <div><span>Conflicts in this project</span><b>{ws.project.conflicts.length}</b></div>
-      {#each ws.project.conflicts as conflict}<button onclick={() => (ws.inspectorTab = 'Conflicts')}
-          >{conflict.title}<span>{conflict.kind}</span></button
-        >{/each}
-    </div>
-  {/if}
+  <ConflictSummary />
 </aside>

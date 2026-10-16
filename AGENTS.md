@@ -10,7 +10,7 @@
 ## Research requests
 
 When the user asks to research a subject, use Chronicle's local backend tools to save the result.
-Read `docs/assistant-tools.md`. Prefer the registered `chronicle` MCP tools; if not available in the
+Read `docs/assistant-tools.md` and `docs/research-standards.md`. Prefer the registered `chronicle` MCP tools; if not available in the
 current session, invoke the same tools with `node scripts/chronicle-tool.mjs` and JSON argument files.
 Use available web search to investigate independently, then capture source passages through the backend.
 Never populate research by editing storage files. Validate before saving, preserve competing claims,

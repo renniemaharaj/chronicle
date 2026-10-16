@@ -1,4 +1,6 @@
 <script lang="ts">
+  import Button from '$lib/components/ui/Button.svelte';
+  import { Checkbox, Input, Label } from 'flowbite-svelte';
   import { safeSourceURL } from "../../api/links";
   import { ArrowUpRight, BookOpen, Link } from '@lucide/svelte';
   import type { Source } from '../../types/knowledge';
@@ -26,13 +28,13 @@
     {#each source.limitations ?? [] as limitation}<p class="source-note">{limitation}</p>{/each}
     <details class="source-review">
       <summary>Review source independence</summary>
-      <label
-        >Dependency group <input aria-label="Source dependency group" bind:value={source.independenceGroup} /></label
+      <Label
+        >Dependency group <Input aria-label="Source dependency group" bind:value={source.independenceGroup} /></Label
       >
-      <label
-        ><input type="checkbox" bind:checked={source.independenceReviewed} /> Independence reviewed against citation dependencies</label
+      <Label
+        ><Checkbox bind:checked={source.independenceReviewed} /> Independence reviewed against citation dependencies</Label
       >
-      <button class="button secondary" onclick={() => saveProject()}>Save assessment</button>
+      <Button variant="secondary" onclick={() => saveProject()}>Save assessment</Button>
     </details>
     <div class="source-metadata">
       <span>Retrieved {source.retrievedAt ? source.retrievedAt.slice(0, 10) : 'not recorded'}</span><span

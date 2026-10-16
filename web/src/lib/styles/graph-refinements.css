@@ -9,7 +9,7 @@
   border-radius: 4px;
   background: var(--surface-raised);
   color: var(--blue);
-  font-size: var(--font-min);
+  font-size: 18px;
 }
 
 .graph-canvas .svelte-flow__minimap {

@@ -13,6 +13,7 @@ type Entity struct {
 }
 
 type Event struct {
+	Narration        *EventNarration   `json:"narration,omitempty"`
 	IdentityKey      string            `json:"identityKey,omitempty"`
 	ID               string            `json:"id"`
 	Title            string            `json:"title"`
@@ -73,7 +74,10 @@ type Position struct {
 }
 
 type Project struct {
+	Media        []MediaAsset  `json:"media,omitempty"`
+	SubjectLinks []SubjectLink `json:"subjectLinks,omitempty"`
 	Narrative
+	ContextPeriods  []HistoricalContext `json:"contextPeriods,omitempty"`
 	ResearchRecords []ResearchRecord    `json:"researchRecords,omitempty"`
 	FormatVersion   int                 `json:"formatVersion"`
 	ID              string              `json:"id"`

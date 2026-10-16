@@ -8,6 +8,7 @@ export async function initialize() {
     if (cached) {
       const saved = JSON.parse(cached);
       ws.dark = saved.dark ?? true;
+      ws.storyHeight = Math.max(20, Math.min(75, saved.storyHeight ?? 34));
       ws.projects = (saved.projects ?? []).filter((project: Project) => !project.fixture);
       const project = ws.projects.find((project) => project.id === saved.projectId) ?? ws.projects[0];
       if (project) ws.open(project);
@@ -43,6 +44,7 @@ export function cacheWorkspace() {
         projectId: ws.project.id,
         selectedId: ws.selectedId,
         dark: ws.dark,
+        storyHeight: ws.storyHeight,
         projects: ws.projects,
       }),
     );

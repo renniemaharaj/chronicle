@@ -43,6 +43,12 @@
   display: block;
 }
 
+.related-item > span:not(.subject-avatar) {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+}
+
 .related-item strong {
   color: var(--text);
   font-size: var(--font-caption);

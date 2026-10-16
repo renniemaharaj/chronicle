@@ -51,6 +51,9 @@ func mergeBatch(project domain.Project, batch extraction, source domain.Source) 
 	}
 	for _, event := range batch.Events {
 		event.ID = ids[event.ID]
+		if event.Narration != nil {
+			event.Narration.ClaimIDs = remap(event.Narration.ClaimIDs, ids)
+		}
 		event.Participants = remap(event.Participants, ids)
 		event.LocationIDs = remap(event.LocationIDs, ids)
 		event.ClaimIDs = remap(event.ClaimIDs, ids)
@@ -124,6 +127,8 @@ func mergeBatch(project domain.Project, batch extraction, source domain.Source) 
 		conflict.Severity = "historical"
 		result.Conflicts = append(result.Conflicts, conflict)
 	}
+	mergeContext(&result, batch.ContextPeriods, ids)
+	mergeMedia(&result, batch, source.ID, ids)
 	if err := domain.ValidateProject(result); err != nil {
 		return project, err
 	}

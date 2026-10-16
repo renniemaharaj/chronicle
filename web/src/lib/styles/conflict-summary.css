@@ -1,41 +1,64 @@
 .conflicts-period {
+  min-width: 0;
   margin-top: 8px;
-  padding: 8px;
+  padding: 10px;
   border: 1px solid var(--line);
   border-radius: 7px;
   background: var(--surface-raised);
 }
 
-.conflicts-period > div {
+.conflicts-period header {
   display: flex;
+  align-items: baseline;
   justify-content: space-between;
-  margin-bottom: 5px;
+  gap: 10px;
+  margin-bottom: 6px;
   color: var(--red);
-  font-size: var(--font-min);
-}
-
-.conflicts-period > div span {
-  display: flex;
-  align-items: center;
-  gap: 5px;
-}
-
-.conflicts-period > div b {
-  color: var(--red);
+  font-size: var(--font-body);
 }
 
 .conflicts-period button {
-  width: 100%;
   display: flex;
+  width: 100%;
+  min-width: 0;
+  align-items: flex-start;
   justify-content: space-between;
-  padding: 4px 2px;
+  gap: 10px;
+  padding: 10px 2px;
   border: 0;
-  background: transparent;
+  border-top: 1px solid var(--line);
+  border-radius: 0;
   color: var(--text);
   text-align: left;
+  white-space: normal;
+}
+
+.conflict-summary-copy {
+  display: grid;
+  min-width: 0;
+  gap: 4px;
+  overflow-wrap: anywhere;
+}
+
+.conflict-summary-copy strong {
+  font-size: var(--font-body);
+  font-weight: 500;
+}
+
+.conflict-summary-copy small {
+  color: var(--red);
   font-size: var(--font-min);
 }
 
-.conflicts-period button span {
-  color: var(--red);
+.conflicts-period button svg {
+  flex-shrink: 0;
+  margin-top: 3px;
+  color: var(--muted);
+}
+
+.right-panel,
+.conflict-card,
+.conflict-card-title strong {
+  min-width: 0;
+  overflow-wrap: anywhere;
 }

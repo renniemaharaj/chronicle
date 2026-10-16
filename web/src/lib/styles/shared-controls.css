@@ -1,0 +1,33 @@
+.app-shell select:not([multiple]) {
+  padding-right: 36px;
+  text-overflow: ellipsis;
+  cursor: pointer;
+}
+
+.app-shell [data-variant='primary'] {
+  border-color: var(--primary);
+  background: var(--primary);
+  color: var(--on-primary);
+  white-space: nowrap;
+}
+
+.app-shell :is(input, textarea)::placeholder {
+  color: var(--quiet);
+  opacity: 1;
+}
+
+.story-content {
+  grid-template-columns: minmax(130px, 25%) minmax(0, 1fr);
+  overflow: hidden;
+}
+
+.chapter-copy,
+.chapter-list {
+  min-height: 0;
+  scrollbar-width: thin;
+  scrollbar-gutter: stable;
+}
+
+.chapter-copy {
+  padding-right: 8px;
+}

@@ -1,0 +1,124 @@
+.media-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 15px;
+}
+
+.media-card,
+.official-link {
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 9px;
+  background: var(--surface);
+}
+
+.media-preview {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  background: var(--bg);
+  color: var(--blue);
+  text-decoration: none;
+}
+
+.media-preview img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.video-preview img {
+  object-fit: cover;
+}
+
+.media-play,
+.media-external {
+  position: absolute;
+  display: grid;
+  place-items: center;
+  color: #ffffff;
+  background: #07101be6;
+  border: 1px solid #ffffff40;
+  border-radius: 50%;
+}
+
+.media-play {
+  width: 46px;
+  height: 46px;
+  inset: calc(50% - 23px);
+}
+
+.media-external {
+  width: 25px;
+  height: 25px;
+  right: 8px;
+  bottom: 8px;
+}
+
+.media-fallback {
+  display: grid;
+  justify-items: center;
+  gap: 10px;
+  font-size: var(--font-control);
+}
+
+.media-preview:hover .media-play {
+  background: var(--primary);
+}
+
+.media-copy,
+.official-link {
+  padding: 14px;
+}
+
+.media-copy strong,
+.official-link strong {
+  font-size: var(--font-subtitle);
+  color: var(--text);
+}
+
+.media-copy p {
+  font-size: var(--font-control);
+  color: var(--text);
+  line-height: 1.6;
+}
+
+.media-copy small,
+.official-link small {
+  display: block;
+  font-size: var(--font-caption);
+  color: var(--muted);
+  overflow-wrap: anywhere;
+}
+
+.media-copy a,
+.official-link > a:not(.official-link-title) {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  margin-top: 10px;
+  font-size: var(--font-caption);
+  color: var(--blue);
+}
+
+.media-timeline-link {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  width: 100%;
+  margin-top: 10px;
+  padding: 8px;
+  border: 1px solid var(--line-strong);
+  border-radius: 6px;
+  background: var(--surface-raised);
+  color: var(--blue);
+  text-align: left;
+  font-size: var(--font-caption);
+}
+

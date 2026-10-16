@@ -21,14 +21,6 @@
   background: var(--on-primary);
 }
 
-.phase {
-  color: var(--text);
-}
-
-.phase small {
-  color: var(--muted);
-}
-
 .graph-canvas .svelte-flow__controls-button {
   background: var(--surface-raised);
   fill: var(--text);

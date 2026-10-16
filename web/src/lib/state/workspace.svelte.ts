@@ -1,8 +1,10 @@
+import { notify } from './notifications';
+import { focusChapter } from './chapter-focus';
 import { emptyProject, emptySubject } from './empty';
-import { orderedEvents } from './navigation';
+import { nearestEvent, orderedEvents, projectBounds } from './navigation';
 import type { Project, ResearchRun } from '../types/project';
 import type { Resolution } from '../types/temporal';
-import { dateLabel, knownYear } from '../types/temporal';
+import { dateLabel } from '../types/temporal';
 
 export class Workspace {
   projects = $state<Project[]>([]);
@@ -20,6 +22,9 @@ export class Workspace {
   showLabels = $state(true);
   startYear = $state<number | null>(null);
   endYear = $state<number | null>(null);
+  focusedChapterId = $state('');
+  followChapter = $state(true);
+  storyFinished = $state(false);
   playing = $state(false);
   speed = $state(1);
   perspective = $state('Chronological');
@@ -28,6 +33,7 @@ export class Workspace {
   rightOpen = $state(true);
   leftWidth = $state(235);
   rightWidth = $state(335);
+  storyHeight = $state(34);
   dark = $state(true);
   dialog = $state('');
   toast = $state('');
@@ -35,6 +41,7 @@ export class Workspace {
   runs = $state<ResearchRun[]>([]);
   run = $state<ResearchRun | null>(null);
   fitToken = $state(0);
+  focusToken = $state(0);
 
   get hasProject() {
     return this.project.id !== '';
@@ -57,9 +64,7 @@ export class Workspace {
   }
 
   get bounds(): [number, number] {
-    const years = this.project.events.flatMap((event) => [knownYear(event.time.start), knownYear(event.time.end)]);
-    const known = years.filter((year): year is number => year !== undefined);
-    return known.length ? [Math.min(...known), Math.max(...known)] : [0, 1];
+    return projectBounds(this.project);
   }
 
   get orderedEvents() {
@@ -74,6 +79,7 @@ export class Workspace {
 
   open(project: Project) {
     this.playing = false;
+    this.storyFinished = false;
     this.project = project;
     this.selectedId = project.events[0]?.id ?? project.subjectId;
     this.selectedType = project.events.length ? 'event' : 'entity';
@@ -81,15 +87,26 @@ export class Workspace {
     this.startYear = null;
     this.endYear = null;
     this.activeClaims = {};
-    this.fitToken++;
+    this.focusedChapterId = '';
+    this.view = 'Interactive Graph';
+    this.focusToken++;
     this.dialog = '';
   }
 
   select(id: string, type = 'event') {
+    this.storyFinished = false;
     this.selectedId = id;
     this.selectedType = type;
-    this.rightOpen = true;
     const event = this.orderedEvents.find((event) => event.id === id);
+    if (!event) {
+      this.playing = false;
+    }
+    const chapter = this.project.chapters.find((item) => item.eventIds.includes(id));
+    if (chapter && this.followChapter && (this.playing || this.focusedChapterId)) {
+      if (this.focusedChapterId !== chapter.id) {
+        focusChapter(this, chapter.id, false);
+      }
+    }
     if (event?.time.start && event.time.start.precision !== 'unknown') {
       this.year = event.time.start.year;
     }
@@ -102,26 +119,25 @@ export class Workspace {
     if (events[next]) {
       this.select(events[next].id);
     }
-    if (next === events.length - 1) {
+    if (index === events.length - 1 && direction > 0) {
+      this.storyFinished = true;
       this.playing = false;
     }
   }
 
   jump(year: number) {
-    if (!Number.isFinite(year)) return;
+    if (!Number.isFinite(year)) {
+      return;
+    }
     this.year = year;
-    const nearest = [...this.project.events].sort(
-      (a, b) =>
-        Math.abs((knownYear(a.time.start) ?? Infinity) - year) - Math.abs((knownYear(b.time.start) ?? Infinity) - year),
-    )[0];
-    if (nearest) this.selectedId = nearest.id;
+    const nearest = nearestEvent(this.project, year);
+    if (nearest) {
+      this.select(nearest.id);
+    }
   }
 
   notify(message: string) {
-    this.toast = message;
-    setTimeout(() => {
-      if (this.toast === message) this.toast = '';
-    }, 3500);
+    notify(this, message);
   }
 
   yearLabel() {

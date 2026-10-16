@@ -19,6 +19,12 @@
   color: var(--text);
 }
 
+.inspector-tab-content {
+  margin-top: 0;
+  padding: 0;
+  background: transparent;
+}
+
 .details-list {
   display: grid;
   gap: 7px;

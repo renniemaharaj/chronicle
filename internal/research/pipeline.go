@@ -8,6 +8,7 @@ import (
 	"chronicle/internal/domain"
 	"chronicle/internal/evidence"
 	"chronicle/internal/mcp"
+	"chronicle/internal/media"
 	"chronicle/internal/narrative"
 )
 
@@ -61,6 +62,7 @@ func (j *job) execute(settings domain.Settings) {
 						return
 					}
 					evidence.Assess(&project)
+					media.Assess(&project)
 					run.Project = &project
 					run.Plan[index].Status = "completed"
 					run.Sources, run.Claims = len(project.Sources), len(project.Claims)

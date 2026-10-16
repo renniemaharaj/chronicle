@@ -1,4 +1,6 @@
 <script lang="ts">
+  import Button from '$lib/components/ui/Button.svelte';
+  import { Input } from 'flowbite-svelte';
   import { ArrowRight, BookmarkPlus, ShieldCheck } from '@lucide/svelte';
   import { workspace as ws } from '../../state/workspace.svelte';
   import { saveProject } from '../../state/persistence';
@@ -36,8 +38,8 @@
     <div>
       <dt>Participants</dt>
       <dd class="participant-list">
-        {#each participants.slice(0, 4) as entity}<button onclick={() => ws.select(entity.id, 'entity')}
-            ><span class="mini-avatar">{entity.name.slice(0, 1)}</span>{entity.name}</button
+        {#each participants.slice(0, 4) as entity}<Button onclick={() => ws.select(entity.id, 'entity')}
+            ><span class="mini-avatar">{entity.name.slice(0, 1)}</span>{entity.name}</Button
           >{/each}
       </dd>
     </div>
@@ -58,16 +60,16 @@
       addNote();
     }}
   >
-    <input aria-label="Research note" bind:value={note} placeholder="Add a research note..." />
-    <button aria-label="Save research note" disabled={!note.trim()}><BookmarkPlus size={14} /></button>
+    <Input aria-label="Research note" bind:value={note} placeholder="Add a research note..." />
+    <Button type="submit" aria-label="Save research note" disabled={!note.trim()}><BookmarkPlus size={14} /></Button>
   </form>
   {#each notes as item}<p>
-      {item.text}<button
+      {item.text}<Button
         aria-label="Delete note"
         onclick={() => {
           ws.project.notes = ws.project.notes.filter((note) => note.id !== item.id);
           saveProject();
-        }}>×</button
+        }}>×</Button
       >
     </p>{/each}
 </div>

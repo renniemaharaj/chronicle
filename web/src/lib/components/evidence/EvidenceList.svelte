@@ -1,4 +1,5 @@
 <script lang="ts">
+  import Button from '$lib/components/ui/Button.svelte';
   import { safeSourceURL } from "../../api/links";
   import { ArrowRight, Check, ShieldCheck } from '@lucide/svelte';
   import type { Claim, Evidence } from '../../types/knowledge';
@@ -34,7 +35,7 @@
     </div>
   {/each}
   {#if !claims.length}<p class="empty-state">No factual claims are attached to this record.</p>{/if}
-  <button class="show-sources" onclick={() => (ws.inspectorTab = 'Sources')}
-    >Inspect source provenance <ArrowRight size={12} /></button
+  <Button class="show-sources" onclick={() => (ws.inspectorTab = 'Sources')}
+    >Inspect source provenance <ArrowRight size={12} /></Button
   >
 </section>

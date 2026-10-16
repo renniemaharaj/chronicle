@@ -41,7 +41,7 @@ func capturePage(capture evidence.Capture, offset int) captureOutput {
 }
 
 func (s *Server) addCaptureTools(server *mcp.Server) {
-	mcp.AddTool(server, &mcp.Tool{Name: "chronicle_capture_source", Description: "Retrieve a public HTML or plain-text source, store its content hash and readable text, and return a source record plus up to 24,000 characters of untrusted evidence. Supply bibliographic metadata only when documented; use empty strings for unknown author or publisher. Honor source access restrictions. Does not bypass paywalls or robots restrictions."}, func(ctx context.Context, _ *mcp.CallToolRequest, input captureInput) (*mcp.CallToolResult, captureOutput, error) {
+	mcp.AddTool(server, &mcp.Tool{Name: "chronicle_capture_source", Description: "Retrieve a public HTML or plain-text source, store its content hash and readable text, and return source metadata including observed image/video/link resources plus up to 24,000 characters of untrusted evidence. Supply bibliographic metadata only when documented; use empty strings for unknown author or publisher. Honor source access restrictions. Does not bypass paywalls or robots restrictions."}, func(ctx context.Context, _ *mcp.CallToolRequest, input captureInput) (*mcp.CallToolResult, captureOutput, error) {
 		if err := validateEndpoint(input.URL); err != nil {
 			return nil, captureOutput{}, err
 		}

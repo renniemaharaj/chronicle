@@ -1,29 +1,33 @@
 <script lang="ts">
+  import Button from '$lib/components/ui/Button.svelte';
+  import { focusChapter } from '../../state/chapter-focus';
   import { workspace as ws } from '../../state/workspace.svelte';
-  const ticks = $derived(
-    Array.from({ length: 11 }, (_, index) => Math.round(ws.bounds[0] + (index * (ws.bounds[1] - ws.bounds[0])) / 10)),
-  );
+  import { dateLabel, knownYear } from '../../types/temporal';
+
+  function chapterRange(ids: string[]) {
+    const years = ws.project.events
+      .filter((event) => ids.includes(event.id))
+      .flatMap((event) => [knownYear(event.time.start), knownYear(event.time.end)])
+      .filter((year): year is number => year !== undefined);
+    const label = (year: number) => dateLabel({ year, precision: 'year', calendar: 'historical' });
+    return years.length ? `${label(Math.min(...years))}–${label(Math.max(...years))}` : 'Dates unknown';
+  }
 </script>
 
-<div class="phase-ruler">
-  <div class="ruler-ticks">
-    {#each ticks as year}<span>{year <= 0 ? `${1 - year} BCE` : year}</span>{/each}
-  </div>
-  <div class="phase-bars" style={`grid-template-columns: repeat(${Math.max(1, ws.project.chapters.length)}, 1fr)`}>
+<nav class="phase-ruler" aria-label="Story chapters">
+  <div class="phase-bars" style={`--chapters: ${Math.max(1, ws.project.chapters.length)}`}>
     {#each ws.project.chapters as chapter, index}
-      {@const events = ws.project.events.filter((event) => chapter.eventIds.includes(event.id))}
-      {@const start = events[0]?.time.start?.year}
-      {@const end = events.at(-1)?.time.start?.year}
-      <button
+      {@const range = chapterRange(chapter.eventIds)}
+      <Button
         class="phase phase-{['blue', 'green', 'gold', 'violet'][index % 4]}"
-        onclick={() => {
-          ws.startYear = start ?? null;
-          ws.endYear = end ?? null;
-          ws.fitToken++;
-        }}
+        current={ws.focusedChapterId === chapter.id}
+        aria-pressed={ws.focusedChapterId === chapter.id}
+        aria-label={`${chapter.title}, ${range}`}
+        title={`${chapter.title} · ${range}`}
+        onclick={() => focusChapter(ws, chapter.id)}
       >
-        {chapter.title}<small>{start ?? '?'}–{end ?? '?'}</small>
-      </button>
+        <span>{chapter.title}</span><small>{range}</small>
+      </Button>
     {/each}
   </div>
-</div>
+</nav>

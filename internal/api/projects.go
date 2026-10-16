@@ -8,6 +8,7 @@ import (
 	"chronicle/internal/conflicts"
 	"chronicle/internal/domain"
 	"chronicle/internal/evidence"
+	"chronicle/internal/narrative"
 )
 
 func (s *Server) projects(w http.ResponseWriter, r *http.Request) {
@@ -37,6 +38,8 @@ func (s *Server) saveProject(w http.ResponseWriter, r *http.Request) {
 		evidence.Assess(&project)
 		conflicts.Analyze(&project)
 	}
+	narrative.EnsureStories(&project)
+	s.assessMedia(r.Context(), &project)
 	if err := s.store.Put(r.Context(), "projects", project.ID, project); err != nil {
 		fail(w, err, 500)
 		return

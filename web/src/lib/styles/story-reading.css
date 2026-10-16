@@ -1,0 +1,131 @@
+.story-panel {
+  display: flex;
+  flex-direction: column;
+}
+
+.story-heading {
+  flex-shrink: 0;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding-block: 5px;
+}
+
+.story-toolbar {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px 12px;
+  padding-block: 8px;
+  font-size: var(--font-caption);
+}
+
+.story-toolbar button,
+.context-evidence button {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--surface-raised);
+  color: var(--text);
+  border: 1px solid var(--line);
+  border-radius: 5px;
+  padding: 5px 8px;
+}
+
+.story-toolbar label {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.story-toolbar > span {
+  color: var(--muted);
+}
+
+.chapter-list {
+  overflow: auto;
+  grid-auto-rows: minmax(min-content, auto);
+}
+
+.chapter {
+  height: auto;
+  min-height: 42px;
+  padding-block: 7px;
+  flex-shrink: 0;
+}
+
+.event-story {
+  font-size: var(--font-body);
+  line-height: 1.7;
+}
+
+.historical-context {
+  border-top: 1px solid var(--line);
+  margin-top: 12px;
+  padding-top: 10px;
+  color: var(--muted);
+  font-size: var(--font-caption);
+}
+
+.historical-context summary {
+  cursor: pointer;
+}
+
+.historical-context summary span {
+  display: block;
+  margin-top: 4px;
+}
+
+.historical-context strong {
+  color: var(--gold);
+}
+
+.context-evidence {
+  display: grid;
+  gap: 6px;
+}
+
+.context-evidence button {
+  text-align: left;
+  font-size: var(--font-caption);
+}
+
+.speech-settings {
+  display: grid;
+  gap: 14px;
+  font-size: var(--font-body);
+}
+
+.speech-settings label {
+  display: grid;
+  gap: 6px;
+}
+
+.speech-settings :is(input, select) {
+  padding: 8px;
+  color: var(--text);
+  background: var(--surface-raised);
+  border: 1px solid var(--line-strong);
+  border-radius: 5px;
+  font-size: var(--font-control);
+}
+
+.speech-error {
+  color: var(--red);
+  font-size: var(--font-caption);
+}
+
+.claim-card > div {
+  flex-wrap: wrap;
+}
+
+.claim-card :is(p, strong),
+.conflict-summary button {
+  font-size: var(--font-body);
+}
+
+@media (max-width: 850px), (max-height: 650px) {
+  .workspace {
+    min-height: 750px;
+    height: auto;
+  }
+}

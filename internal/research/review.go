@@ -6,6 +6,7 @@ import (
 	"chronicle/internal/domain"
 	"chronicle/internal/evidence"
 	"chronicle/internal/mcp"
+	"chronicle/internal/media"
 )
 
 func (j *job) review(client *mcp.Client, settings domain.Settings) error {
@@ -19,7 +20,7 @@ func (j *job) review(client *mcp.Client, settings domain.Settings) error {
 		j.activity("Budget limits targeted follow-up. Coverage remains partial.", "", nil, "")
 		return nil
 	}
-	question := domain.Question{Question: fmt.Sprintf("Find an independent primary or scholarly source that challenges or corroborates the documented origins and major turning points of %s. Investigate missing periods and competing dates.", run.Subject), Interval: "targeted review", Status: "pending"}
+	question := domain.Question{Question: fmt.Sprintf("Find an independent primary or scholarly source that challenges or corroborates the documented origins and major turning points of %s. Investigate missing periods and competing dates, birth or formation context, and death or dissolution evidence plus consequences for surviving people, institutions and places. Do not invent an ending for an ongoing subject.", run.Subject), Interval: "targeted review", Status: "pending"}
 	index := len(run.Plan)
 	j.update(func(run *domain.ResearchRun) {
 		run.Phase = "Targeted evidence review"
@@ -36,6 +37,7 @@ func (j *job) review(client *mcp.Client, settings domain.Settings) error {
 			return
 		}
 		evidence.Assess(&project)
+		media.Assess(&project)
 		run.Project = &project
 		run.Plan[index].Status = "completed"
 		run.Sources, run.Claims = len(project.Sources), len(project.Claims)

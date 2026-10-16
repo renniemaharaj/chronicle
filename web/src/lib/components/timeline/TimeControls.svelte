@@ -1,4 +1,6 @@
 <script lang="ts">
+  import Button from '$lib/components/ui/Button.svelte';
+  import { Popover, Select } from 'flowbite-svelte';
   import {
     CalendarDays,
     ChevronLeft,
@@ -9,9 +11,11 @@
     SkipBack,
     SkipForward,
   } from '@lucide/svelte';
+  import { toggleStory } from '../../state/playback-controls';
+  import { showAllHistory } from '../../state/chapter-focus';
   import { workspace as ws } from '../../state/workspace.svelte';
   import type { Resolution } from '../../types/temporal';
-  let jump = $state('');
+  import DateWindow from './DateWindow.svelte';
   let rangeOpen = $state(false);
   const resolutions: Resolution[] = [
     'Millennium',
@@ -28,27 +32,24 @@
 
 <div class="timeline-controls">
   <div class="play-controls">
-    <button aria-label="First event" onclick={() => ws.select(ws.orderedEvents[0].id)}><SkipBack size={14} /></button>
-    <button aria-label="Previous milestone" onclick={() => ws.step(-1)}><ChevronLeft size={15} /></button>
-    <button
-      class="play-button"
-      aria-label={ws.playing ? 'Pause narrative' : 'Play narrative'}
-      onclick={() => {
-        if (!ws.playing && ws.selectedId === ws.orderedEvents.at(-1)?.id) {
-          const first = ws.orderedEvents[0];
-          if (first) ws.select(first.id);
-        }
-        ws.playing = !ws.playing;
-      }}
+    <Button icon aria-label="First event" onclick={() => ws.orderedEvents[0] && ws.select(ws.orderedEvents[0].id)}
+      ><SkipBack size={14} /></Button
+    >
+    <Button icon aria-label="Previous milestone" onclick={() => ws.step(-1)}><ChevronLeft size={15} /></Button>
+    <Button
+      variant="primary" class="play-button"
+      icon
+      aria-label={ws.playing ? 'Pause story' : 'Play story'}
+      onclick={() => toggleStory(ws)}
     >
       {#if ws.playing}<Pause size={15} fill="currentColor" />{:else}<Play size={15} fill="currentColor" />{/if}
-    </button>
-    <button aria-label="Next milestone" onclick={() => ws.step(1)}><ChevronRight size={15} /></button>
-    <select class="speed-select" aria-label="Playback speed" bind:value={ws.speed}>
-      <option value={0.5}>0.5×</option><option value={1}>1×</option><option value={2}>2×</option><option value={4}
-        >4×</option
-      >
-    </select>
+    </Button>
+    <Button icon aria-label="Next milestone" onclick={() => ws.step(1)}><ChevronRight size={15} /></Button>
+    <Select class="w-auto" placeholder="" classes={{ select: "speed-select" }} aria-label="Playback speed" bind:value={ws.speed}>
+      <option value={0.75}>0.75×</option><option value={1}>1×</option><option value={1.25}>1.25×</option><option
+        value={1.5}>1.5×</option
+      ><option value={2}>2×</option>
+    </Select>
   </div>
   <div class="timeline-slider-wrap">
     <span>{ws.bounds[0]}</span>
@@ -69,54 +70,22 @@
     </div>
   </div>
   <div class="time-tools">
-    <select aria-label="Temporal resolution" bind:value={ws.resolution}
-      >{#each resolutions as resolution}<option>{resolution}</option>{/each}</select
+    <Select class="w-auto" placeholder="" aria-label="Temporal resolution" bind:value={ws.resolution}
+      >{#each resolutions as resolution}<option>{resolution}</option>{/each}</Select
     >
-    <button aria-label="Date range controls" class:active={rangeOpen} onclick={() => (rangeOpen = !rangeOpen)}
-      ><CalendarDays size={13} /></button
+    <Button icon id="date-window-trigger" aria-label="Date range controls" aria-expanded={rangeOpen} active={rangeOpen}
+      ><CalendarDays size={13} /></Button
     >
-    <button
+    <Button
       aria-label="Show entire subject lifespan"
       onclick={() => {
-        ws.startYear = null;
-        ws.endYear = null;
-        ws.fitToken++;
-      }}><Maximize size={13} /></button
+        showAllHistory(ws);
+      }}><Maximize size={13} /></Button
     >
   </div>
-  {#if rangeOpen}
-    <div class="date-window">
-      <strong>Navigate historical time</strong>
-      <label
-        >Jump to year <input
-          type="number"
-          bind:value={jump}
-          placeholder="Negative for BCE"
-          onkeydown={(event) => {
-            if (event.key === 'Enter') ws.jump(Number(jump));
-          }}
-        /></label
-      >
-      <label>From <input type="number" bind:value={ws.startYear} /></label>
-      <label>Through <input type="number" bind:value={ws.endYear} /></label>
-      <div class="quarter-buttons">
-        {#each [0, 1, 2, 3] as quarter}<button
-            onclick={() => {
-              const width = (ws.bounds[1] - ws.bounds[0]) / 4;
-              ws.startYear = Math.floor(ws.bounds[0] + quarter * width);
-              ws.endYear = Math.ceil(ws.startYear + width);
-              ws.fitToken++;
-            }}>Q{quarter + 1}</button
-          >{/each}
-      </div>
-      <button
-        class="button"
-        onclick={() => {
-          if (jump !== '') ws.jump(Number(jump));
-          ws.fitToken++;
-          rangeOpen = false;
-        }}>Apply window</button
-      >
-    </div>
-  {/if}
+  <Popover triggeredBy="#date-window-trigger" trigger="click" triggerDelay={0} placement="top-end"
+    strategy="fixed" role="dialog" aria-label="Navigate historical time" arrow={false}
+    class="date-window" classes={{ content: 'p-0' }} bind:isOpen={rangeOpen}>
+    <DateWindow onclose={() => { rangeOpen = false; }} />
+  </Popover>
 </div>

@@ -1,0 +1,70 @@
+.era-strip {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 14px;
+  border: 0;
+  border-bottom: 1px solid var(--line);
+  background: var(--surface-raised);
+  color: var(--muted);
+  text-align: left;
+  flex-shrink: 0;
+  font-size: var(--font-caption);
+}
+
+.era-strip strong {
+  min-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  font-weight: 500;
+  color: var(--gold);
+}
+
+.context-evidence details {
+  padding: 8px;
+  border: 1px solid var(--line);
+  border-radius: 5px;
+}
+
+.context-evidence a {
+  display: block;
+  margin-top: 8px;
+  color: var(--blue);
+}
+
+.context-evidence blockquote {
+  margin: 8px 0;
+  padding-left: 10px;
+  border-left: 2px solid var(--teal);
+  color: var(--text);
+}
+
+.context-evidence small {
+  overflow-wrap: anywhere;
+}
+
+.story-provenance,
+.narrative-themes {
+  margin-top: 12px;
+  font-size: var(--font-caption);
+}
+
+.story-provenance summary,
+.narrative-themes summary {
+  cursor: pointer;
+  padding-block: 5px;
+}
+
+.narrative-themes button {
+  margin: 4px;
+  padding: 6px 8px;
+  border: 1px solid var(--line);
+  background: var(--surface-raised);
+  color: var(--text);
+  border-radius: 5px;
+}
+
+.claim-card :is(.evidence-limit, .assessment-reason) {
+  font-size: var(--font-control);
+}

@@ -11,6 +11,7 @@ export interface Entity {
 }
 
 export interface HistoricalEvent {
+  narration?: { text: string; claimIds: string[]; interpretation: boolean };
   identityKey?: string;
   id: string;
   title: string;
@@ -50,6 +51,7 @@ export interface Claim {
 }
 
 export interface Source {
+  resources?: import('./media').Resource[];
   id: string;
   title: string;
   author: string;

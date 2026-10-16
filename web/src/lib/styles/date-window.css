@@ -1,0 +1,100 @@
+.date-window {
+  position: fixed;
+  bottom: auto;
+  right: auto;
+  z-index: 25;
+  width: min(340px, calc(100vw - 40px));
+  max-height: calc(100vh - 90px);
+  overflow: auto;
+  gap: 18px;
+  padding: 18px;
+  border-radius: 12px;
+  background: var(--surface-raised);
+}
+
+.date-window-content {
+  display: grid;
+  gap: 18px;
+}
+
+.timeline-controls .date-window button {
+  height: auto;
+  min-height: 34px;
+  padding: 8px 10px;
+}
+
+.date-window header,
+.date-window header span {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 9px;
+}
+
+.date-window header svg {
+  color: var(--blue);
+}
+
+.date-window form,
+.date-window label {
+  display: grid;
+  gap: 8px;
+  color: var(--text);
+  font-size: var(--font-control);
+}
+
+.date-window label {
+  justify-content: stretch;
+}
+
+.date-window input {
+  width: 100%;
+  min-width: 0;
+  height: 40px;
+  padding: 8px 10px;
+  border-radius: 6px;
+  font: inherit;
+}
+
+.date-jump {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 8px;
+}
+
+.date-range-fields {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 12px;
+  padding-top: 16px;
+  border-top: 1px solid var(--line);
+}
+
+.date-hint,
+.date-shortcut-label {
+  margin: 0;
+  color: var(--muted);
+  font-size: var(--font-caption);
+  line-height: 1.5;
+}
+
+.date-shortcut-label {
+  margin-top: 6px;
+}
+
+.quarter-buttons {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 6px;
+}
+
+.timeline-controls .quarter-buttons button {
+  height: 32px;
+  padding: 0 5px;
+  font-size: var(--font-caption);
+}
+
+.date-apply {
+  width: 100%;
+  margin-top: 8px;
+}

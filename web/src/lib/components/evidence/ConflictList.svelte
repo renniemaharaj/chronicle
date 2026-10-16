@@ -1,4 +1,5 @@
 <script lang="ts">
+  import Button from '$lib/components/ui/Button.svelte';
   import { Check, GitBranch } from '@lucide/svelte';
   import { orderingImplications } from '../../graph/interpretations';
   import { workspace as ws } from '../../state/workspace.svelte';
@@ -6,19 +7,19 @@
 
 <div class="conflict-list">
   {#each ws.project.conflicts as conflict}
-    <article class="conflict-card">
+    <article class="conflict-card" id={`conflict-${conflict.id}`}>
       <div class="conflict-card-title">
         <GitBranch size={14} /><strong>{conflict.title}</strong><span>{conflict.severity}</span>
       </div>
       <p>{conflict.explanation}</p>
       <div class="conflict-mode-buttons">
-        {#each ['Shadows', 'Parallel', 'Isolation', 'Consequences'] as mode}<button
-            class:active={ws.conflictMode === mode}
+        {#each ['Shadows', 'Parallel', 'Isolation', 'Consequences'] as mode}<Button
+            active={ws.conflictMode === mode}
             onclick={() => {
               ws.conflictMode = mode;
               ws.showConflicts = true;
               ws.fitToken++;
-            }}>{mode}</button
+            }}>{mode}</Button
           >{/each}
       </div>
       {#each conflict.claimIds as claimId, index}
@@ -28,7 +29,7 @@
             <small>Hypothesis {index + 1} · {claim.status.replaceAll('_', ' ')}</small>
             <strong>{claim.text}</strong>
             <span>{claim.evidenceIds.length} evidence record{claim.evidenceIds.length === 1 ? '' : 's'}</span>
-            <button
+            <Button
               onclick={() => {
                 ws.activeClaims[conflict.id] = claimId;
                 ws.fitToken++;
@@ -36,7 +37,7 @@
             >
               {#if ws.activeClaims[conflict.id] === claimId}<Check size={10} /> Active interpretation{:else}Explore this
                 interpretation{/if}
-            </button>
+            </Button>
             {#each ws.project.evidence.filter((item) => item.claimId === claimId) as evidence}
               <p class="comparison-excerpt">
                 {evidence.excerpt}<small>{evidence.relation} · {evidence.location}</small>
@@ -47,7 +48,7 @@
       {/each}
       {#if ws.conflictMode === 'Consequences' || Object.hasOwn(ws.activeClaims, conflict.id)}
         <div class="consequences">
-          <strong>Narrative implications</strong
+          <strong>Story implications</strong
           >{#each [...orderingImplications(ws.project, ws.activeClaims[conflict.id]), ...conflict.consequences] as consequence}<p
             >
               {consequence}

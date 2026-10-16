@@ -3,7 +3,7 @@
 }
 
 .story-heading {
-  height: 36px;
+  min-height: 40px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -44,9 +44,11 @@
 }
 
 .story-content {
-  height: calc(100% - 36px);
+  flex: 1;
+  min-height: 0;
+  overflow: auto;
   display: grid;
-  grid-template-columns: 205px minmax(150px, 1fr) 190px;
+  grid-template-columns: minmax(170px, 25%) minmax(200px, 1fr);
   gap: 13px;
   padding-top: 9px;
 }
@@ -89,7 +91,7 @@
 }
 
 .chapter-copy {
-  overflow: hidden;
+  overflow: auto;
 }
 
 .eyebrow {
@@ -109,7 +111,7 @@
 .chapter-copy p {
   margin: 0;
   color: var(--text);
-  font-size: var(--font-caption);
+  font-size: var(--font-body);
   line-height: 1.52;
 }
 

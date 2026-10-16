@@ -14,6 +14,7 @@ type Claim struct {
 }
 
 type Source struct {
+	Resources            []Resource              `json:"resources,omitempty"`
 	ID                   string                  `json:"id"`
 	Title                string                  `json:"title"`
 	Author               string                  `json:"author"`

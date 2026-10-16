@@ -1,3 +1,4 @@
+import { portraitFor } from '../utils/subjects';
 import type { Node } from '@xyflow/svelte';
 import type { Project } from '../types/project';
 import { knownYear, dateLabel, intervalLabel } from '../types/temporal';
@@ -10,6 +11,8 @@ import type { CardData, Projection, ProjectionOptions } from './types';
 
 export function projectGraph(project: Project, options: ProjectionOptions): Projection {
   let visible = interpretedEvents(project, options.activeClaims).filter((event) => {
+    const chapter = project.chapters.find((item) => item.id === options.chapterId);
+    if (chapter && !chapter.eventIds.includes(event.id)) return false;
     const start = knownYear(event.time.start);
     const end = knownYear(event.time.end) ?? start;
     if (start === undefined || end === undefined) return true;
@@ -43,7 +46,7 @@ export function projectGraph(project: Project, options: ProjectionOptions): Proj
     const x = Number.isFinite(group.start) ? 50 + (group.start - origin) * scale : 1250;
     let row = laneEnds.findIndex((end) => end + 12 < x);
     if (row < 0) row = laneEnds.length;
-    laneEnds[row] = x + 160;
+    laneEnds[row] = x + 240;
     const isGroup = group.events.length > 1;
     const data: CardData = {
       title: group.title,
@@ -66,7 +69,7 @@ export function projectGraph(project: Project, options: ProjectionOptions): Proj
       id: group.id,
       type: 'chronicle',
       data,
-      position: project.layout[group.id] ?? { x, y: 40 + row * 92 },
+      position: project.layout[group.id] ?? { x, y: 40 + row * 145 },
       selected: data.eventIds.includes(options.selectedId),
     };
   });
@@ -79,8 +82,8 @@ export function projectGraph(project: Project, options: ProjectionOptions): Proj
         id: `entity:${entity.id}`,
         type: 'chronicle',
         position: project.layout[`entity:${entity.id}`] ?? {
-          x: 10 + index * 112,
-          y: 125 + laneEnds.length * 92 + (index % 2) * 105,
+          x: 10 + index * 145,
+          y: 185 + laneEnds.length * 145 + (index % 2) * 145,
         },
         selected: options.selectedId === entity.id,
         data: {
@@ -93,7 +96,7 @@ export function projectGraph(project: Project, options: ProjectionOptions): Proj
           recordType: 'entity',
           eventIds: [],
           evidenceCount: 0,
-          portrait: String(entity.attributes.portrait ?? ''),
+          portrait: portraitFor(entity, project).url ?? '',
         },
       }),
     );

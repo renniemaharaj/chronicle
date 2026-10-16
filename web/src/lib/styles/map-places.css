@@ -1,0 +1,137 @@
+.map-places {
+  min-width: 0;
+  overflow: auto;
+  padding: 10px;
+  border-left: 1px solid var(--line);
+  background: var(--surface);
+  scrollbar-width: thin;
+  font-size: var(--font-caption);
+}
+
+.map-places .subject-search-toolbar {
+  top: -10px;
+  margin-bottom: 0;
+  padding: 0 0 8px;
+  background: var(--surface);
+}
+
+.map-places .subject-search {
+  padding: 8px;
+  gap: 5px;
+}
+
+.map-places .subject-search input {
+  min-width: 0;
+  padding: 0;
+  font-size: var(--font-caption);
+}
+
+.map-place,
+.map-stop {
+  padding-block: 8px;
+  border-top: 1px solid var(--line);
+}
+
+.map-note summary {
+  padding-block: 7px;
+  cursor: pointer;
+}
+
+.map-place > button,
+.map-stop > button,
+.place-results button {
+  width: 100%;
+  min-width: 0;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: 7px;
+  text-align: left;
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+
+.map-place > button span,
+.map-stop > button,
+.place-results button {
+  display: grid;
+  gap: 4px;
+  min-width: 0;
+}
+
+.map-place strong,
+.map-stop strong {
+  display: block;
+  font-weight: 600;
+  font-size: var(--font-caption);
+}
+
+.map-place small,
+.map-stop span,
+.map-note,
+.place-locator p,
+.place-results small {
+  color: var(--muted);
+  font-size: var(--font-min);
+}
+
+.map-place-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.map-place-actions a {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  color: var(--blue);
+}
+
+.map-place .place-event {
+  width: 100%;
+  text-align: left;
+  white-space: normal;
+  font-size: var(--font-caption);
+}
+
+.place-locator {
+  position: absolute;
+  z-index: 10;
+  top: 8px;
+  right: 8px;
+  bottom: 8px;
+  width: min(440px, calc(100% - 16px));
+  overflow: auto;
+  padding: 16px;
+  border: 1px solid var(--line-strong);
+  border-radius: 8px;
+  background: var(--surface-raised);
+  box-shadow: 0 8px 28px #0004;
+}
+
+.place-locator header,
+.place-query-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+}
+
+.place-locator p {
+  margin-block: 12px;
+}
+
+.place-query-row {
+  margin-block: 8px 12px;
+}
+
+.place-query-row > div {
+  flex: 1;
+  min-width: 0;
+}
+
+.place-results button {
+  margin-block: 6px;
+  border: 1px solid var(--line);
+}

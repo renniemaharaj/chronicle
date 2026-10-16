@@ -4,7 +4,7 @@ body {
 
 .workspace {
   height: calc(100vh - 74px);
-  min-height: 690px;
+  min-height: 0;
   position: relative;
   grid-template-columns: var(--left-width) minmax(400px, 1fr) var(--right-width);
   gap: 8px;
@@ -20,30 +20,6 @@ body {
 
 .right-panel {
   grid-column: 3;
-}
-
-.resize-handle {
-  position: absolute;
-  top: 7px;
-  bottom: 8px;
-  z-index: 5;
-  width: 6px;
-  padding: 0;
-  border: 0;
-  background: transparent;
-  cursor: col-resize;
-}
-
-.resize-handle:hover {
-  background: color-mix(in srgb, var(--blue) 27%, transparent);
-}
-
-.resize-handle.left {
-  left: calc(var(--left-width) + 9px);
-}
-
-.resize-handle.right {
-  right: calc(var(--right-width) + 9px);
 }
 
 .workspace-status {

@@ -1,26 +1,5 @@
-.modal-backdrop {
-  position: fixed;
-  inset: 0;
-  z-index: 40;
-  display: grid;
-  place-items: center;
-  padding: 25px;
-  background: color-mix(in srgb, var(--bg) 73%, transparent);
-  backdrop-filter: blur(8px);
-}
-
-.dialog {
-  width: min(640px, 94vw);
-  max-height: 88vh;
-  overflow: auto;
-  border: 1px solid var(--line-strong);
-  border-radius: 13px;
-  background: var(--surface-raised);
-  box-shadow: 0 20px 90px rgb(var(--shadow-rgb) / 0.30);
-  scrollbar-width: thin;
-}
-
 .dialog-header {
+  flex-shrink: 0;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -43,6 +22,9 @@
 }
 
 .dialog-body {
+  min-height: 0;
+  overflow: auto;
+  scrollbar-width: thin;
   padding: 19px 23px 23px;
 }
 
@@ -59,32 +41,6 @@
   justify-content: flex-end;
   gap: 8px;
   margin-top: 18px;
-}
-
-.button {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 7px;
-  padding: 9px 13px;
-  border: 1px solid var(--blue);
-  border-radius: 6px;
-  background: var(--blue);
-  color: var(--text);
-  font-size: var(--font-control);
-  cursor: pointer;
-}
-
-.button.secondary {
-  border-color: var(--line-strong);
-  background: var(--blue-soft);
-  color: var(--text);
-}
-
-.button.danger {
-  border-color: var(--red);
-  background: var(--violet-soft);
-  color: var(--red);
 }
 
 button:disabled {

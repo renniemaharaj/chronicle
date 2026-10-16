@@ -22,7 +22,7 @@
     display: none;
   }
   .story-content {
-    grid-template-columns: 170px minmax(130px, 1fr) 160px;
+    grid-template-columns: minmax(130px, 25%) minmax(0, 1fr);
     gap: 7px;
   }
   .event-title h2 {
@@ -37,13 +37,10 @@
   .workspace {
     min-height: 650px;
   }
-  .main-column {
-    grid-template-rows: minmax(380px, 1fr) 220px;
-  }
   .artifact-image {
     height: 125px;
   }
   .story-content {
-    grid-template-columns: 180px minmax(130px, 1fr) 170px;
+    grid-template-columns: minmax(130px, 25%) minmax(0, 1fr);
   }
 }

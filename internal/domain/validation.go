@@ -78,6 +78,12 @@ func ValidateProject(p Project) error {
 		}
 		evidence[item.ID] = true
 	}
+	if err := validateStories(p, claims); err != nil {
+		return err
+	}
+	if err := validateMedia(p, entities, sources, claims); err != nil {
+		return err
+	}
 	return validateLinks(p, entities, events, claims, evidence)
 }
 

@@ -63,6 +63,7 @@ func CaptureDocument(ctx context.Context, client *http.Client, source domain.Sou
 	if len(body) > 2<<20 {
 		return Capture{}, fmt.Errorf("source exceeds the 2 MiB capture limit")
 	}
+	source.Resources = ExtractResources(string(body), response.Request.URL.String())
 	hash := fmt.Sprintf("%x", sha256.Sum256(body))
 	text := string(body)
 	if !strings.Contains(contentType, "text/plain") {

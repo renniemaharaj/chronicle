@@ -1,4 +1,5 @@
 <script lang="ts">
+  import Button from '$lib/components/ui/Button.svelte';
   import { Check, CircleHelp, GitBranch, ShieldCheck } from '@lucide/svelte';
   import { workspace as ws } from '../../state/workspace.svelte';
 
@@ -9,8 +10,8 @@
 <section class="progress-card">
   <div class="progress-title">
     <ShieldCheck size={13} class="coverage-icon" /><strong>Research coverage</strong>
-    <button aria-label="Inspect research coverage" onclick={() => (ws.dialog = 'Coverage')}
-      ><CircleHelp size={13} /></button
+    <Button icon aria-label="Inspect research coverage" onclick={() => (ws.dialog = 'Coverage')}
+      ><CircleHelp size={13} /></Button
     >
   </div>
   {#if ws.run && ws.run.status === 'running'}
@@ -30,7 +31,7 @@
   {/if}
   <div class="coverage-segments">
     {#each ws.project.coverage as period}
-      <button
+      <Button
         class={period.status}
         title={`${period.startYear}–${period.endYear}: ${period.status}`}
         aria-label={`${period.startYear} to ${period.endYear}: ${period.status}`}
@@ -39,7 +40,7 @@
           ws.endYear = period.endYear;
           ws.fitToken++;
         }}
-      ></button>
+      ></Button>
     {/each}
   </div>
   <div class="coverage-line"><span>Sources recorded</span><strong>{ws.project.sources.length}</strong></div>
@@ -47,7 +48,7 @@
   <div class="coverage-line">
     <span>Conflicts preserved</span><strong class="warn">{ws.project.conflicts.length}</strong>
   </div>
-  <button class="coverage-details" onclick={() => (ws.dialog = 'Coverage')}
-    >Inspect periods and gaps <GitBranch size={11} /></button
+  <Button class="coverage-details" onclick={() => (ws.dialog = 'Coverage')}
+    >Inspect periods and gaps <GitBranch size={11} /></Button
   >
 </section>

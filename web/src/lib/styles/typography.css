@@ -1,12 +1,12 @@
 :root {
-  --font-min: 10px;
-  --font-caption: 11px;
-  --font-body: 12px;
-  --font-control: 13px;
-  --font-subtitle: 14px;
-  --font-section: 16px;
-  --font-heading: 18px;
-  --font-title: 20px;
+  --font-min: 13px;
+  --font-caption: 13px;
+  --font-body: 15px;
+  --font-control: 14px;
+  --font-subtitle: 16px;
+  --font-section: 18px;
+  --font-heading: 20px;
+  --font-title: 22px;
   --font-display: 24px;
   --font-max: 27px;
 }

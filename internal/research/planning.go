@@ -28,7 +28,8 @@ func (j *job) plan() error {
 	}
 	input := j.snapshot().Subject
 	plan, err := providers.Structured[planOutput](j.ctx, j, `Identify and provisionally disambiguate the subject. Classify with an extensible entity kind.
-Create four chronological research questions covering origins, development, relationships/context, and later state/legacy.
+Create 3–6 chronological research leads covering origins and their historical/technological setting, maturation, relationships, achievements, endings and aftermath.
+Research the wider historical era and geographical or institutional setting as context, with its own evidence.
 Adapt to person, family, species, place, institution, invention, event, or idea. Investigate evidence disagreements and gaps.
 Use interval descriptions, not invented dates. All question statuses must be pending.`, input)
 	if err != nil {
@@ -45,6 +46,7 @@ Use interval descriptions, not invented dates. All question statuses must be pen
 		return err
 	}
 	id = project.SubjectID
+	plan.Questions = historicalQuestions(plan.Name, plan.Kind, plan.Questions)
 	for i := range plan.Questions {
 		plan.Questions[i].Status = "pending"
 	}
