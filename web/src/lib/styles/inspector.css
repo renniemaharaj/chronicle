@@ -89,7 +89,8 @@
 
 .event-title h2 {
   margin: 0;
-  font: 700 var(--font-heading) Manrope,
+  font:
+    700 var(--font-heading) Manrope,
     sans-serif;
   letter-spacing: -0.25px;
 }

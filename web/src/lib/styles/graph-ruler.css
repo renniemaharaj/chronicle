@@ -41,7 +41,9 @@
 
 .phase small {
   color: var(--muted);
-  font: var(--font-min) 'DM Mono', monospace;
+  font:
+    var(--font-min) 'DM Mono',
+    monospace;
 }
 
 .phase.current {
@@ -49,7 +51,15 @@
   box-shadow: inset 0 2px var(--phase-color);
 }
 
-.phase-blue { --phase-color: var(--blue); }
-.phase-green { --phase-color: var(--teal); }
-.phase-gold { --phase-color: var(--gold); }
-.phase-violet { --phase-color: var(--violet); }
+.phase-blue {
+  --phase-color: var(--blue);
+}
+.phase-green {
+  --phase-color: var(--teal);
+}
+.phase-gold {
+  --phase-color: var(--gold);
+}
+.phase-violet {
+  --phase-color: var(--violet);
+}

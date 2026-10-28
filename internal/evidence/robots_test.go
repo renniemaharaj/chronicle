@@ -16,11 +16,14 @@ func TestCaptureHonorsSourceExclusions(t *testing.T) {
 		w.Header().Set("Content-Type", "text/plain")
 		if r.URL.Path == "/robots.txt" {
 			w.Write([]byte("User-agent: Chronicle\nDisallow: /private"))
+
 			return
 		}
+
 		requested = true
 	}))
 	defer server.Close()
+
 	_, err := CaptureDocument(context.Background(), server.Client(), domain.Source{URL: server.URL + "/private"})
 	if err == nil || !strings.Contains(err.Error(), "disallowed") || requested {
 		t.Fatal("excluded source paths must not be retrieved")

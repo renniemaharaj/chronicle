@@ -8,19 +8,24 @@ export interface MapCameraFrame {
   overview: boolean;
 }
 
-export function storyGeography(project: Project, event: HistoricalEvent | undefined, events: HistoricalEvent[]) {
+export function storyGeography(
+  project: Project,
+  event: HistoricalEvent | undefined,
+  events: HistoricalEvent[],
+) {
   const chapter = project.chapters.find((item) => item.eventIds.includes(event?.id ?? ''));
   const contextEvents = chapter ? events.filter((item) => chapter.eventIds.includes(item.id)) : events;
   const contextPlaces = mapPlaces(project, contextEvents, true);
-  const recorded = project.entities.filter((entity) =>
-    entity.kind === 'place' && event?.locationIds.includes(entity.id),
+  const recorded = project.entities.filter(
+    (entity) => entity.kind === 'place' && event?.locationIds.includes(entity.id),
   );
   const currentPlaces = mapPlaces(project, event ? [event] : [], true);
   const missing = recorded.length - currentPlaces.length;
   const overview = currentPlaces.length === 0;
   const places = overview ? contextPlaces : currentPlaces;
-  const key = JSON.stringify([overview, places.map(({ entity, location }) =>
-    [entity.id, location.latitude, location.longitude, location.kind]),
+  const key = JSON.stringify([
+    overview,
+    places.map(({ entity, location }) => [entity.id, location.latitude, location.longitude, location.kind]),
   ]);
 
   let caption = 'Recorded event location context';

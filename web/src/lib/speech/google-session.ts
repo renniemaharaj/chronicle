@@ -14,6 +14,7 @@ export function googleSession(input: SpeechInput): SpeechSession {
     if (cancelled) {
       return;
     }
+
     if (index < chunks.length) {
       void loadNext();
     } else {
@@ -25,6 +26,7 @@ export function googleSession(input: SpeechInput): SpeechSession {
       input.fail('Google speech audio could not be played.');
     }
   };
+
   const play = () =>
     audio.play().catch(() => {
       if (!cancelled && !paused) {
@@ -38,19 +40,26 @@ export function googleSession(input: SpeechInput): SpeechSession {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         signal: request.signal,
-        body: JSON.stringify({ text: chunks[index++], voiceName: input.voice, languageCode: input.language }),
+        body: JSON.stringify({
+          text: chunks[index++],
+          voiceName: input.voice,
+          languageCode: input.language,
+        }),
       });
       if (!response.ok) {
         const body = await response.json().catch(() => ({}));
         throw new Error(body.error || 'Google speech request failed.');
       }
+
       const blob = await response.blob();
       if (cancelled) {
         return;
       }
+
       if (url) {
         URL.revokeObjectURL(url);
       }
+
       url = URL.createObjectURL(blob);
       audio.src = url;
       audio.playbackRate = input.speed;
@@ -65,6 +74,7 @@ export function googleSession(input: SpeechInput): SpeechSession {
   }
 
   void loadNext();
+
   return {
     pause: () => {
       paused = true;

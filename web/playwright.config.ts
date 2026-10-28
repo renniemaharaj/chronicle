@@ -8,7 +8,10 @@ export default defineConfig({
   workers: 1,
   use: {
     baseURL: 'http://127.0.0.1:18080',
-    viewport: { width: 1536, height: 1024 },
+    viewport: {
+      width: 1536,
+      height: 1024,
+    },
     launchOptions: { executablePath: existsSync('/usr/bin/chromium') ? '/usr/bin/chromium' : undefined },
   },
   webServer: {

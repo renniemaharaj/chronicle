@@ -17,12 +17,16 @@ const dialogs = [
 export function navigateView(ws: Workspace, name: string) {
   if (name === 'Story') {
     openStoryMode(ws);
+
     return;
   }
+
   if (dialogs.includes(name)) {
     ws.dialog = name;
+
     return;
   }
+
   ws.view = name;
   ws.playing = false;
   if (name === 'Conflicts & Disagreements') {
@@ -32,7 +36,9 @@ export function navigateView(ws: Workspace, name: string) {
   } else {
     ws.conflictMode = 'Shadows';
   }
+
   ws.showRelations = name !== 'Timeline';
+
   const events = ws.orderedEvents.filter(
     (event) =>
       !ws.focusedChapterId ||
@@ -42,13 +48,16 @@ export function navigateView(ws: Workspace, name: string) {
   if (name === 'Works & Ideas') {
     first = events.find((event) => ['Publication', 'Idea'].includes(event.kind));
   }
+
   if (name === 'Places' || name === 'Map') {
     first = events.find((event) => event.locationIds.length > 0);
   }
+
   if (name === 'Family & Relationships') {
     ws.select(ws.project.subjectId, 'entity');
   } else if (first) {
     ws.select(first.id);
   }
+
   ws.focusToken++;
 }

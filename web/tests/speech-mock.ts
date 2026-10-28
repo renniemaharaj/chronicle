@@ -20,8 +20,16 @@ export async function mockSpeech(page: Page) {
       configurable: true,
       value: {
         getVoices: () => [
-          { voiceURI: 'test-a', name: 'Test voice A', lang: 'en-US' },
-          { voiceURI: 'test-b', name: 'Test voice B', lang: 'en-US' },
+          {
+            voiceURI: 'test-a',
+            name: 'Test voice A',
+            lang: 'en-US',
+          },
+          {
+            voiceURI: 'test-b',
+            name: 'Test voice B',
+            lang: 'en-US',
+          },
         ],
         addEventListener() {},
         removeEventListener() {},

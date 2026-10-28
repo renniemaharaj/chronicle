@@ -1,0 +1,29 @@
+.story-sources {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 5px;
+  margin-top: 8px;
+}
+
+.story-sources > span {
+  width: 100%;
+  color: var(--muted);
+  font-size: var(--font-min);
+}
+
+.story-sources button {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 6px;
+  border: 1px solid var(--line);
+  border-radius: 5px;
+  background: var(--surface-raised);
+  color: var(--text);
+  font-size: var(--font-min);
+}
+
+.story-sources button span {
+  color: var(--teal);
+}

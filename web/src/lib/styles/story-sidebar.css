@@ -30,7 +30,9 @@
 
 .story-subject h2 {
   margin: 0 0 5px;
-  font: 600 21px Georgia, serif;
+  font:
+    600 21px Georgia,
+    serif;
   overflow-wrap: anywhere;
 }
 

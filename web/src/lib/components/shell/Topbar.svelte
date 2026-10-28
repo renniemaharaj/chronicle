@@ -2,7 +2,18 @@
   import Button from '$lib/components/ui/Button.svelte';
   import BrandMark from '$lib/components/ui/BrandMark.svelte';
   import { Input } from 'flowbite-svelte';
-  import { BookOpen, Command, Menu, Moon, Network, PanelRight, Plus, Search, Settings, Sun } from '@lucide/svelte';
+  import {
+    BookOpen,
+    Command,
+    Menu,
+    Moon,
+    Network,
+    PanelRight,
+    Plus,
+    Search,
+    Settings,
+    Sun,
+  } from '@lucide/svelte';
   import { workspace as ws } from '../../state/workspace.svelte';
 
   let search = $state('');
@@ -15,7 +26,12 @@
 
 <header class="topbar">
   <div class="brand-lockup">
-    <Button icon class="brand-mark" aria-label="Toggle explorer" onclick={() => (ws.leftOpen = !ws.leftOpen)}>
+    <Button
+      icon
+      class="brand-mark"
+      aria-label="Toggle explorer"
+      onclick={() => (ws.leftOpen = !ws.leftOpen)}
+    >
       <BrandMark />
     </Button>
     <span class="brand-name">Chronicle</span>
@@ -37,20 +53,52 @@
     <kbd><Command size={11} /> K</kbd>
   </form>
   <div class="top-actions">
-    <Button class="header-action primary-soft" onclick={research}><Network size={16} /> Research</Button>
-    <Button class="header-action" onclick={() => (ws.dialog = 'Library')}><BookOpen size={16} /> Library</Button>
-    <Button icon class="icon-action" aria-label="Settings" onclick={() => (ws.dialog = 'Settings')}
-      ><Settings size={18} /></Button
+    <Button
+      class="header-action primary-soft"
+      onclick={research}
     >
-    <Button icon class="icon-action" aria-label="Toggle theme" onclick={() => (ws.dark = !ws.dark)}>
-      {#if ws.dark}<Moon size={17} />{:else}<Sun size={17} />{/if}
+      <Network size={16} /> Research
     </Button>
-    <Button variant="primary" class="new-research" onclick={research}><Plus size={16} /> New Research</Button>
+    <Button
+      class="header-action"
+      onclick={() => (ws.dialog = 'Library')}
+    >
+      <BookOpen size={16} /> Library
+    </Button>
+    <Button
+      icon
+      class="icon-action"
+      aria-label="Settings"
+      onclick={() => (ws.dialog = 'Settings')}
+    >
+      <Settings size={18} />
+    </Button>
+    <Button
+      icon
+      class="icon-action"
+      aria-label="Toggle theme"
+      onclick={() => (ws.dark = !ws.dark)}
+    >
+      {#if ws.dark}
+        <Moon size={17} />
+      {:else}
+        <Sun size={17} />
+      {/if}
+    </Button>
+    <Button
+      variant="primary"
+      class="new-research"
+      onclick={research}
+    >
+      <Plus size={16} /> New Research
+    </Button>
     <Button
       icon
       class="icon-action inspector-reveal"
       aria-label="Toggle inspector"
-      onclick={() => (ws.rightOpen = !ws.rightOpen)}><PanelRight size={16} /></Button
+      onclick={() => (ws.rightOpen = !ws.rightOpen)}
     >
+      <PanelRight size={16} />
+    </Button>
   </div>
 </header>

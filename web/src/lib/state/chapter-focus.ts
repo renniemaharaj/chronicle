@@ -3,8 +3,11 @@ import { knownYear } from '../types/temporal';
 
 export function chapterForEvent(ws: Workspace, eventId: string) {
   const chapters = ws.project.chapters;
-  return chapters.find((chapter) => chapter.id === ws.focusedChapterId && chapter.eventIds.includes(eventId)) ??
-    chapters.find((chapter) => chapter.eventIds.includes(eventId));
+
+  return (
+    chapters.find((chapter) => chapter.id === ws.focusedChapterId && chapter.eventIds.includes(eventId)) ??
+    chapters.find((chapter) => chapter.eventIds.includes(eventId))
+  );
 }
 
 export function focusChapter(ws: Workspace, id: string, selectFirst = true) {
@@ -12,10 +15,12 @@ export function focusChapter(ws: Workspace, id: string, selectFirst = true) {
   if (!chapter) {
     return;
   }
+
   ws.focusedChapterId = id;
   if (selectFirst) {
     ws.followChapter = true;
   }
+
   const events = ws.orderedEvents.filter((event) => chapter.eventIds.includes(event.id));
   const years = events
     .flatMap((event) => [knownYear(event.time.start), knownYear(event.time.end)])
@@ -25,6 +30,7 @@ export function focusChapter(ws: Workspace, id: string, selectFirst = true) {
   if (selectFirst && events[0]) {
     ws.select(events[0].id);
   }
+
   ws.focusToken++;
 }
 

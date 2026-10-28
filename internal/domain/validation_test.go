@@ -12,15 +12,19 @@ func TestMissingProvenanceCannotEnterCanonicalProject(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
+
 	for _, project := range projects {
 		if len(project.Evidence) == 0 {
 			continue
 		}
+
 		project.Evidence[0].SourceID = "fabricated-source"
 		if err := domain.ValidateProject(project); err == nil {
 			t.Fatal("evidence without a canonical source must be rejected")
 		}
+
 		return
 	}
+
 	t.Fatal("test requires an evidence-bearing fixture")
 }

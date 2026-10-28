@@ -1,4 +1,6 @@
-.new-research, .button.primary, .play-button {
+.new-research,
+.button.primary,
+.play-button {
   background: var(--primary) !important;
   color: var(--on-primary) !important;
 }

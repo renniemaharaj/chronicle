@@ -10,21 +10,31 @@ export function watchWorkspace() {
     ws.connected = true;
     for (const project of projects) {
       const fingerprint = JSON.stringify(project);
-      if (versions.get(project.id) === fingerprint) continue;
+      if (versions.get(project.id) === fingerprint) {
+        continue;
+      }
+
       versions.set(project.id, fingerprint);
+
       const index = ws.projects.findIndex((item) => item.id === project.id);
       if (index < 0) {
         ws.projects.push(project);
-        if (!ws.hasProject) ws.open(project);
-        else ws.notify(`Research available in Library: ${project.title}`);
+        if (!ws.hasProject) {
+          ws.open(project);
+        } else {
+          ws.notify(`Research available in Library: ${project.title}`);
+        }
       } else {
         ws.projects[index] = project;
-        if (ws.project.id === project.id) ws.project = project;
+        if (ws.project.id === project.id) {
+          ws.project = project;
+        }
       }
     }
   };
   stream.onerror = () => {
     ws.connected = false;
   };
+
   return () => stream.close();
 }

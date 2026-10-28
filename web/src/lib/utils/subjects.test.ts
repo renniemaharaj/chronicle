@@ -11,8 +11,22 @@ function person(id: string, from?: number, to?: number): Entity {
     version: 1,
     attributes: {},
     time: {
-      start: from === undefined ? undefined : { year: from, precision: 'year', calendar: 'historical' },
-      end: to === undefined ? undefined : { year: to, precision: 'year', calendar: 'historical' },
+      start:
+        from === undefined
+          ? undefined
+          : {
+              year: from,
+              precision: 'year',
+              calendar: 'historical',
+            },
+      end:
+        to === undefined
+          ? undefined
+          : {
+              year: to,
+              precision: 'year',
+              calendar: 'historical',
+            },
     },
   };
 }

@@ -14,6 +14,7 @@ func (s *Server) assessMedia(ctx context.Context, project *domain.Project) {
 	if data, err := s.store.Get(ctx, "projects", project.ID); err == nil {
 		_ = json.Unmarshal(data, &canonical)
 	}
+
 	for index := range project.Sources {
 		source := &project.Sources[index]
 		source.Resources = nil
@@ -23,11 +24,13 @@ func (s *Server) assessMedia(ctx context.Context, project *domain.Project) {
 			source.Resources = capture.Source.Resources
 			continue
 		}
+
 		for _, existing := range canonical.Sources {
 			if existing.ID == source.ID && existing.URL == source.URL && existing.ContentHash == source.ContentHash {
 				source.Resources = existing.Resources
 			}
 		}
 	}
+
 	media.Assess(project)
 }

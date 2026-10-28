@@ -8,7 +8,8 @@
   align-items: center;
   gap: 6px;
   margin: 0 0 7px;
-  font: 600 var(--font-caption) Manrope,
+  font:
+    600 var(--font-caption) Manrope,
     sans-serif;
 }
 

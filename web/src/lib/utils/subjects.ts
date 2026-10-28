@@ -15,6 +15,7 @@ export function portraitFor(entity: Entity, project: Project) {
     (item) => item.entityId === entity.id && item.kind === 'image' && item.useAsAvatar && item.retrieved,
   );
   const address = asset?.url ?? String(entity.attributes.portrait ?? '');
+
   return {
     url: safeSourceURL(address),
     credit: asset
@@ -27,6 +28,7 @@ export function contemporary(entity: Entity, subject: Entity): 'overlap' | 'unkn
   if (entity.kind !== 'person') {
     return 'outside';
   }
+
   const a = knownYear(entity.time.start);
   const b = knownYear(subject.time.start);
   const endA = knownYear(entity.time.end);
@@ -34,15 +36,19 @@ export function contemporary(entity: Entity, subject: Entity): 'overlap' | 'unkn
   if (a !== undefined && endB !== undefined && a > endB + (subject.time.end?.uncertaintyYears ?? 0)) {
     return 'outside';
   }
+
   if (b !== undefined && endA !== undefined && b > endA + (entity.time.end?.uncertaintyYears ?? 0)) {
     return 'outside';
   }
+
   if (a === undefined || b === undefined) {
     return 'unknown';
   }
+
   if (endA === undefined && endB === undefined) {
     return 'unknown';
   }
+
   return 'overlap';
 }
 
@@ -52,5 +58,6 @@ export function entityDescription(entity: Entity, project: Project) {
       (item.fromId === project.subjectId && item.toId === entity.id) ||
       (item.toId === project.subjectId && item.fromId === entity.id),
   );
+
   return [...new Set(relationships.map((item) => item.kind.replaceAll('_', ' ')))].join(' · ');
 }

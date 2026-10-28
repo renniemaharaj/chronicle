@@ -4,7 +4,12 @@
   import type { MapCameraFrame } from '../../utils/story-geography';
   import { moveStoryCamera } from './story-camera';
 
-  let { map, library, frame, follow }: {
+  let {
+    map,
+    library,
+    frame,
+    follow,
+  }: {
     map?: Leaflet.Map;
     library?: typeof Leaflet;
     frame: MapCameraFrame;
@@ -16,11 +21,13 @@
     if (!map || !library) {
       return;
     }
+
     const instance = map;
     const L = library;
     if (!follow) {
       instance.stop();
       previousKey = '';
+
       return;
     }
 
@@ -32,7 +39,9 @@
     }
 
     const resize = () => moveStoryCamera(L, instance, frame, false);
+
     instance.on('resize', resize);
+
     return () => {
       instance.off('resize', resize);
     };

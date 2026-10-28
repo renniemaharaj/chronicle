@@ -12,12 +12,28 @@ export function reportMarkdown(project: Project): string {
     '',
   ];
   for (const chapter of project.chapters) {
-    lines.push(`## ${chapter.title}`, '', `${chapter.interpretation ? 'Interpretation: ' : ''}${chapter.summary}`, '');
+    lines.push(
+      `## ${chapter.title}`,
+      '',
+      `${chapter.interpretation ? 'Interpretation: ' : ''}${chapter.summary}`,
+      '',
+    );
   }
+
   lines.push('## Historical context', '');
   for (const period of project.contextPeriods ?? []) {
-    lines.push(`### ${period.title}`, '', `${period.scope}; ${intervalLabel(period.time)}`, '', period.summary, '', `Claims: ${period.claimIds.join(', ')}`, '');
+    lines.push(
+      `### ${period.title}`,
+      '',
+      `${period.scope}; ${intervalLabel(period.time)}`,
+      '',
+      period.summary,
+      '',
+      `Claims: ${period.claimIds.join(', ')}`,
+      '',
+    );
   }
+
   lines.push('## Chronology', '');
   for (const event of project.events) {
     lines.push(
@@ -36,8 +52,10 @@ export function reportMarkdown(project: Project): string {
         );
       }
     }
+
     lines.push('');
   }
+
   lines.push('## Competing claims', '');
   for (const conflict of project.conflicts) {
     lines.push(
@@ -53,20 +71,29 @@ export function reportMarkdown(project: Project): string {
       '',
     );
   }
+
   lines.push(...mediaMarkdown(project), '', '## Sources', '');
-  for (const source of project.sources)
+  for (const source of project.sources) {
     lines.push(
       `- [${source.title}](${source.url}) — ${source.author}; ${source.publisher}. ${source.classification}; retrieved ${source.retrievedAt}; independence group ${source.independenceGroup}.`,
     );
+  }
+
   lines.push(
     '',
     '## Coverage and limitations',
     '',
     ...project.coverage.map(
-      (period) => `- ${period.startYear}–${period.endYear}: ${period.status}. ${period.question}. ${period.notes}`,
+      (period) =>
+        `- ${period.startYear}–${period.endYear}: ${period.status}. ${period.question}. ${period.notes}`,
     ),
   );
-  lines.push('', '## Research annotations', '', ...project.notes.map((note) => `- ${note.targetId}: ${note.text}`));
+  lines.push(
+    '',
+    '## Research annotations',
+    '',
+    ...project.notes.map((note) => `- ${note.targetId}: ${note.text}`),
+  );
 
   return lines.join('\n');
 }

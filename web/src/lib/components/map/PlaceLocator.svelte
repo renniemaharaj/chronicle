@@ -23,12 +23,15 @@
     if (busy) {
       return;
     }
+
     busy = true;
     error = '';
     results = [];
     controller = new AbortController();
     try {
-      results = await request<PlaceResult[]>(`/places/search?q=${encodeURIComponent(query)}`, { signal: controller.signal });
+      results = await request<PlaceResult[]>(`/places/search?q=${encodeURIComponent(query)}`, {
+        signal: controller.signal,
+      });
       searched = true;
     } catch (cause) {
       if (!controller.signal.aborted) {
@@ -41,7 +44,9 @@
 
   async function choose(result: PlaceResult) {
     entity.attributes.mapLocation = {
-      ...result, provider: 'OpenStreetMap / Photon', retrievedAt: new Date().toISOString(),
+      ...result,
+      provider: 'OpenStreetMap / Photon',
+      retrievedAt: new Date().toISOString(),
     };
     entity.version++;
     await saveProject();
@@ -49,22 +54,69 @@
   }
 </script>
 
-<section class="place-locator" aria-label={`Locate ${entity.name}`}>
-  <header><strong>Locate {entity.name}</strong><Button icon aria-label="Close place search" onclick={onclose}><X size={16} /></Button></header>
+<section
+  class="place-locator"
+  aria-label={`Locate ${entity.name}`}
+>
+  <header>
+    <strong>Locate {entity.name}</strong>
+    <Button
+      icon
+      aria-label="Close place search"
+      onclick={onclose}
+    >
+      <X size={16} />
+    </Button>
+  </header>
   <p>Choose a modern map reference. Cities and regions use representative points.</p>
   <form onsubmit={search}>
     <Label for="place-query">Place name and country</Label>
     <div class="place-query-row">
-      <Input id="place-query" bind:value={query} required minlength={2} maxlength={200} />
-      <Button type="submit" variant="primary" disabled={busy}><Search size={15} />{busy ? 'Searching…' : 'Search'}</Button>
+      <Input
+        id="place-query"
+        bind:value={query}
+        required
+        minlength={2}
+        maxlength={200}
+      />
+      <Button
+        type="submit"
+        variant="primary"
+        disabled={busy}
+      >
+        <Search size={15} />{busy ? 'Searching…' : 'Search'}
+      </Button>
     </div>
   </form>
-  {#if error}<p role="alert">{error}</p>{/if}
-  {#if searched && !results.length && !busy}<p>No matches. Try a nearby city or a more specific name.</p>{/if}
+  {#if error}
+    <p role="alert">{error}</p>
+  {/if}
+  {#if searched && !results.length && !busy}
+    <p>No matches. Try a nearby city or a more specific name.</p>
+  {/if}
   <div class="place-results">
     {#each results as result}
-      <Button onclick={() => choose(result)}><strong>{result.label}</strong><small>{result.kind.replaceAll('_', ' ')} · Use this location</small></Button>
+      <Button onclick={() => choose(result)}>
+        <strong>{result.label}</strong>
+        <small>{result.kind.replaceAll('_', ' ')} · Use this location</small>
+      </Button>
     {/each}
   </div>
-  <small>Search: <a href="https://photon.komoot.io/" target="_blank" rel="noreferrer">Photon</a> · © <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noreferrer">OpenStreetMap contributors</a></small>
+  <small>
+    Search: <a
+      href="https://photon.komoot.io/"
+      target="_blank"
+      rel="noreferrer"
+    >
+      Photon
+    </a>
+    · ©
+    <a
+      href="https://www.openstreetmap.org/copyright"
+      target="_blank"
+      rel="noreferrer"
+    >
+      OpenStreetMap contributors
+    </a>
+  </small>
 </section>

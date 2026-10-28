@@ -14,7 +14,10 @@ export function conflictProjection(
     const linked = nodes.filter((node) =>
       claims.some((claim) => claim.eventId && node.data.eventIds.includes(claim.eventId)),
     );
-    if (!linked.length) continue;
+    if (!linked.length) {
+      continue;
+    }
+
     const active = options.activeClaims[conflict.id];
     for (const [index, claim] of claims.entries()) {
       const node = linked.find((node) => node.data.eventIds.includes(claim.eventId ?? '')) ?? linked[0];
@@ -28,13 +31,18 @@ export function conflictProjection(
         const known = project.events
           .map((event) => event.time.start?.year)
           .filter((year): year is number => year !== undefined);
-        if (eventYear !== undefined)
+        if (eventYear !== undefined) {
           x += ((alternativeYear - eventYear) * 1080) / Math.max(1, Math.max(...known) - Math.min(...known));
+        }
       }
+
       nodes.push({
         id,
         type: 'chronicle',
-        position: { x, y: parallel ? 720 + index * 105 : node.position.y - 95 - index * 12 },
+        position: {
+          x,
+          y: parallel ? 720 + index * 105 : node.position.y - 95 - index * 12,
+        },
         class: active === claim.id ? 'active-hypothesis' : 'shadow-hypothesis',
         data: {
           title: conflict.title + ` · ${index + 1}`,

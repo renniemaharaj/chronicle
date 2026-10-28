@@ -9,13 +9,26 @@
       .filter((event) => ids.includes(event.id))
       .flatMap((event) => [knownYear(event.time.start), knownYear(event.time.end)])
       .filter((year): year is number => year !== undefined);
-    const label = (year: number) => dateLabel({ year, precision: 'year', calendar: 'historical' });
+
+    const label = (year: number) =>
+      dateLabel({
+        year,
+        precision: 'year',
+        calendar: 'historical',
+      });
+
     return years.length ? `${label(Math.min(...years))}–${label(Math.max(...years))}` : 'Dates unknown';
   }
 </script>
 
-<nav class="phase-ruler" aria-label="Story chapters">
-  <div class="phase-bars" style={`--chapters: ${Math.max(1, ws.project.chapters.length)}`}>
+<nav
+  class="phase-ruler"
+  aria-label="Story chapters"
+>
+  <div
+    class="phase-bars"
+    style={`--chapters: ${Math.max(1, ws.project.chapters.length)}`}
+  >
     {#each ws.project.chapters as chapter, index}
       {@const range = chapterRange(chapter.eventIds)}
       <Button
@@ -26,7 +39,8 @@
         title={`${chapter.title} · ${range}`}
         onclick={() => focusChapter(ws, chapter.id)}
       >
-        <span>{chapter.title}</span><small>{range}</small>
+        <span>{chapter.title}</span>
+        <small>{range}</small>
       </Button>
     {/each}
   </div>

@@ -24,29 +24,36 @@ func Structured[T any](ctx context.Context, model Model, instruction, input stri
 	if err != nil {
 		return result, err
 	}
+
 	encoded, err := json.Marshal(schema)
 	if err != nil {
 		return result, err
 	}
+
 	raw, err := model.Complete(ctx, ResearchInstructions+"\n"+instruction+"\nOutput JSON Schema:\n"+string(encoded), input)
 	if err != nil {
 		return result, err
 	}
+
 	var value any
 	if err := json.Unmarshal(raw, &value); err != nil {
 		return result, err
 	}
+
 	resolved, err := schema.Resolve(nil)
 	if err != nil {
 		return result, err
 	}
+
 	if err := resolved.Validate(value); err != nil {
 		return result, fmt.Errorf("structured output validation: %w", err)
 	}
+
 	decoder := json.NewDecoder(bytes.NewReader(raw))
 	decoder.DisallowUnknownFields()
 	if err := decoder.Decode(&result); err != nil {
 		return result, err
 	}
+
 	return result, nil
 }

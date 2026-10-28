@@ -10,7 +10,16 @@ function place(id: string, longitude?: number): Entity {
     kind: 'place',
     summary: 'Test location, not historical evidence.',
     time: {},
-    attributes: longitude === undefined ? {} : { mapLocation: { latitude: 10, longitude, kind: 'city' } },
+    attributes:
+      longitude === undefined
+        ? {}
+        : {
+            mapLocation: {
+              latitude: 10,
+              longitude,
+              kind: 'city',
+            },
+          },
     version: 1,
   };
 }
@@ -50,6 +59,7 @@ describe('story geography', () => {
   it('frames multiple locations together and discloses incomplete coordinates', () => {
     const p = project();
     p.events[0].locationIds = ['here', 'there', 'unmapped'];
+
     const context = storyGeography(p, p.events[0], p.events);
     expect(context.frame.places).toHaveLength(2);
     expect(context.names).toHaveLength(3);
@@ -58,14 +68,17 @@ describe('story geography', () => {
 
   it('uses only the active chapter for an unknown-location overview', () => {
     const p = project();
-    p.chapters = [{
-      id: 'context',
-      title: 'Synthetic chapter',
-      eventIds: ['first', 'third'],
-      summary: '',
-      claimIds: [],
-      interpretation: true,
-    }];
+    p.chapters = [
+      {
+        id: 'context',
+        title: 'Synthetic chapter',
+        eventIds: ['first', 'third'],
+        summary: '',
+        claimIds: [],
+        interpretation: true,
+      },
+    ];
+
     const context = storyGeography(p, p.events[2], p.events);
     expect(context.frame.overview).toBe(true);
     expect(context.frame.places.map((item) => item.entity.id)).toEqual(['here']);
@@ -76,6 +89,7 @@ describe('story geography', () => {
   it('retains unmapped place names without reusing the previous event location', () => {
     const p = project();
     p.events[2].locationIds = ['unmapped'];
+
     const context = storyGeography(p, p.events[2], p.events);
     expect(context.frame.overview).toBe(true);
     expect(context.names).toEqual(['Synthetic unmapped']);
@@ -85,9 +99,11 @@ describe('story geography', () => {
   it('keeps camera identity stable across passages at the same places', () => {
     const p = project();
     p.events[1].locationIds = ['here'];
+
     const first = storyGeography(p, p.events[0], p.events);
     const second = storyGeography(p, p.events[1], p.events);
     expect(first.frame.key).toBe(second.frame.key);
+
     const overview = storyGeography(p, undefined, []);
     expect(overview.frame.places).toEqual([]);
   });

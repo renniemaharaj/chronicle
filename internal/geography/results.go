@@ -40,26 +40,39 @@ func decodeResults(reader io.Reader) ([]Result, error) {
 	}
 
 	results := []Result{}
+
 	for _, item := range body.Features {
 		coordinates := item.Geometry.Coordinates
 		if len(coordinates) < 2 || math.Abs(coordinates[0]) > 180 || math.Abs(coordinates[1]) > 90 {
 			continue
 		}
+
 		properties := item.Properties
 		parts := []string{}
+
 		for _, part := range []string{properties.Name, properties.City, properties.State, properties.Country} {
 			if part != "" && (len(parts) == 0 || parts[len(parts)-1] != part) {
 				parts = append(parts, part)
 			}
 		}
-		kind := map[string]string{"N": "node", "W": "way", "R": "relation"}[properties.OSMType]
+
+		kind := map[string]string{
+			"N": "node",
+			"W": "way",
+			"R": "relation",
+		}[properties.OSMType]
 		if kind == "" || properties.OSMID <= 0 || len(parts) == 0 {
 			continue
 		}
+
 		results = append(results, Result{
-			Latitude: coordinates[1], Longitude: coordinates[0], Label: strings.Join(parts, ", "),
-			SourceURL: fmt.Sprintf("https://www.openstreetmap.org/%s/%d", kind, properties.OSMID), Kind: properties.OSMValue,
+			Latitude:  coordinates[1],
+			Longitude: coordinates[0],
+			Label:     strings.Join(parts, ", "),
+			SourceURL: fmt.Sprintf("https://www.openstreetmap.org/%s/%d", kind, properties.OSMID),
+			Kind:      properties.OSMValue,
 		})
 	}
+
 	return results, nil
 }

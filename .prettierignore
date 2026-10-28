@@ -1,0 +1,10 @@
+node_modules
+web/node_modules
+.chronicle
+web/build
+web/.svelte-kit
+web/test-results
+web/playwright-report
+**/package-lock.json
+internal/fixtures/*.json
+config/local.json

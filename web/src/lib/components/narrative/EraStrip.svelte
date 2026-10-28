@@ -14,7 +14,8 @@
       ws.dialog = 'Historical context';
     }}
   >
-    <Clock3 size={15} /><span>Era & setting</span>
+    <Clock3 size={15} />
+    <span>Era & setting</span>
     <strong>{context?.title ?? 'Context not yet researched'}</strong>
   </Button>
 {/if}

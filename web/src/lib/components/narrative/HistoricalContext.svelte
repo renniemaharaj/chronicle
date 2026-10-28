@@ -10,7 +10,10 @@
   <div class="historical-context">
     {#each contexts as context}
       <details>
-        <summary><strong>{context.title}</strong><span>{context.scope} · {intervalLabel(context.time)}</span></summary>
+        <summary>
+          <strong>{context.title}</strong>
+          <span>{context.scope} · {intervalLabel(context.time)}</span>
+        </summary>
         <p>{contextText(ws.project, context)}</p>
         <ContextEvidence claimIds={context.claimIds} />
       </details>

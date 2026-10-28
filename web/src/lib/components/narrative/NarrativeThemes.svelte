@@ -10,7 +10,9 @@
       onclick={() => {
         const event = ws.project.events.find((item) => item.kind === kind);
         if (event) ws.select(event.id);
-      }}>{kind} · {ws.project.events.filter((event) => event.kind === kind).length}</Button
+      }}
     >
+      {kind} · {ws.project.events.filter((event) => event.kind === kind).length}
+    </Button>
   {/each}
 </details>

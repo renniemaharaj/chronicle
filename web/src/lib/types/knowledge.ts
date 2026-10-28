@@ -37,7 +37,8 @@ export interface Relationship {
   claimIds: string[];
 }
 
-export type Assessment = 'corroborated' | 'supported_limited' | 'disputed' | 'unverified' | 'rejected_superseded';
+export type Assessment =
+  'corroborated' | 'supported_limited' | 'disputed' | 'unverified' | 'rejected_superseded';
 
 export interface Claim {
   id: string;

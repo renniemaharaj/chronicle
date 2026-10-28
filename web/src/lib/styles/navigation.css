@@ -54,5 +54,5 @@
   color: white;
   border-color: var(--line-strong);
   background: linear-gradient(90deg, var(--blue), var(--blue-soft));
-  box-shadow: inset 3px 0 rgb(var(--shadow-rgb) / 0.30);
+  box-shadow: inset 3px 0 rgb(var(--shadow-rgb) / 0.3);
 }

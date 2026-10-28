@@ -29,5 +29,7 @@
         failed = portrait.url ?? '';
       }}
     />
-  {:else}<span aria-label={`${entity.name}, image unavailable`}>{initials}</span>{/if}
+  {:else}
+    <span aria-label={`${entity.name}, image unavailable`}>{initials}</span>
+  {/if}
 </span>

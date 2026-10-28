@@ -6,12 +6,19 @@
   import { saveProject } from '../../state/persistence';
   let note = $state('');
 
-  const locations = $derived(ws.project.entities.filter((entity) => ws.event?.locationIds.includes(entity.id)));
-  const participants = $derived(ws.project.entities.filter((entity) => ws.event?.participants.includes(entity.id)));
+  const locations = $derived(
+    ws.project.entities.filter((entity) => ws.event?.locationIds.includes(entity.id)),
+  );
+  const participants = $derived(
+    ws.project.entities.filter((entity) => ws.event?.participants.includes(entity.id)),
+  );
   const notes = $derived(ws.project.notes.filter((item) => item.targetId === ws.selectedId));
 
   async function addNote() {
-    if (!note.trim()) return;
+    if (!note.trim()) {
+      return;
+    }
+
     ws.project.notes.push({
       id: crypto.randomUUID(),
       targetId: ws.selectedId,
@@ -38,16 +45,21 @@
     <div>
       <dt>Participants</dt>
       <dd class="participant-list">
-        {#each participants.slice(0, 4) as entity}<Button onclick={() => ws.select(entity.id, 'entity')}
-            ><span class="mini-avatar">{entity.name.slice(0, 1)}</span>{entity.name}</Button
-          >{/each}
+        {#each participants.slice(0, 4) as entity}
+          <Button onclick={() => ws.select(entity.id, 'entity')}>
+            <span class="mini-avatar">{entity.name.slice(0, 1)}</span>
+            {entity.name}
+          </Button>
+        {/each}
       </dd>
     </div>
   {/if}
-  {#if locations.length}<div>
+  {#if locations.length}
+    <div>
       <dt>Location</dt>
       <dd>{locations.map((entity) => entity.name).join(', ')}</dd>
-    </div>{/if}
+    </div>
+  {/if}
   <div>
     <dt>Assessment</dt>
     <dd>
@@ -65,16 +77,30 @@
       addNote();
     }}
   >
-    <Input aria-label="Research note" bind:value={note} placeholder="Add a research note..." />
-    <Button type="submit" aria-label="Save research note" disabled={!note.trim()}><BookmarkPlus size={14} /></Button>
+    <Input
+      aria-label="Research note"
+      bind:value={note}
+      placeholder="Add a research note..."
+    />
+    <Button
+      type="submit"
+      aria-label="Save research note"
+      disabled={!note.trim()}
+    >
+      <BookmarkPlus size={14} />
+    </Button>
   </form>
-  {#each notes as item}<p>
+  {#each notes as item}
+    <p>
       {item.text}<Button
         aria-label="Delete note"
         onclick={() => {
           ws.project.notes = ws.project.notes.filter((note) => note.id !== item.id);
           saveProject();
-        }}>×</Button
+        }}
       >
-    </p>{/each}
+        ×
+      </Button>
+    </p>
+  {/each}
 </div>

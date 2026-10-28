@@ -6,7 +6,10 @@
   import { projectGraph } from '../../graph/projector';
   import type { CardData } from '../../graph/types';
 
-  let { onselect, chapterId }: {
+  let {
+    onselect,
+    chapterId,
+  }: {
     onselect?: (node: Node<CardData>) => void;
     chapterId?: string;
   } = $props();
@@ -38,25 +41,49 @@
   function select(node: Node<CardData>) {
     if (onselect) {
       onselect(node);
+
       return;
     }
+
     if (node.data.recordType === 'conflict') {
       ws.inspectorTab = 'Conflicts';
       ws.rightOpen = true;
+
       return;
     }
+
     ws.select(node.data.recordId, node.data.recordType);
-    if (node.data.recordType === 'evidence') ws.inspectorTab = 'Sources';
+    if (node.data.recordType === 'evidence') {
+      ws.inspectorTab = 'Sources';
+    }
   }
 </script>
 
-<div class="graph-canvas" aria-label="Temporal knowledge graph">
+<div
+  class="graph-canvas"
+  aria-label="Temporal knowledge graph"
+>
   <div class="graph-legend">
-    <div><i class="legend-dot blue-dot"></i>Life events</div>
-    <div><i class="legend-dot orange-dot"></i>People</div>
-    <div><i class="legend-dot green-dot"></i>Places</div>
-    <div><i class="legend-dot gold-dot"></i>Works & ideas</div>
-    <div><i class="legend-dot violet-dot"></i>Institutions</div>
+    <div>
+      <i class="legend-dot blue-dot"></i>
+      Life events
+    </div>
+    <div>
+      <i class="legend-dot orange-dot"></i>
+      People
+    </div>
+    <div>
+      <i class="legend-dot green-dot"></i>
+      Places
+    </div>
+    <div>
+      <i class="legend-dot gold-dot"></i>
+      Works & ideas
+    </div>
+    <div>
+      <i class="legend-dot violet-dot"></i>
+      Institutions
+    </div>
   </div>
   <GraphCamera nodes={projection.nodes} />
   <SvelteFlow
@@ -77,7 +104,11 @@
       for (const node of moved) ws.project.layout[node.id] = node.position;
     }}
   >
-    <Background patternColor={ws.dark ? '#273347' : '#c6d1de'} gap={24} size={0.7} />
+    <Background
+      patternColor={ws.dark ? '#273347' : '#c6d1de'}
+      gap={24}
+      size={0.7}
+    />
     <Controls
       position="bottom-right"
       buttonBgColor="var(--surface-raised)"
@@ -104,7 +135,9 @@
               : 'var(--blue)'}
     />
   </SvelteFlow>
-  {#if projection.hidden}<div class="graph-limit">
+  {#if projection.hidden}
+    <div class="graph-limit">
       {projection.hidden} nodes outside display budget. Narrow the period.
-    </div>{/if}
+    </div>
+  {/if}
 </div>

@@ -2,18 +2,31 @@ import type { Edge, Node } from '@xyflow/svelte';
 import type { Project } from '../types/project';
 import type { CardData, ProjectionOptions } from './types';
 
-export function projectDetails(project: Project, nodes: Node<CardData>[], edges: Edge[], options: ProjectionOptions) {
+export function projectDetails(
+  project: Project,
+  nodes: Node<CardData>[],
+  edges: Edge[],
+  options: ProjectionOptions,
+) {
   const detailed = ['Quarter', 'Month', 'Week', 'Day', 'Event'];
-  if (!detailed.includes(options.resolution)) return;
+  if (!detailed.includes(options.resolution)) {
+    return;
+  }
+
   const events = [...nodes].filter((node) => node.data.recordType === 'event').slice(0, 12);
   for (const event of events) {
-    const claims = project.claims.filter((claim) => event.data.eventIds.includes(claim.eventId ?? '')).slice(0, 3);
+    const claims = project.claims
+      .filter((claim) => event.data.eventIds.includes(claim.eventId ?? ''))
+      .slice(0, 3);
     for (const [index, claim] of claims.entries()) {
       const id = `claim:${claim.id}`;
       nodes.push({
         id,
         type: 'chronicle',
-        position: { x: event.position.x + 20, y: event.position.y + 135 + index * 100 },
+        position: {
+          x: event.position.x + 20,
+          y: event.position.y + 135 + index * 100,
+        },
         data: {
           title: claim.text,
           detail: claim.assessment.join(' '),
@@ -34,7 +47,10 @@ export function projectDetails(project: Project, nodes: Node<CardData>[], edges:
         class: 'relationship-edge',
         label: options.labels ? 'assertion' : undefined,
       });
-      if (!['Day', 'Event'].includes(options.resolution)) continue;
+      if (!['Day', 'Event'].includes(options.resolution)) {
+        continue;
+      }
+
       for (const [sourceIndex, evidence] of project.evidence
         .filter((item) => item.claimId === claim.id)
         .slice(0, 2)
@@ -42,9 +58,13 @@ export function projectDetails(project: Project, nodes: Node<CardData>[], edges:
         nodes.push({
           id: `evidence:${evidence.id}`,
           type: 'chronicle',
-          position: { x: event.position.x + 200 + sourceIndex * 175, y: event.position.y + 135 + index * 100 },
+          position: {
+            x: event.position.x + 200 + sourceIndex * 175,
+            y: event.position.y + 135 + index * 100,
+          },
           data: {
-            title: project.sources.find((source) => source.id === evidence.sourceId)?.title ?? 'Source missing',
+            title:
+              project.sources.find((source) => source.id === evidence.sourceId)?.title ?? 'Source missing',
             detail: evidence.excerpt,
             year: evidence.location,
             kind: 'Evidence',

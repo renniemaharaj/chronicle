@@ -21,10 +21,14 @@
   const chapter = $derived(section?.chapter);
   const chapterIndex = $derived(outline.findIndex((item) => item.chapter.id === chapter?.id));
   const places = $derived(ws.project.entities.filter((place) => event?.locationIds.includes(place.id)));
-  const alternative = $derived(ws.project.claims.find((claim) =>
-    claim.eventId === event?.id && Object.values(ws.activeClaims).includes(claim.id),
-  ));
-  const claimIds = $derived(alternative ? [alternative.id] : event?.narration?.claimIds ?? event?.claimIds ?? []);
+  const alternative = $derived(
+    ws.project.claims.find(
+      (claim) => claim.eventId === event?.id && Object.values(ws.activeClaims).includes(claim.id),
+    ),
+  );
+  const claimIds = $derived(
+    alternative ? [alternative.id] : (event?.narration?.claimIds ?? event?.claimIds ?? []),
+  );
 
   $effect(() => {
     const id = event?.id;
@@ -36,22 +40,34 @@
   });
 </script>
 
-<article class="story-reading" aria-label="Current story passage" bind:this={reading}>
+<article
+  class="story-reading"
+  aria-label="Current story passage"
+  bind:this={reading}
+>
   {#if event}
-    <div class="story-reading-kicker">{chapter ? `Chapter ${chapterIndex + 1} of ${outline.length}` : 'Story passage'}</div>
-    {#if chapter}<div class="story-reading-chapter">{chapter.title}</div>{/if}
+    <div class="story-reading-kicker">
+      {chapter ? `Chapter ${chapterIndex + 1} of ${outline.length}` : 'Story passage'}
+    </div>
+    {#if chapter}
+      <div class="story-reading-chapter">{chapter.title}</div>
+    {/if}
     <h1>{event.title}</h1>
     <p class="story-reading-date">{intervalLabel(event.time)}</p>
     <div class="story-reading-tags">
       <span>{event.kind}</span>
-      {#each places.slice(0, 2) as place}<span><MapPin size={11} />{place.name}</span>{/each}
+      {#each places.slice(0, 2) as place}
+        <span><MapPin size={11} />{place.name}</span>
+      {/each}
     </div>
     {#if alternative || event.narration?.interpretation}
       <span class="story-interpretation">Historical interpretation</span>
     {/if}
     {#each paragraphs as paragraph, index}
       <p class="story-passage">{paragraph}</p>
-      {#if index === 0}<StoryEventImage {event} />{/if}
+      {#if index === 0}
+        <StoryEventImage {event} />
+      {/if}
     {/each}
     <details class="story-provenance">
       <summary>Story evidence</summary>
@@ -59,8 +75,17 @@
     </details>
     <HistoricalContext />
     <footer class="story-reading-footer">
-      <Button onclick={() => { storyView.scene = 'Timeline'; }}><List size={15} />View on timeline</Button>
-      <small>{section?.events.length ?? 1} {section ? 'events in this chapter' : 'event in this passage'}</small>
+      <Button
+        onclick={() => {
+          storyView.scene = 'Timeline';
+        }}
+      >
+        <List size={15} />View on timeline
+      </Button>
+      <small>
+        {section?.events.length ?? 1}
+        {section ? 'events in this chapter' : 'event in this passage'}
+      </small>
     </footer>
   {:else}
     <h1>No story events yet</h1>

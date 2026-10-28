@@ -8,7 +8,10 @@
   const places = $derived(ws.project.entities.filter((entity) => entity.kind === 'place'));
 </script>
 
-<div class="story-sidebar-section-heading"><h2>Story places</h2><span>{places.length}</span></div>
+<div class="story-sidebar-section-heading">
+  <h2>Story places</h2>
+  <span>{places.length}</span>
+</div>
 <div class="story-sidebar-records">
   {#each places as place}
     {@const events = ws.orderedEvents.filter((event) => event.locationIds.includes(place.id))}
@@ -25,7 +28,9 @@
       <MapPin size={18} />
       <span>
         <strong>{place.name}</strong>
-        <small>{events.length} passages · {mapLocation(place) ? 'Map reference saved' : 'Map reference missing'}</small>
+        <small>
+          {events.length} passages · {mapLocation(place) ? 'Map reference saved' : 'Map reference missing'}
+        </small>
       </span>
     </Button>
   {:else}

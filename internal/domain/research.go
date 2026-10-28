@@ -52,9 +52,19 @@ type ResearchRun struct {
 
 func EmptyProject(id, title string) Project {
 	return Project{
-		FormatVersion: 1, ID: id, Title: title,
-		Entities: []Entity{}, Events: []Event{}, Relationships: []Relationship{},
-		Claims: []Claim{}, Sources: []Source{}, Evidence: []Evidence{}, Conflicts: []Conflict{},
-		Narrative: Narrative{Chapters: []Chapter{}}, Coverage: []Coverage{}, Notes: []Note{}, Layout: map[string]Position{},
+		FormatVersion: 1,
+		ID:            id,
+		Title:         title,
+		Entities:      []Entity{},
+		Events:        []Event{},
+		Relationships: []Relationship{},
+		Claims:        []Claim{},
+		Sources:       []Source{},
+		Evidence:      []Evidence{},
+		Conflicts:     []Conflict{},
+		Narrative:     Narrative{Chapters: []Chapter{}},
+		Coverage:      []Coverage{},
+		Notes:         []Note{},
+		Layout:        map[string]Position{},
 	}
 }

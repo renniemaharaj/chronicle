@@ -34,7 +34,11 @@
 
 .story-chapter-row.current {
   border-left-color: var(--primary);
-  background: linear-gradient(90deg, var(--blue-soft), color-mix(in srgb, var(--blue-soft) 45%, var(--surface)));
+  background: linear-gradient(
+    90deg,
+    var(--blue-soft),
+    color-mix(in srgb, var(--blue-soft) 45%, var(--surface))
+  );
 }
 
 .story-chapter-number {

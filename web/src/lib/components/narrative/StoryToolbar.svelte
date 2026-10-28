@@ -13,20 +13,33 @@
   <Button
     onclick={() => {
       ws.dialog = 'Voice & playback';
-    }}><Volume2 size={16} /> Voice & playback</Button
+    }}
   >
+    <Volume2 size={16} /> Voice & playback
+  </Button>
   <Label><Checkbox bind:checked={ws.followChapter} /> Follow chapter</Label>
   <Button
     onclick={() => {
       ws.followChapter = false;
       showAllHistory(ws);
-    }}>All history</Button
+    }}
   >
+    All history
+  </Button>
   <Button
     onclick={() => {
       ws.dialog = 'Story';
-    }}>Read all stories</Button
+    }}
   >
+    Read all stories
+  </Button>
   <span aria-live="polite">{speech.status}</span>
 </div>
-{#if speech.error}<p class="speech-error" role="alert">{speech.error}</p>{/if}
+{#if speech.error}
+  <p
+    class="speech-error"
+    role="alert"
+  >
+    {speech.error}
+  </p>
+{/if}

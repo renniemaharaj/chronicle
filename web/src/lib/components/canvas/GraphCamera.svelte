@@ -13,8 +13,20 @@
     if (token === previousFit) {
       return;
     }
+
     previousFit = token;
-    const timer = setTimeout(() => flow.fitView({ padding: 0.12, duration: 350, minZoom: 0.05, maxZoom: 1 }), 80);
+
+    const timer = setTimeout(
+      () =>
+        flow.fitView({
+          padding: 0.12,
+          duration: 350,
+          minZoom: 0.05,
+          maxZoom: 1,
+        }),
+      80,
+    );
+
     return () => clearTimeout(timer);
   });
 
@@ -30,6 +42,7 @@
       if (cancelled) {
         return;
       }
+
       const visible = untrack(() => nodes);
       const target =
         visible.find((node) => node.data.recordId === id || node.data.eventIds.includes(id)) ??
@@ -38,12 +51,18 @@
       if (!target) {
         return;
       }
+
       const zoom = flow.getZoom();
       await flow.setViewport(
-        { x: 165 - target.position.x * zoom, y: 35 - target.position.y * zoom, zoom },
+        {
+          x: 165 - target.position.x * zoom,
+          y: 35 - target.position.y * zoom,
+          zoom,
+        },
         { duration: 350 },
       );
     }, 100);
+
     return () => {
       cancelled = true;
       clearTimeout(timer);

@@ -17,6 +17,7 @@ func saveProjectRows(ctx context.Context, tx *sql.Tx, p domain.Project) error {
 			return err
 		}
 	}
+
 	for _, source := range p.Sources {
 		published, _ := json.Marshal(source.PublishedAt)
 		metadata, _ := json.Marshal(source)
@@ -26,6 +27,7 @@ func saveProjectRows(ctx context.Context, tx *sql.Tx, p domain.Project) error {
 			return err
 		}
 	}
+
 	for _, event := range p.Events {
 		when, _ := json.Marshal(event.Time)
 		attributes, _ := json.Marshal(event)
@@ -34,12 +36,14 @@ func saveProjectRows(ctx context.Context, tx *sql.Tx, p domain.Project) error {
 		if err != nil {
 			return err
 		}
+
 		for _, id := range event.Participants {
 			if _, err := tx.ExecContext(ctx, `INSERT INTO event_participants(event_id,entity_id) VALUES($1,$2) ON CONFLICT DO NOTHING`, event.ID, id); err != nil {
 				return err
 			}
 		}
 	}
+
 	for _, claim := range p.Claims {
 		data, _ := json.Marshal(claim)
 		_, err := tx.ExecContext(ctx, `INSERT INTO claims(id,text,status,event_id,attributes) VALUES($1,$2,$3,NULLIF($4,''),$5)
@@ -48,6 +52,7 @@ func saveProjectRows(ctx context.Context, tx *sql.Tx, p domain.Project) error {
 			return err
 		}
 	}
+
 	for _, item := range p.Evidence {
 		metadata, _ := json.Marshal(item)
 		_, err := tx.ExecContext(ctx, `INSERT INTO evidence(id,claim_id,source_id,relation,excerpt,location,metadata) VALUES($1,$2,$3,$4,$5,$6,$7)
@@ -56,6 +61,7 @@ func saveProjectRows(ctx context.Context, tx *sql.Tx, p domain.Project) error {
 			return err
 		}
 	}
+
 	return saveRelationshipRows(ctx, tx, p)
 }
 
@@ -70,6 +76,7 @@ func saveRelationshipRows(ctx context.Context, tx *sql.Tx, p domain.Project) err
 			return err
 		}
 	}
+
 	for _, conflict := range p.Conflicts {
 		metadata, _ := json.Marshal(conflict)
 		_, err := tx.ExecContext(ctx, `INSERT INTO conflicts(id,subject,disagreement,metadata) VALUES($1,$2,$3,$4)
@@ -77,11 +84,13 @@ func saveRelationshipRows(ctx context.Context, tx *sql.Tx, p domain.Project) err
 		if err != nil {
 			return err
 		}
+
 		for _, id := range conflict.ClaimIDs {
 			if _, err := tx.ExecContext(ctx, `INSERT INTO conflict_claims(conflict_id,claim_id) VALUES($1,$2) ON CONFLICT DO NOTHING`, conflict.ID, id); err != nil {
 				return err
 			}
 		}
 	}
+
 	return saveNarrativeRows(ctx, tx, p)
 }

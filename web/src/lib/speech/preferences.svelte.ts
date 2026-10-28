@@ -13,6 +13,7 @@ class SpeechPreferences {
       if (['browser', 'google', 'screen'].includes(saved.provider)) {
         this.provider = saved.provider;
       }
+
       this.voice = typeof saved.voice === 'string' ? saved.voice : '';
       this.language = typeof saved.language === 'string' ? saved.language : 'en-US';
     } catch {

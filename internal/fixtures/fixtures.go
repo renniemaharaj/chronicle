@@ -15,23 +15,30 @@ func Projects() ([]domain.Project, error) {
 	if err != nil {
 		return nil, err
 	}
+
 	projects := []domain.Project{}
+
 	for _, entry := range entries {
 		if entry.IsDir() {
 			continue
 		}
+
 		data, err := files.ReadFile(entry.Name())
 		if err != nil {
 			return nil, err
 		}
+
 		var project domain.Project
 		if err := json.Unmarshal(data, &project); err != nil {
 			return nil, err
 		}
+
 		if err := domain.ValidateProject(project); err != nil {
 			return nil, err
 		}
+
 		projects = append(projects, project)
 	}
+
 	return projects, nil
 }

@@ -17,26 +17,36 @@ export function exportProject(project: Project, format: string) {
   let text = '';
   let extension = 'json';
   let type = 'application/json';
-  if (format === 'Project JSON') text = JSON.stringify(project, null, 2);
+  if (format === 'Project JSON') {
+    text = JSON.stringify(project, null, 2);
+  }
+
   if (format === 'Markdown report') {
     text = reportMarkdown(project);
     extension = 'md';
     type = 'text/markdown';
   }
+
   if (format === 'HTML report' || format === 'PDF report') {
     text = reportHTML(project);
     extension = 'html';
     type = 'text/html';
   }
+
   if (format === 'PDF report') {
     const print = window.open('', '_blank');
-    if (!print) throw new Error('Allow a new window to print this report to PDF.');
+    if (!print) {
+      throw new Error('Allow a new window to print this report to PDF.');
+    }
+
     print.document.write(text);
     print.document.close();
     print.focus();
     print.print();
+
     return;
   }
+
   if (format === 'Event CSV') {
     const rows = [
       [
@@ -68,17 +78,21 @@ export function exportProject(project: Project, format: string) {
         JSON.stringify(event.time),
         project.sources
           .filter((source) =>
-            project.evidence.some((item) => item.sourceId === source.id && event.claimIds.includes(item.claimId)),
+            project.evidence.some(
+              (item) => item.sourceId === source.id && event.claimIds.includes(item.claimId),
+            ),
           )
           .map((source) => source.url)
           .join(';'),
       ]);
     }
+
     text = rows.map((row) => row.map((cell) => `"${cell.replaceAll('"', '""')}"`).join(',')).join('\n');
     extension = 'csv';
     type = 'text/csv';
   }
-  if (format === 'Graph JSON')
+
+  if (format === 'Graph JSON') {
     text = JSON.stringify(
       {
         formatVersion: 1,
@@ -93,6 +107,8 @@ export function exportProject(project: Project, format: string) {
       null,
       2,
     );
+  }
+
   if (format === 'Bibliography') {
     text = project.sources
       .map(
@@ -103,6 +119,7 @@ export function exportProject(project: Project, format: string) {
     extension = 'txt';
     type = 'text/plain';
   }
+
   if (format === 'Conflict report') {
     const claims = project.claims.filter((claim) =>
       project.conflicts.some((conflict) => conflict.claimIds.includes(claim.id)),
@@ -113,7 +130,9 @@ export function exportProject(project: Project, format: string) {
         project: project.title,
         conflicts: project.conflicts,
         claims,
-        evidence: project.evidence.filter((evidence) => claims.some((claim) => claim.id === evidence.claimId)),
+        evidence: project.evidence.filter((evidence) =>
+          claims.some((claim) => claim.id === evidence.claimId),
+        ),
         sources: project.sources,
       },
       null,

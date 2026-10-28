@@ -14,7 +14,8 @@
   position: absolute;
   text-align: center;
   color: var(--gold);
-  font: var(--font-body) Georgia,
+  font:
+    var(--font-body) Georgia,
     serif;
   line-height: 1.6;
 }
@@ -43,7 +44,8 @@
 .selection-banner span {
   min-width: 0;
   overflow-wrap: anywhere;
-  font: 600 var(--font-heading) Manrope,
+  font:
+    600 var(--font-heading) Manrope,
     sans-serif;
 }
 

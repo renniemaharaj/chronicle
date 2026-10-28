@@ -20,8 +20,11 @@
     if (!active) {
       return;
     }
+
     const offset = active.getBoundingClientRect().left - container.getBoundingClientRect().left;
-    container.scrollTo({ left: container.scrollLeft + offset - container.clientWidth / 2 + active.offsetWidth / 2 });
+    container.scrollTo({
+      left: container.scrollLeft + offset - container.clientWidth / 2 + active.offsetWidth / 2,
+    });
   }
 
   onMount(() => {
@@ -31,6 +34,7 @@
     });
     resize.observe(chapters);
     resize.observe(cards);
+
     return () => resize.disconnect();
   });
 
@@ -53,8 +57,15 @@
   });
 </script>
 
-<section class="story-timeline" aria-label="Story event navigation">
-  <nav class="story-track-chapters" aria-label="Story timeline chapters" bind:this={chapters}>
+<section
+  class="story-timeline"
+  aria-label="Story event navigation"
+>
+  <nav
+    class="story-track-chapters"
+    aria-label="Story timeline chapters"
+    bind:this={chapters}
+  >
     {#each outline as item, index}
       <Button
         class="story-track-chapter"
@@ -75,7 +86,10 @@
       <span>{chapter ? 'in this chapter' : 'in this story'}</span>
       <small>{events.length} total</small>
     </div>
-    <div class="story-event-cards" bind:this={cards}>
+    <div
+      class="story-event-cards"
+      bind:this={cards}
+    >
       {#each nearby as event (event.id)}
         <Button
           class="story-event-card"
@@ -85,7 +99,10 @@
           onclick={() => ws.select(event.id)}
         >
           <StoryThumbnail events={[event]} />
-          <span><strong>{event.title}</strong><small>{intervalLabel(event.time)}</small></span>
+          <span>
+            <strong>{event.title}</strong>
+            <small>{intervalLabel(event.time)}</small>
+          </span>
         </Button>
       {/each}
     </div>

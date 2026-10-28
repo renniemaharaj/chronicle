@@ -34,6 +34,7 @@ export function aggregate(events: HistoricalEvent[], resolution: Resolution): Ev
     const known = years.filter((year): year is number => year !== undefined);
     const start = known.length ? Math.min(...known) : NaN;
     const end = known.length ? Math.max(...known) : NaN;
+
     return {
       id,
       title: members.length > 1 ? members[0].phase || 'Historical developments' : members[0].title,

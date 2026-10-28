@@ -9,7 +9,8 @@
 
 .dialog-header h2 {
   margin: 6px 0 0;
-  font: 700 var(--font-title) Manrope,
+  font:
+    700 var(--font-title) Manrope,
     sans-serif;
 }
 

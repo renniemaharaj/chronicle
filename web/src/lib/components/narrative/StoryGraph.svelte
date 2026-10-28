@@ -9,9 +9,12 @@
   const chapterId = $derived(activeStoryChapter(outline, ws.selectedId, ws.focusedChapterId)?.chapter.id);
 
   function select(node: Node<CardData>) {
-    const event = ws.orderedEvents.find((event) =>
-      event.id === node.data.recordId || node.data.eventIds.includes(event.id) ||
-      event.participants.includes(node.data.recordId) || event.locationIds.includes(node.data.recordId),
+    const event = ws.orderedEvents.find(
+      (event) =>
+        event.id === node.data.recordId ||
+        node.data.eventIds.includes(event.id) ||
+        event.participants.includes(node.data.recordId) ||
+        event.locationIds.includes(node.data.recordId),
     );
     if (event) {
       ws.select(event.id);
@@ -21,6 +24,14 @@
   }
 </script>
 
-<div class="story-graph" aria-label="Story knowledge graph">
-  <SvelteFlowProvider><GraphCanvas {chapterId} onselect={select} /></SvelteFlowProvider>
+<div
+  class="story-graph"
+  aria-label="Story knowledge graph"
+>
+  <SvelteFlowProvider>
+    <GraphCanvas
+      {chapterId}
+      onselect={select}
+    />
+  </SvelteFlowProvider>
 </div>

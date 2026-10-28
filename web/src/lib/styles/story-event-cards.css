@@ -38,7 +38,9 @@
 
 .story-chronology h2 {
   margin: 6px 0 20px;
-  font: 600 25px Georgia, serif;
+  font:
+    600 25px Georgia,
+    serif;
 }
 
 .story-chronology-event {
@@ -65,7 +67,9 @@
   -webkit-box-orient: vertical;
   overflow: hidden;
   color: var(--gold);
-  font: 12px / 1.5 'DM Mono', monospace;
+  font:
+    12px / 1.5 'DM Mono',
+    monospace;
   overflow-wrap: anywhere;
 }
 

@@ -1,5 +1,6 @@
 export type Precision = 'exact' | 'day' | 'month' | 'year' | 'decade' | 'century' | 'unknown';
-export type Resolution = 'Millennium' | 'Century' | 'Decade' | 'Year' | 'Quarter' | 'Month' | 'Week' | 'Day' | 'Event';
+export type Resolution =
+  'Millennium' | 'Century' | 'Decade' | 'Year' | 'Quarter' | 'Month' | 'Week' | 'Day' | 'Event';
 
 export interface HistoricalDate {
   year: number;
@@ -29,10 +30,13 @@ export function dateLabel(date?: HistoricalDate): string {
   if (date.label) {
     return date.label;
   }
+
   if (date.precision === 'day' || date.precision === 'exact') {
     const clock = date.precision === 'exact' ? ` ${date.timeOfDay ?? '(time unknown)'}` : '';
+
     return `${prefix}${date.day} ${months[(date.month ?? 1) - 1]} ${year}${clock}`;
   }
+
   if (date.precision === 'month') {
     return `${prefix}${months[(date.month ?? 1) - 1]} ${year}`;
   }
@@ -44,7 +48,10 @@ const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', '
 
 export function intervalLabel(interval: HistoricalInterval): string {
   const start = dateLabel(interval.start);
-  if (interval.openEnd) return `${start} onward (end unknown)`;
+  if (interval.openEnd) {
+    return `${start} onward (end unknown)`;
+  }
+
   if (!interval.end || interval.end.year === interval.start?.year) {
     return start;
   }

@@ -10,10 +10,12 @@ func mergeGeography(project *domain.Project, entities []domain.Entity, source do
 		if incoming.Kind != "place" {
 			continue
 		}
+
 		reference, valid := geography.DecodeReference(incoming.Attributes["mapLocation"])
 		if !valid {
 			continue
 		}
+
 		reference.ClaimIDs = remap(reference.ClaimIDs, ids)
 		reference.SourceID = source.ID
 		reference.SourceURL = source.URL
@@ -24,20 +26,25 @@ func mergeGeography(project *domain.Project, entities []domain.Entity, source do
 		if !geography.SupportedReference(*project, entityID, reference) {
 			continue
 		}
+
 		for index := range project.Entities {
 			entity := &project.Entities[index]
 			if entity.ID != entityID {
 				continue
 			}
+
 			if _, located := geography.DecodeReference(entity.Attributes["mapLocation"]); located {
 				break
 			}
+
 			if reference.Label == "" {
 				reference.Label = entity.Name
 			}
+
 			if entity.Attributes == nil {
 				entity.Attributes = map[string]any{}
 			}
+
 			entity.Attributes["mapLocation"] = reference
 			entity.Version++
 			break

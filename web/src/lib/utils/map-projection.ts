@@ -12,12 +12,14 @@ export interface MapPlace {
 
 export function mapEvents(project: Project, chapter: string, from: number | null, to: number | null) {
   const ids = project.chapters.find((item) => item.id === chapter)?.eventIds;
+
   return project.events.filter((event) => {
     const start = knownYear(event.time.start);
     const end = knownYear(event.time.end) ?? start;
     if (ids && !ids.includes(event.id)) {
       return false;
     }
+
     if (from !== null && (end === undefined || end < from)) {
       return false;
     }
@@ -31,25 +33,44 @@ export function mapPlaces(project: Project, events: HistoricalEvent[], scoped: b
     if (entity.kind !== 'place') {
       return [];
     }
+
     const location = mapLocation(entity);
     const linked = events.filter((event) => event.locationIds.includes(entity.id));
     if (!location || (scoped && !linked.length)) {
       return [];
     }
 
-    return [{ entity, location, events: linked }];
+    return [
+      {
+        entity,
+        location,
+        events: linked,
+      },
+    ];
   });
 }
 
 // Compare only supported calendars; broad dates retain their full possible range.
 export function dateExtent(date?: HistoricalDate): [number, number] | undefined {
-  if (knownYear(date) === undefined || !date || !['gregorian', 'proleptic_gregorian'].includes(date.calendar)) {
+  if (
+    knownYear(date) === undefined ||
+    !date ||
+    !['gregorian', 'proleptic_gregorian'].includes(date.calendar)
+  ) {
     return;
   }
+
   const spread = Math.max(0, date.uncertaintyYears ?? (date.approximate ? 1 : 0));
-  const width = date.precision === 'century' ? 99 : date.precision === 'decade' ? 9 : 0;
+  let width = 0;
+  if (date.precision === 'century') {
+    width = 99;
+  } else if (date.precision === 'decade') {
+    width = 9;
+  }
+
   const firstMonth = date.month ?? 1;
   const lastMonth = date.month ?? 12;
+
   return [
     (date.year - spread) * 372 + (firstMonth - 1) * 31 + (date.day ?? 1),
     (date.year + spread + width) * 372 + (lastMonth - 1) * 31 + (date.day ?? 31),
@@ -67,16 +88,33 @@ export function visitExtent(event: HistoricalEvent): [number, number] | undefine
 export function recordedVisits(project: Project, events: HistoricalEvent[]) {
   const subject = project.entities.find((entity) => entity.id === project.subjectId);
   const death = dateExtent(subject?.time.end);
-  return events.filter((event) => {
-    const extent = visitExtent(event);
-    const supported = event.claimIds.some((id) => {
-      const claim = project.claims.find((item) => item.id === id);
-      return claim && ['supported_limited', 'corroborated'].includes(claim.status) &&
-        project.evidence.some((item) => item.claimId === id && item.verified &&
-          ['supporting', 'partially_supporting'].includes(item.relation));
-    });
 
-    return event.requiresPresence === true && event.participants.includes(project.subjectId) &&
-      event.locationIds.length > 0 && supported && extent && (!death || extent[1] <= death[1]);
-  }).sort((a, b) => visitExtent(a)![0] - visitExtent(b)![0]);
+  return events
+    .filter((event) => {
+      const extent = visitExtent(event);
+      const supported = event.claimIds.some((id) => {
+        const claim = project.claims.find((item) => item.id === id);
+
+        return (
+          claim &&
+          ['supported_limited', 'corroborated'].includes(claim.status) &&
+          project.evidence.some(
+            (item) =>
+              item.claimId === id &&
+              item.verified &&
+              ['supporting', 'partially_supporting'].includes(item.relation),
+          )
+        );
+      });
+
+      return (
+        event.requiresPresence === true &&
+        event.participants.includes(project.subjectId) &&
+        event.locationIds.length > 0 &&
+        supported &&
+        extent &&
+        (!death || extent[1] <= death[1])
+      );
+    })
+    .sort((a, b) => visitExtent(a)![0] - visitExtent(b)![0]);
 }

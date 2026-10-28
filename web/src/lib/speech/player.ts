@@ -13,20 +13,27 @@ export class StoryPlayer {
       this.stop();
       this.key = key;
     }
+
     if (!playing) {
       if (!this.paused) {
         this.session?.pause();
       }
+
       this.paused = true;
+
       return;
     }
+
     if (this.session) {
       if (this.paused) {
         this.session.resume();
       }
+
       this.paused = false;
+
       return;
     }
+
     const generation = ++this.generation;
     const guarded = {
       ...input,
@@ -34,6 +41,7 @@ export class StoryPlayer {
         if (generation !== this.generation) {
           return;
         }
+
         this.stop();
         input.done();
       },
@@ -41,6 +49,7 @@ export class StoryPlayer {
         if (generation !== this.generation) {
           return;
         }
+
         this.stop();
         input.fail(message);
       },

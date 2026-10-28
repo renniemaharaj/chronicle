@@ -19,6 +19,7 @@ type planOutput struct {
 
 func stableID(kind, text string) string {
 	hash := sha256.Sum256([]byte(strings.ToLower(strings.TrimSpace(text))))
+
 	return kind + "-" + hex.EncodeToString(hash[:8])
 }
 
@@ -26,6 +27,7 @@ func (j *job) plan() error {
 	if len(j.snapshot().Plan) > 0 {
 		return nil
 	}
+
 	input := j.snapshot().Subject
 	plan, err := providers.Structured[planOutput](j.ctx, j, `Identify and provisionally disambiguate the subject. Classify with an extensible entity kind.
 Create 3–6 chronological research leads covering origins and their historical/technological setting, maturation, relationships, achievements, endings and aftermath.
@@ -35,26 +37,44 @@ Use interval descriptions, not invented dates. All question statuses must be pen
 	if err != nil {
 		return err
 	}
+
 	if plan.Name == "" || plan.Kind == "" || len(plan.Questions) < 3 || len(plan.Questions) > 6 {
 		return fmt.Errorf("research plan requires a named subject, type, and 3–6 questions")
 	}
+
 	id := stableID("entity", plan.Kind+":"+plan.Name)
 	project := domain.EmptyProject(stableID("project", input), plan.Name)
 	project.SubjectID = id
-	project.Entities = append(project.Entities, domain.Entity{ID: id, Name: plan.Name, Kind: plan.Kind, Summary: "Provisional subject identification. Inspect claims and evidence for documented information.", Version: 1, Attributes: map[string]any{}})
+	project.Entities = append(project.Entities, domain.Entity{
+		ID:         id,
+		Name:       plan.Name,
+		Kind:       plan.Kind,
+		Summary:    "Provisional subject identification. Inspect claims and evidence for documented information.",
+		Version:    1,
+		Attributes: map[string]any{},
+	})
 	if err := j.reuseSubject(&project, plan.Name, plan.Kind); err != nil {
 		return err
 	}
+
 	id = project.SubjectID
 	plan.Questions = historicalQuestions(plan.Name, plan.Kind, plan.Questions)
+
 	for i := range plan.Questions {
 		plan.Questions[i].Status = "pending"
 	}
-	j.update(func(run *domain.ResearchRun) { run.SubjectID = id; run.Plan = plan.Questions; run.Project = &project })
+
+	j.update(func(run *domain.ResearchRun) {
+		run.SubjectID = id
+		run.Plan = plan.Questions
+		run.Project = &project
+	})
+
 	return nil
 }
 
 func inputJSON(value any) string {
 	data, _ := json.Marshal(value)
+
 	return string(data)
 }

@@ -16,8 +16,15 @@
   });
 </script>
 
-<section class="story-chronology" aria-label="Subject story timeline" bind:this={list}>
-  <header><span class="eyebrow">Through time</span><h2>{ws.subject.name}</h2></header>
+<section
+  class="story-chronology"
+  aria-label="Subject story timeline"
+  bind:this={list}
+>
+  <header>
+    <span class="eyebrow">Through time</span>
+    <h2>{ws.subject.name}</h2>
+  </header>
   {#each ws.orderedEvents as event (event.id)}
     <Button
       class="story-chronology-event"
@@ -25,8 +32,16 @@
       aria-current={event.id === ws.selectedId ? 'step' : undefined}
       onclick={() => ws.select(event.id)}
     >
-      <span class="story-chronology-date" title={intervalLabel(event.time)}>{intervalLabel(event.time)}</span>
-      <span><strong>{event.title}</strong><small>{event.kind}</small></span>
+      <span
+        class="story-chronology-date"
+        title={intervalLabel(event.time)}
+      >
+        {intervalLabel(event.time)}
+      </span>
+      <span>
+        <strong>{event.title}</strong>
+        <small>{event.kind}</small>
+      </span>
     </Button>
   {/each}
 </section>

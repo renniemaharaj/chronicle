@@ -12,7 +12,11 @@
     <summary>Map sources</summary>
     {#each sourced as place}
       <div>
-        <a href={locationSourceURL(place.location)} target="_blank" rel="noreferrer">
+        <a
+          href={locationSourceURL(place.location)}
+          target="_blank"
+          rel="noreferrer"
+        >
           {place.entity.name}
         </a>
         <small>{place.location.provider}</small>

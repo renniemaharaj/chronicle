@@ -70,7 +70,8 @@
 .run-metrics strong {
   display: block;
   color: var(--blue);
-  font: 500 var(--font-title) 'DM Mono',
+  font:
+    500 var(--font-title) 'DM Mono',
     monospace;
 }
 .run-metrics span {

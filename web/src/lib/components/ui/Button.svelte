@@ -30,16 +30,27 @@
   }: Props = $props();
 
   const color = $derived(variant === 'danger' ? 'red' : variant === 'primary' ? 'primary' : 'alternative');
-  const classes = $derived([
-    className,
-    active ? 'active' : '',
-    current ? 'current' : '',
-    pressed ? 'pressed' : '',
-    variant === 'ghost' ? 'border-transparent bg-transparent dark:bg-transparent dark:border-transparent' : '',
-    icon ? 'p-1.5 shrink-0 [&>svg]:shrink-0' : '',
-  ].join(' '));
+  const classes = $derived(
+    [
+      className,
+      active ? 'active' : '',
+      current ? 'current' : '',
+      pressed ? 'pressed' : '',
+      variant === 'ghost'
+        ? 'border-transparent bg-transparent dark:bg-transparent dark:border-transparent'
+        : '',
+      icon ? 'p-1.5 shrink-0 [&>svg]:shrink-0' : '',
+    ].join(' '),
+  );
 </script>
 
-<FlowbiteButton {color} {size} class={classes} data-variant={variant} aria-pressed={active ?? pressed} {...props}>
+<FlowbiteButton
+  {color}
+  {size}
+  class={classes}
+  data-variant={variant}
+  aria-pressed={active ?? pressed}
+  {...props}
+>
   {@render children?.()}
 </FlowbiteButton>

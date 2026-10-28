@@ -7,30 +7,60 @@
 
   let { onfullscreen }: { onfullscreen: () => void } = $props();
   const views = [
-    { name: 'Map' as StoryScene, icon: Map },
-    { name: 'Timeline' as StoryScene, icon: Clock3 },
-    { name: 'Graph' as StoryScene, icon: Network },
+    {
+      name: 'Map' as StoryScene,
+      icon: Map,
+    },
+    {
+      name: 'Timeline' as StoryScene,
+      icon: Clock3,
+    },
+    {
+      name: 'Graph' as StoryScene,
+      icon: Network,
+    },
   ];
 </script>
 
 <div class="story-scene-toolbar">
   <div class="story-mode-actions">
     {#if !storyView.sidebarOpen}
-      <Button icon aria-label="Exit story mode" title="Exit story mode" onclick={() => closeStoryMode(ws)}>
+      <Button
+        icon
+        aria-label="Exit story mode"
+        title="Exit story mode"
+        onclick={() => closeStoryMode(ws)}
+      >
         <ArrowLeft size={16} />
       </Button>
-      <Button icon aria-label="Show story chapters" title="Show chapters" onclick={() => { storyView.sidebarOpen = true; }}>
+      <Button
+        icon
+        aria-label="Show story chapters"
+        title="Show chapters"
+        onclick={() => {
+          storyView.sidebarOpen = true;
+        }}
+      >
         <BookOpen size={16} />
       </Button>
     {/if}
-    <nav class="story-view-tabs" aria-label="Story scene view">
+    <nav
+      class="story-view-tabs"
+      aria-label="Story scene view"
+    >
       {#each views as view}
         <Button
           pressed={storyView.scene === view.name}
           aria-label={`${view.name} view`}
-          onclick={() => { storyView.scene = view.name; }}
+          onclick={() => {
+            storyView.scene = view.name;
+          }}
         >
-          <view.icon size={15} /><span>{view.name}<span class="story-view-suffix">{' View'}</span></span>
+          <view.icon size={15} />
+          <span>
+            {view.name}
+            <span class="story-view-suffix">{' View'}</span>
+          </span>
         </Button>
       {/each}
     </nav>
@@ -40,12 +70,20 @@
       <Button
         pressed={storyView.followLocation}
         aria-label="Follow location"
-        onclick={() => { storyView.followLocation = !storyView.followLocation; }}
+        onclick={() => {
+          storyView.followLocation = !storyView.followLocation;
+        }}
       >
-        <LocateFixed size={16} /><span class="story-follow-label">Follow location</span>
+        <LocateFixed size={16} />
+        <span class="story-follow-label">Follow location</span>
       </Button>
     {/if}
-    <Button icon aria-label="Toggle story fullscreen" title="Fullscreen" onclick={onfullscreen}>
+    <Button
+      icon
+      aria-label="Toggle story fullscreen"
+      title="Fullscreen"
+      onclick={onfullscreen}
+    >
       <Maximize size={16} />
     </Button>
   </div>

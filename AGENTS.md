@@ -2,6 +2,8 @@
 
 - Every authored source, style, configuration, migration, and documentation file must contain fewer than 150 lines.
 - Split by responsibility before a file reaches that limit.
+- Separate functions and distinct logic blocks with blank lines; expand control flow and dense markup.
+- Run `npm run format` for the readable layout and `npm run check` to enforce it.
 - Keep dependency and build output out of version control, except the generated dependency lockfile.
 - Use one universal ontology. Canvas nodes are projections of canonical records.
 - Never invent citations or present synthetic fixture evidence as historical evidence.

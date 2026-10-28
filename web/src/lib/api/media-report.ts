@@ -3,16 +3,22 @@ import type { Project } from '../types/project';
 export function mediaMarkdown(project: Project): string[] {
   const lines = ['## Images and external videos', ''];
   for (const asset of project.media ?? []) {
-    lines.push(`- ${asset.kind}: ${asset.title} — ${asset.url}`,
+    lines.push(
+      `- ${asset.kind}: ${asset.title} — ${asset.url}`,
       `  - Subject: ${asset.entityId}; source: ${asset.sourceId}; retrieved link: ${asset.retrieved}.`,
       `  - ${asset.caption} Credit: ${asset.creator || 'Unknown'}; license: ${asset.license || 'Not established'} ${asset.licenseUrl || ''}.`,
-      `  - Identifying claims: ${asset.claimIds.join(', ')}.`);
+      `  - Identifying claims: ${asset.claimIds.join(', ')}.`,
+    );
   }
+
   lines.push('', '## Websites and social references', '');
   for (const link of project.subjectLinks ?? []) {
-    lines.push(`- ${link.label}: ${link.url}; subject: ${link.entityId}; verified reference: ${link.verified}.`,
-      `  - Method: ${link.verificationMethod}; checked: ${link.verifiedAt || 'Not recorded'}; source: ${link.sourceId}; claims: ${link.claimIds.join(', ')}.`);
+    lines.push(
+      `- ${link.label}: ${link.url}; subject: ${link.entityId}; verified reference: ${link.verified}.`,
+      `  - Method: ${link.verificationMethod}; checked: ${link.verifiedAt || 'Not recorded'}; source: ${link.sourceId}; claims: ${link.claimIds.join(', ')}.`,
+    );
   }
+
   return lines;
 }
 

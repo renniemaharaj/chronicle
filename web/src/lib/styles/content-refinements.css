@@ -5,7 +5,8 @@
   margin-top: 12px;
 }
 .coverage-summary > strong {
-  font: 500 var(--font-display) 'DM Mono',
+  font:
+    500 var(--font-display) 'DM Mono',
     monospace;
   color: var(--teal);
 }

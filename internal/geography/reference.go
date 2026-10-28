@@ -29,10 +29,12 @@ func DecodeReference(value any) (Reference, bool) {
 	if err != nil || json.Unmarshal(data, &reference) != nil || value == nil {
 		return reference, false
 	}
+
 	var fields map[string]json.RawMessage
 	if json.Unmarshal(data, &fields) != nil || len(fields["latitude"]) == 0 || len(fields["longitude"]) == 0 {
 		return reference, false
 	}
+
 	for _, key := range []string{"latitude", "longitude"} {
 		if string(fields[key]) == "null" {
 			return reference, false
@@ -52,16 +54,20 @@ func SupportedReference(project domain.Project, entityID string, reference Refer
 			if claim.ID != claimID || claim.EntityID != entityID {
 				continue
 			}
+
 			for _, item := range project.Evidence {
 				if item.ClaimID != claimID || item.SourceID != reference.SourceID || !item.Verified || item.Mode != "quotation" || item.Relation != "supporting" {
 					continue
 				}
+
 				latitude, longitude := false, false
+
 				for _, token := range decimalCoordinate.FindAllString(item.Excerpt, -1) {
 					number, _ := strconv.ParseFloat(token, 64)
 					latitude = latitude || number == reference.Latitude
 					longitude = longitude || number == reference.Longitude
 				}
+
 				if latitude && longitude {
 					return true
 				}
@@ -74,6 +80,7 @@ func SupportedReference(project domain.Project, entityID string, reference Refer
 
 func WithoutReference(attributes map[string]any) map[string]any {
 	clean := make(map[string]any, len(attributes))
+
 	for key, value := range attributes {
 		if key != "mapLocation" {
 			clean[key] = value

@@ -12,7 +12,9 @@
   import StoryMedia from './StoryMedia.svelte';
   const chapter = $derived(ws.chapter);
   const story = $derived(eventStory(ws.project, ws.event, ws.activeClaims));
-  const milestones = $derived(ws.project.events.filter((event) => chapter?.eventIds.includes(event.id)).slice(0, 5));
+  const milestones = $derived(
+    ws.project.events.filter((event) => chapter?.eventIds.includes(event.id)).slice(0, 5),
+  );
 </script>
 
 <section class="story-panel">
@@ -22,11 +24,19 @@
       <h2>Story</h2>
       <span class="evidence-badge"><ShieldCheck size={11} /> Evidence linked</span>
     </div>
-    <Select class="w-auto" placeholder="" aria-label="Story perspective" bind:value={ws.perspective}
-      ><option>Chronological</option><option>Biographical</option><option>Genealogical</option><option
-        >Institutional</option
-      ><option>Geographical</option><option>Cause and consequence</option></Select
+    <Select
+      class="w-auto"
+      placeholder=""
+      aria-label="Story perspective"
+      bind:value={ws.perspective}
     >
+      <option>Chronological</option>
+      <option>Biographical</option>
+      <option>Genealogical</option>
+      <option>Institutional</option>
+      <option>Geographical</option>
+      <option>Cause and consequence</option>
+    </Select>
   </div>
   <StoryToolbar />
   <div class="story-content">
@@ -40,7 +50,8 @@
             focusChapter(ws, item.id);
           }}
         >
-          <span>{index + 1}. {item.title}</span><small>{first?.time.start?.year ?? '?'}</small>
+          <span>{index + 1}. {item.title}</span>
+          <small>{first?.time.start?.year ?? '?'}</small>
         </Button>
       {/each}
     </div>
@@ -58,9 +69,15 @@
       </details>
       <NarrativeThemes />
       <div class="narrative-milestones">
-        {#each milestones as event}<Button active={ws.selectedId === event.id} onclick={() => ws.select(event.id)}
-            ><span>{event.time.start?.year ?? '?'}</span>{event.title}<ChevronRight size={11} /></Button
-          >{/each}
+        {#each milestones as event}
+          <Button
+            active={ws.selectedId === event.id}
+            onclick={() => ws.select(event.id)}
+          >
+            <span>{event.time.start?.year ?? '?'}</span>
+            {event.title}<ChevronRight size={11} />
+          </Button>
+        {/each}
       </div>
     </article>
   </div>

@@ -23,7 +23,11 @@ describe('narration and scoped history', () => {
       },
     ];
     event.claimIds = ['claim'];
-    event.narration = { text: 'A saved event reading.', claimIds: ['claim'], interpretation: false };
+    event.narration = {
+      text: 'A saved event reading.',
+      claimIds: ['claim'],
+      interpretation: false,
+    };
     expect(eventStory(p, event, {})).toContain('Sources disagree');
     expect(eventStory(p, event, { conflict: 'claim' })).toContain('An alternative date.');
     p.claims[0].status = 'unverified';
@@ -43,6 +47,7 @@ describe('narration and scoped history', () => {
         eventIds: [event.id],
       },
     ];
+
     const result = projectGraph(p, {
       chapterId: 'first',
       resolution: 'Year',
@@ -61,7 +66,11 @@ describe('narration and scoped history', () => {
 
   it('resolves era intervals without JavaScript dates and guards unverified context', () => {
     const p = project();
-    p.events[0].time.start = { year: -300, calendar: 'historical', precision: 'year' };
+    p.events[0].time.start = {
+      year: -300,
+      calendar: 'historical',
+      precision: 'year',
+    };
     p.contextPeriods = [
       {
         id: 'ancient',
@@ -71,11 +80,20 @@ describe('narration and scoped history', () => {
         claimIds: ['missing'],
         interpretation: true,
         time: {
-          start: { year: -400, calendar: 'historical', precision: 'year' },
-          end: { year: -200, calendar: 'historical', precision: 'year' },
+          start: {
+            year: -400,
+            calendar: 'historical',
+            precision: 'year',
+          },
+          end: {
+            year: -200,
+            calendar: 'historical',
+            precision: 'year',
+          },
         },
       },
     ];
+
     const contexts = contextFor(p, p.events[0]);
     expect(contexts).toHaveLength(1);
     expect(contextText(p, contexts[0])).toContain('needs verified supporting evidence');

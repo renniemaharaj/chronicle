@@ -73,6 +73,9 @@ Live provider quality and PostgreSQL integration should be verified separately i
 Every authored text file contains fewer than 150 lines. `scripts/check-lines.mjs` enforces this;
 generated dependency lockfiles are exempt from the authored-file line limit. Build output, dependencies, and runtime data are excluded.
 
+Run `npm run format` for the [readable code layout](code-style.md).
+`npm run check` checks layout and function separation without writing files.
+
 See [architecture](architecture.md), [research behavior](research.md), and [asset credits](assets.md).
 
 Story playback and optional Google Cloud voice setup are described in [Speech](speech.md).

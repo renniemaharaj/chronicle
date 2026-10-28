@@ -11,7 +11,8 @@
   const contemporaries = $derived(ws.dialog === 'Contemporaries');
   const candidates = $derived(
     ws.project.entities.filter(
-      (entity) => entity.id !== ws.subject.id && (!contemporaries || contemporary(entity, ws.subject) !== 'outside'),
+      (entity) =>
+        entity.id !== ws.subject.id && (!contemporaries || contemporary(entity, ws.subject) !== 'outside'),
     ),
   );
   const kinds = $derived([...new Set(candidates.map((entity) => entity.kind))].sort());
@@ -31,24 +32,46 @@
   placeholder="Search names, places, relationships…"
   bind:value={query}
   summary={`${results.length} of ${candidates.length} subjects`}
-  oninput={() => { limit = 30; }}
+  oninput={() => {
+    limit = 30;
+  }}
 >
   {#snippet controls()}
-    <Select placeholder="" aria-label="Subject kind" bind:value={kind}
-      ><option>All kinds</option>{#each kinds as item}<option>{item}</option>{/each}</Select
+    <Select
+      placeholder=""
+      aria-label="Subject kind"
+      bind:value={kind}
     >
+      <option>All kinds</option>
+      {#each kinds as item}
+        <option>{item}</option>
+      {/each}
+    </Select>
   {/snippet}
 </CollectionSearch>
-{#if contemporaries}<p class="subject-search-note">
+{#if contemporaries}
+  <p class="subject-search-note">
     People whose documented dates overlap {ws.subject.name}. Incomplete dates are labeled separately.
-  </p>{/if}
+  </p>
+{/if}
 <div class="subject-results">
-  {#each results.slice(0, limit) as entity (entity.id)}<SubjectCard {entity} showOverlap={contemporaries} />{/each}
+  {#each results.slice(0, limit) as entity (entity.id)}
+    <SubjectCard
+      {entity}
+      showOverlap={contemporaries}
+    />
+  {/each}
 </div>
-{#if !results.length}<p class="empty-state">No subjects match your search.</p>{/if}
-{#if results.length > limit}<Button
+{#if !results.length}
+  <p class="empty-state">No subjects match your search.</p>
+{/if}
+{#if results.length > limit}
+  <Button
     variant="secondary"
     onclick={() => {
       limit += 30;
-    }}>Show more subjects</Button
-  >{/if}
+    }}
+  >
+    Show more subjects
+  </Button>
+{/if}

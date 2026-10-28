@@ -28,7 +28,7 @@
   height: 7px;
   border-radius: 50%;
   background: var(--teal-soft);
-  box-shadow: 0 0 8px rgb(var(--shadow-rgb) / 0.30);
+  box-shadow: 0 0 8px rgb(var(--shadow-rgb) / 0.3);
 }
 
 .progress-row {
@@ -65,7 +65,8 @@
 }
 
 .ring span {
-  font: 600 var(--font-caption) 'DM Mono',
+  font:
+    600 var(--font-caption) 'DM Mono',
     monospace;
 }
 
@@ -79,7 +80,8 @@
 
 .coverage-line strong {
   color: var(--text);
-  font: 500 var(--font-min) 'DM Mono',
+  font:
+    500 var(--font-min) 'DM Mono',
     monospace;
 }
 

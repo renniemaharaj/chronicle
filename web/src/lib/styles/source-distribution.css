@@ -16,7 +16,8 @@
   display: flex;
   align-items: center;
   gap: 6px;
-  font: 600 var(--font-caption) Manrope,
+  font:
+    600 var(--font-caption) Manrope,
     sans-serif;
 }
 
@@ -45,7 +46,13 @@
   display: grid;
   place-items: center;
   border-radius: 50%;
-  background: conic-gradient(var(--blue) 0 22%, var(--gold-soft) 22% 55%, var(--teal-soft) 55% 72%, var(--violet-soft) 72% 85%, var(--surface-soft) 85% 100%);
+  background: conic-gradient(
+    var(--blue) 0 22%,
+    var(--gold-soft) 22% 55%,
+    var(--teal-soft) 55% 72%,
+    var(--violet-soft) 72% 85%,
+    var(--surface-soft) 85% 100%
+  );
 }
 
 .donut::before {
@@ -60,7 +67,8 @@
 .donut span {
   z-index: 1;
   text-align: center;
-  font: 700 var(--font-subtitle) 'DM Mono',
+  font:
+    700 var(--font-subtitle) 'DM Mono',
     monospace;
 }
 
@@ -68,7 +76,8 @@
   display: block;
   margin-top: 1px;
   color: var(--text);
-  font: var(--font-min) 'DM Sans',
+  font:
+    var(--font-min) 'DM Sans',
     sans-serif;
 }
 
@@ -112,6 +121,7 @@
 .distribution-legend b {
   margin-left: auto;
   color: var(--text);
-  font: var(--font-min) 'DM Mono',
+  font:
+    var(--font-min) 'DM Mono',
     monospace;
 }

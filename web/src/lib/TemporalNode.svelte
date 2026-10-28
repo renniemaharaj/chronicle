@@ -37,22 +37,36 @@
   class:teal={data.color === 'teal'}
   class:conflicted={data.color === 'red'}
 >
-  <Handle type="target" position={Position.Left} />
+  <Handle
+    type="target"
+    position={Position.Left}
+  />
   <div class="node-topline">
-    <span class="node-icon"
-      >{#if data.portrait}<img src={data.portrait} alt="" />{:else}<NodeIcon size={14} />{/if}</span
-    >
+    <span class="node-icon">
+      {#if data.portrait}
+        <img
+          src={data.portrait}
+          alt=""
+        />
+      {:else}
+        <NodeIcon size={14} />
+      {/if}
+    </span>
     <span class="node-kind">{data.kind}</span>
   </div>
   <strong>{data.title}</strong>
-  <small
-    >{data.year}<span
-      >{data.count && data.count > 1
+  <small>
+    {data.year}
+    <span>
+      {data.count && data.count > 1
         ? `${data.count} events`
         : data.evidenceCount
           ? `${data.evidenceCount} source`
-          : ''}</span
-    ></small
-  >
-  <Handle type="source" position={Position.Right} />
+          : ''}
+    </span>
+  </small>
+  <Handle
+    type="source"
+    position={Position.Right}
+  />
 </div>

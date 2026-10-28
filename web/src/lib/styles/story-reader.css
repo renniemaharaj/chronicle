@@ -18,7 +18,9 @@
 
 .story-reading-kicker {
   color: var(--quiet);
-  font: 11px 'DM Mono', monospace;
+  font:
+    11px 'DM Mono',
+    monospace;
   text-transform: uppercase;
   letter-spacing: 1.4px;
 }
@@ -31,7 +33,9 @@
 
 .story-reading h1 {
   margin: 10px 0 12px;
-  font: 600 clamp(24px, 2.2vw, 32px) / 1.18 Georgia, serif;
+  font:
+    600 clamp(24px, 2.2vw, 32px) / 1.18 Georgia,
+    serif;
   letter-spacing: -0.4px;
   overflow-wrap: anywhere;
 }

@@ -5,21 +5,23 @@
   border: 1px solid var(--blue);
   border-radius: 7px;
   background: linear-gradient(140deg, var(--blue-soft), var(--surface-raised));
-  box-shadow: 0 5px 14px rgb(var(--shadow-rgb) / 0.30);
+  box-shadow: 0 5px 14px rgb(var(--shadow-rgb) / 0.3);
   color: var(--text);
-  transition: box-shadow 0.15s,
+  transition:
+    box-shadow 0.15s,
     transform 0.15s;
 }
 
 .temporal-node:hover {
   transform: translateY(-1px);
-  box-shadow: 0 7px 18px rgb(var(--shadow-rgb) / 0.30);
+  box-shadow: 0 7px 18px rgb(var(--shadow-rgb) / 0.3);
 }
 
 .temporal-node.chosen {
   border-color: var(--blue);
-  box-shadow: 0 0 0 1px rgb(var(--shadow-rgb) / 0.30),
-    0 0 20px rgb(var(--shadow-rgb) / 0.30);
+  box-shadow:
+    0 0 0 1px rgb(var(--shadow-rgb) / 0.3),
+    0 0 20px rgb(var(--shadow-rgb) / 0.3);
 }
 
 .temporal-node .node-topline {
@@ -42,7 +44,8 @@
 
 .temporal-node strong {
   display: block;
-  font: 600 20px Manrope,
+  font:
+    600 20px Manrope,
     sans-serif;
   line-height: 1.35;
   display: -webkit-box;
@@ -56,7 +59,8 @@
   display: block;
   margin-top: 4px;
   color: var(--muted);
-  font: 18px 'DM Mono',
+  font:
+    18px 'DM Mono',
     monospace;
 }
 
@@ -77,7 +81,8 @@
 
 .temporal-node small span {
   color: var(--muted);
-  font: 18px Manrope,
+  font:
+    18px Manrope,
     sans-serif;
 }
 

@@ -10,7 +10,10 @@
   const image = $derived(storyImage(ws.project, events));
 </script>
 
-<span class="story-thumbnail" aria-hidden="true">
+<span
+  class="story-thumbnail"
+  aria-hidden="true"
+>
   {#if image && failed !== image.url}
     <img
       src={image.url}
@@ -19,11 +22,23 @@
       loading="lazy"
       referrerpolicy="no-referrer"
       title={`${image.title} · ${image.creator || 'Creator not recorded'} · ${image.license || 'Rights unknown'}`}
-      onerror={() => { failed = image?.url ?? ''; }}
-      onload={() => { loaded = image?.url ?? ''; }}
+      onerror={() => {
+        failed = image?.url ?? '';
+      }}
+      onload={() => {
+        loaded = image?.url ?? '';
+      }}
     />
-    {#if loaded !== image.url}<BookOpen size={22} strokeWidth={1.25} />{/if}
+    {#if loaded !== image.url}
+      <BookOpen
+        size={22}
+        strokeWidth={1.25}
+      />
+    {/if}
   {:else}
-    <BookOpen size={22} strokeWidth={1.25} />
+    <BookOpen
+      size={22}
+      strokeWidth={1.25}
+    />
   {/if}
 </span>

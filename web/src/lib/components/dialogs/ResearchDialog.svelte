@@ -16,7 +16,10 @@
   });
 
   async function research() {
-    if (!subject.trim()) return;
+    if (!subject.trim()) {
+      return;
+    }
+
     busy = true;
     error = '';
     try {
@@ -31,8 +34,8 @@
 </script>
 
 <p class="dialog-intro">
-  Enter a subject. Chronicle plans questions, retrieves evidence through your configured MCP tools, checks claims, and
-  builds a temporal graph.
+  Enter a subject. Chronicle plans questions, retrieves evidence through your configured MCP tools, checks
+  claims, and builds a temporal graph.
 </p>
 <form
   class="research-subject"
@@ -41,20 +44,36 @@
     research();
   }}
 >
-  <Search size={19} /><Input
+  <Search size={19} />
+  <Input
     aria-label="Research subject"
     bind:value={subject}
     placeholder="A person, place, institution, family, idea..."
     required
-  /><Button type="submit" variant="primary" disabled={busy || !subject.trim() || ws.run?.status === 'running'}
-    >Research <ArrowRight size={14} /></Button
+  />
+  <Button
+    type="submit"
+    variant="primary"
+    disabled={busy || !subject.trim() || ws.run?.status === 'running'}
   >
+    Research <ArrowRight size={14} />
+  </Button>
 </form>
-{#if error}<p class="run-error" role="alert">{error}</p>{/if}
-{#if !ws.connected}<p class="form-message">
-    The research API is offline. Start the Go backend to run autonomous research.
-  </p>{/if}
-<Button class="settings-inline" onclick={() => (ws.dialog = 'Settings')}
-  ><Settings size={13} /> Configure model and MCP tools</Button
+{#if error}
+  <p
+    class="run-error"
+    role="alert"
+  >
+    {error}
+  </p>
+{/if}
+{#if !ws.connected}
+  <p class="form-message">The research API is offline. Start the Go backend to run autonomous research.</p>
+{/if}
+<Button
+  class="settings-inline"
+  onclick={() => (ws.dialog = 'Settings')}
 >
+  <Settings size={13} /> Configure model and MCP tools
+</Button>
 <RunProgress />

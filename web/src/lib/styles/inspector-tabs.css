@@ -67,7 +67,8 @@
   border-radius: 50%;
   background: var(--gold-soft);
   color: var(--gold);
-  font: var(--font-min) Georgia,
+  font:
+    var(--font-min) Georgia,
     serif;
 }
 

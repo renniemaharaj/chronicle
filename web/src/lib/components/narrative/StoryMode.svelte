@@ -13,10 +13,16 @@
   onMount(() => {
     storyView.scene = 'Map';
     storyView.panel = 'Chapters';
+
     const width = window.matchMedia('(min-width: 1001px)');
-    const resize = () => { storyView.sidebarOpen = width.matches; };
+
+    const resize = () => {
+      storyView.sidebarOpen = width.matches;
+    };
+
     resize();
     width.addEventListener('change', resize);
+
     return () => width.removeEventListener('change', resize);
   });
 
@@ -33,8 +39,15 @@
   }
 </script>
 
-<main class="story-mode" class:sidebar-open={storyView.sidebarOpen} aria-label="Story mode" bind:this={stage}>
-  {#if storyView.sidebarOpen}<StorySidebar />{/if}
+<main
+  class="story-mode"
+  class:sidebar-open={storyView.sidebarOpen}
+  aria-label="Story mode"
+  bind:this={stage}
+>
+  {#if storyView.sidebarOpen}
+    <StorySidebar />
+  {/if}
   <div class="story-player-main">
     <StoryScene onfullscreen={fullscreen} />
     <StoryControls />

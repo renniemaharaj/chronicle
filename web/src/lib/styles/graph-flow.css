@@ -25,8 +25,9 @@
 
 .graph-canvas .svelte-flow__node.selected .event-node,
 .graph-canvas .svelte-flow__node.selected .entity-node {
-  box-shadow: 0 0 0 2px rgb(var(--shadow-rgb) / 0.30),
-    0 0 22px rgb(var(--shadow-rgb) / 0.30);
+  box-shadow:
+    0 0 0 2px rgb(var(--shadow-rgb) / 0.3),
+    0 0 22px rgb(var(--shadow-rgb) / 0.3);
 }
 
 .graph-canvas .svelte-flow__node-default > div {
@@ -52,7 +53,8 @@
 
 .graph-canvas .svelte-flow__edge-text {
   fill: var(--muted);
-  font: 18px 'DM Sans',
+  font:
+    18px 'DM Sans',
     sans-serif;
 }
 

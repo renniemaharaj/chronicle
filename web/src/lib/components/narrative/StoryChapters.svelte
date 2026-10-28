@@ -29,7 +29,11 @@
   <h2>Chapters</h2>
   <span>{ws.orderedEvents.length} passages</span>
 </div>
-<nav class="story-chapter-list" aria-label="Story chapter list" bind:this={list}>
+<nav
+  class="story-chapter-list"
+  aria-label="Story chapter list"
+  bind:this={list}
+>
   {#each outline as item, index (item.chapter.id)}
     <Button
       class="story-chapter-row"
@@ -45,9 +49,13 @@
         <small>{item.dates}</small>
         <small>{item.events.length} {item.events.length === 1 ? 'passage' : 'passages'}</small>
       </span>
-      {#if item.chapter.id === current?.chapter.id}<Play size={13} />{/if}
+      {#if item.chapter.id === current?.chapter.id}
+        <Play size={13} />
+      {/if}
     </Button>
   {:else}
-    <p class="story-empty-note">This project has no chapters. Use the passage controls to follow its events.</p>
+    <p class="story-empty-note">
+      This project has no chapters. Use the passage controls to follow its events.
+    </p>
   {/each}
 </nav>

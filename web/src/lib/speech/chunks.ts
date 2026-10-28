@@ -18,9 +18,14 @@ export function speechChunks(text: string, maxBytes = 4500): string[] {
         size = 0;
       }
     }
+
     current += character;
     size += bytes;
   }
-  if (current.trim()) chunks.push(current);
+
+  if (current.trim()) {
+    chunks.push(current);
+  }
+
   return chunks;
 }

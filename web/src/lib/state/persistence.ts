@@ -10,9 +10,15 @@ export async function initialize() {
       ws.dark = saved.dark ?? true;
       ws.storyHeight = Math.max(20, Math.min(75, saved.storyHeight ?? 34));
       ws.projects = (saved.projects ?? []).filter((project: Project) => !project.fixture);
+
       const project = ws.projects.find((project) => project.id === saved.projectId) ?? ws.projects[0];
-      if (project) ws.open(project);
-      if (saved.selectedId) ws.selectedId = saved.selectedId;
+      if (project) {
+        ws.open(project);
+      }
+
+      if (saved.selectedId) {
+        ws.selectedId = saved.selectedId;
+      }
     }
   } catch {
     ws.notify('The browser workspace could not be restored. Import a project or begin new research.');
@@ -25,9 +31,15 @@ export async function initialize() {
     ws.run = runs.find((run) => ['running', 'pending'].includes(run.status)) ?? ws.run;
     for (const project of projects.filter((item) => !item.fixture)) {
       const index = ws.projects.findIndex((item) => item.id === project.id);
-      if (index < 0) ws.projects.push(project);
-      else ws.projects[index] = project;
-      if (ws.project.id === project.id || !ws.hasProject) ws.open(project);
+      if (index < 0) {
+        ws.projects.push(project);
+      } else {
+        ws.projects[index] = project;
+      }
+
+      if (ws.project.id === project.id || !ws.hasProject) {
+        ws.open(project);
+      }
     }
   } catch {
     ws.connected = false;
@@ -57,22 +69,35 @@ export function cacheWorkspace() {
 }
 
 export async function saveProject(project = ws.project) {
-  if (!project.id) return;
+  if (!project.id) {
+    return;
+  }
+
   const index = ws.projects.findIndex((item) => item.id === project.id);
-  if (index >= 0) ws.projects[index] = project;
-  else ws.projects.push(project);
+  if (index >= 0) {
+    ws.projects[index] = project;
+  } else {
+    ws.projects.push(project);
+  }
+
   cacheWorkspace();
 
   if (ws.connected) {
     try {
       const saved = await api.save(project);
       ws.project = saved;
+
       const savedIndex = ws.projects.findIndex((item) => item.id === saved.id);
-      if (savedIndex >= 0) ws.projects[savedIndex] = saved;
+      if (savedIndex >= 0) {
+        ws.projects[savedIndex] = saved;
+      }
+
       ws.notify('Project saved to your local workspace');
+
       return;
     } catch (error) {
       ws.notify(`Saved in browser. ${String(error)}`);
+
       return;
     }
   }
@@ -102,10 +127,12 @@ export function importProject(value: unknown): Project {
   ) {
     throw new Error('This file is not a Chronicle v1 project.');
   }
+
   if (!project.entities.some((entity) => entity.id === project.subjectId)) {
     throw new Error('The project subject does not exist in its entity list.');
   }
 
   project.layout ??= {};
+
   return project;
 }

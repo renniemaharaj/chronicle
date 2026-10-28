@@ -2,6 +2,7 @@
   import { onDestroy } from 'svelte';
   import { workspace as ws } from '../../state/workspace.svelte';
   let { side }: { side: 'left' | 'right' | 'story' } = $props();
+
   let stopResize = () => {};
 
   function adjust(delta: number, height: number) {
@@ -11,8 +12,8 @@
       ws.rightWidth = Math.max(280, Math.min(480, ws.rightWidth - delta));
     } else {
       const maximum = Math.max(170, height - 270);
-      const pixels = Math.max(170, Math.min(maximum, height * ws.storyHeight / 100 - delta));
-      ws.storyHeight = pixels / height * 100;
+      const pixels = Math.max(170, Math.min(maximum, (height * ws.storyHeight) / 100 - delta));
+      ws.storyHeight = (pixels / height) * 100;
     }
   }
 
@@ -23,8 +24,10 @@
 
     event.preventDefault();
     stopResize();
+
     const height = (event.currentTarget as HTMLElement).parentElement?.clientHeight ?? 700;
     let previous = side === 'story' ? event.clientY : event.clientX;
+
     const move = (pointer: PointerEvent) => {
       const current = side === 'story' ? pointer.clientY : pointer.clientX;
       adjust(current - previous, height);
@@ -49,7 +52,9 @@
 <button
   class="resize-handle {side}"
   aria-label={`Resize ${side} panel`}
-  title={side === 'story' ? 'Drag to resize Story. Arrow keys also resize; double-click to reset.' : `Resize ${side} panel`}
+  title={side === 'story'
+    ? 'Drag to resize Story. Arrow keys also resize; double-click to reset.'
+    : `Resize ${side} panel`}
   onpointerdown={resize}
   ondblclick={() => {
     if (side === 'story') ws.storyHeight = 34;

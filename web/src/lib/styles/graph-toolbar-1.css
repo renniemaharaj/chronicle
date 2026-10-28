@@ -14,7 +14,8 @@
   gap: 8px;
   margin: 0;
   text-transform: capitalize;
-  font: 700 var(--font-section) Manrope,
+  font:
+    700 var(--font-section) Manrope,
     sans-serif;
 }
 
@@ -104,7 +105,7 @@
   border: 1px solid var(--line-strong);
   border-radius: 8px;
   background: var(--surface-raised);
-  box-shadow: 0 12px 32px rgb(var(--shadow-rgb) / 0.30);
+  box-shadow: 0 12px 32px rgb(var(--shadow-rgb) / 0.3);
   font-size: var(--font-body);
 }
 

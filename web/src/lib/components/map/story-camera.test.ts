@@ -1,4 +1,4 @@
-import { describe, expect, it, vi } from 'vitest';
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import type * as Leaflet from 'leaflet';
 import type { MapCameraFrame } from '../../utils/story-geography';
 import type { MapPlace } from '../../utils/map-projection';
@@ -8,15 +8,34 @@ function frame(longitudes: number[], kind = 'city', overview = false): MapCamera
   return {
     key: JSON.stringify(longitudes),
     overview,
-    places: longitudes.map((longitude) => ({ location: { latitude: 10, longitude, kind } }) as MapPlace),
+    places: longitudes.map(
+      (longitude) =>
+        ({
+          location: {
+            latitude: 10,
+            longitude,
+            kind,
+          },
+        }) as MapPlace,
+    ),
   };
 }
 
 function camera() {
   const map = {
     stop: vi.fn(),
-    getSize: () => ({ x: 1200, y: 700 }),
+    getSize: () => ({
+      x: 1200,
+      y: 700,
+    }),
     getCenter: () => ({ lng: 0 }),
+    getContainer: () => ({
+      closest: () => ({
+        querySelector: () => ({
+          getBoundingClientRect: () => ({ width: 480 }),
+        }),
+      }),
+    }),
     setView: vi.fn(),
     fitBounds: vi.fn(),
     flyToBounds: vi.fn(),
@@ -31,6 +50,14 @@ function camera() {
 }
 
 describe('story map camera', () => {
+  beforeEach(() => {
+    vi.stubGlobal('window', { matchMedia: () => ({ matches: true }) });
+  });
+
+  afterEach(() => {
+    vi.unstubAllGlobals();
+  });
+
   it('keeps western hemisphere coordinates aligned with their markers', () => {
     expect(storyCoordinates(frame([-62]))).toEqual([[10, -62]]);
     expect(storyCoordinates(frame([]))).toEqual([]);
@@ -47,6 +74,7 @@ describe('story map camera', () => {
     const country = camera();
     country.move(frame([-62], 'country'), false);
     expect(country.map.fitBounds.mock.calls[0][1].maxZoom).toBe(4);
+
     const overview = camera();
     overview.move(frame([-62], 'city', true), false);
     expect(overview.map.fitBounds.mock.calls[0][1].maxZoom).toBe(5);

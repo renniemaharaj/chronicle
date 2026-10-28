@@ -16,8 +16,16 @@
           <blockquote>{evidence.excerpt}</blockquote>
           <small>{evidence.relation} · {evidence.mode} · {evidence.location}</small>
           {#if safeSourceURL(source?.url)}
-            <a href={safeSourceURL(source?.url)} target="_blank" rel="noopener noreferrer">{source?.title}</a>
-          {:else}<p>{source?.title ?? 'Source unavailable'}</p>{/if}
+            <a
+              href={safeSourceURL(source?.url)}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {source?.title}
+            </a>
+          {:else}
+            <p>{source?.title ?? 'Source unavailable'}</p>
+          {/if}
         {/each}
       </details>
     {/if}

@@ -5,8 +5,13 @@ import { visitExtent } from '../../utils/map-projection';
 import { intervalLabel } from '../../types/temporal';
 
 export function drawMap(
-  L: typeof Leaflet, layer: Leaflet.LayerGroup, places: MapPlace[], visits: HistoricalEvent[],
-  selected: string, select?: (id: string) => void, positions?: Leaflet.LatLngTuple[],
+  L: typeof Leaflet,
+  layer: Leaflet.LayerGroup,
+  places: MapPlace[],
+  visits: HistoricalEvent[],
+  selected: string,
+  select?: (id: string) => void,
+  positions?: Leaflet.LatLngTuple[],
 ) {
   layer.clearLayers();
   for (let index = 1; index < visits.length; index++) {
@@ -20,27 +25,49 @@ export function drawMap(
     if (from.length !== 1 || to.length !== 1 || end === undefined || start === undefined || end >= start) {
       continue;
     }
+
     const a = from[0].location;
     const b = to[0].location;
     if (from[0].entity.id === to[0].entity.id || Math.abs(a.longitude - b.longitude) > 180) {
       continue;
     }
+
     const label = document.createElement('span');
     label.textContent = `${intervalLabel(previous.time)} → ${intervalLabel(current.time)} · Recorded sequence; route unknown`;
-    L.polyline([[a.latitude, a.longitude], [b.latitude, b.longitude]], {
-      color: '#2459b9', weight: 2, dashArray: '6 7', opacity: 0.75,
-    }).bindTooltip(label).addTo(layer);
+    L.polyline(
+      [
+        [a.latitude, a.longitude],
+        [b.latitude, b.longitude],
+      ],
+      {
+        color: '#2459b9',
+        weight: 2,
+        dashArray: '6 7',
+        opacity: 0.75,
+      },
+    )
+      .bindTooltip(label)
+      .addTo(layer);
   }
 
   for (const [index, place] of places.entries()) {
     const active = selected === place.entity.id || place.events.some((event) => event.id === selected);
     const label = document.createElement('span');
     label.textContent = `${place.entity.name} · ${place.events.length} timeline events`;
-    const position: Leaflet.LatLngTuple = positions?.[index] ?? [place.location.latitude, place.location.longitude];
+
+    const position: Leaflet.LatLngTuple = positions?.[index] ?? [
+      place.location.latitude,
+      place.location.longitude,
+    ];
     const marker = L.circleMarker(position, {
-      radius: active ? 9 : 6, color: active ? '#173969' : '#ffffff', weight: 2,
-      fillColor: active ? '#e3ac32' : '#2865d1', fillOpacity: 1,
-    }).bindTooltip(label, { direction: 'top' }).addTo(layer);
+      radius: active ? 9 : 6,
+      color: active ? '#173969' : '#ffffff',
+      weight: 2,
+      fillColor: active ? '#e3ac32' : '#2865d1',
+      fillOpacity: 1,
+    })
+      .bindTooltip(label, { direction: 'top' })
+      .addTo(layer);
     if (select) {
       marker.on('click', () => select(place.entity.id));
     }

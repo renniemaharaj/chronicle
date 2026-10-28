@@ -4,7 +4,12 @@
   import { Search } from '@lucide/svelte';
 
   let {
-    value = $bindable(''), label, placeholder, summary = '', controls, oninput,
+    value = $bindable(''),
+    label,
+    placeholder,
+    summary = '',
+    controls,
+    oninput,
   }: {
     value?: string;
     label: string;
@@ -20,7 +25,13 @@
 <div class="subject-search-toolbar">
   <Label class="subject-search">
     <Search size={18} />
-    <Input bind:elementRef={input} aria-label={label} {placeholder} bind:value {oninput} />
+    <Input
+      bind:elementRef={input}
+      aria-label={label}
+      {placeholder}
+      bind:value
+      {oninput}
+    />
   </Label>
   {#if summary || controls}
     <div class="subject-search-meta">

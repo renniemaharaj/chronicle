@@ -20,6 +20,7 @@ export function mapLocation(entity: Entity): MapLocation | undefined {
   if (!location || !Number.isFinite(location.latitude) || !Number.isFinite(location.longitude)) {
     return;
   }
+
   if (Math.abs(location.latitude) > 90 || Math.abs(location.longitude) > 180) {
     return;
   }
@@ -33,7 +34,9 @@ export function mapLocation(entity: Entity): MapLocation | undefined {
     provider: typeof location.provider === 'string' ? location.provider : '',
     retrievedAt: typeof location.retrievedAt === 'string' ? location.retrievedAt : '',
     sourceId: typeof location.sourceId === 'string' ? location.sourceId : undefined,
-    claimIds: Array.isArray(location.claimIds) ? location.claimIds.filter((id) => typeof id === 'string') : [],
+    claimIds: Array.isArray(location.claimIds)
+      ? location.claimIds.filter((id) => typeof id === 'string')
+      : [],
     note: typeof location.note === 'string' ? location.note : '',
   };
 }
@@ -64,15 +67,19 @@ export function locationZoom(kind: string) {
   if (['sea', 'ocean'].includes(kind)) {
     return 3;
   }
+
   if (['country', 'region', 'province'].includes(kind)) {
     return 4;
   }
+
   if (kind === 'peninsula') {
     return 5;
   }
+
   if (['state', 'administrative', 'county', 'river'].includes(kind)) {
     return 6;
   }
+
   if (['city', 'town', 'village'].includes(kind)) {
     return 10;
   }

@@ -1,5 +1,5 @@
 import { notify } from './notifications';
-import { chapterForEvent, focusChapter } from './chapter-focus';
+import { selectRecord } from './record-selection';
 import { emptyProject, emptySubject } from './empty';
 import { nearestEvent, orderedEvents, projectBounds } from './navigation';
 import type { Project, ResearchRun } from '../types/project';
@@ -73,7 +73,8 @@ export class Workspace {
 
   get chapter() {
     return (
-      this.project.chapters.find((chapter) => chapter.eventIds.includes(this.selectedId)) ?? this.project.chapters[0]
+      this.project.chapters.find((chapter) => chapter.eventIds.includes(this.selectedId)) ??
+      this.project.chapters[0]
     );
   }
 
@@ -94,22 +95,7 @@ export class Workspace {
   }
 
   select(id: string, type = 'event') {
-    this.storyFinished = false;
-    this.selectedId = id;
-    this.selectedType = type;
-    const event = this.orderedEvents.find((event) => event.id === id);
-    if (!event) {
-      this.playing = false;
-    }
-    const chapter = chapterForEvent(this, id);
-    if (chapter && this.followChapter && (this.playing || this.focusedChapterId)) {
-      if (this.focusedChapterId !== chapter.id) {
-        focusChapter(this, chapter.id, false);
-      }
-    }
-    if (event?.time.start && event.time.start.precision !== 'unknown') {
-      this.year = event.time.start.year;
-    }
+    selectRecord(this, id, type);
   }
 
   step(direction: number) {
@@ -119,6 +105,7 @@ export class Workspace {
     if (events[next]) {
       this.select(events[next].id);
     }
+
     if (index === events.length - 1 && direction > 0) {
       this.storyFinished = true;
       this.playing = false;
@@ -129,7 +116,9 @@ export class Workspace {
     if (!Number.isFinite(year)) {
       return;
     }
+
     this.year = year;
+
     const nearest = nearestEvent(this.project, year);
     if (nearest) {
       this.select(nearest.id);
@@ -141,7 +130,11 @@ export class Workspace {
   }
 
   yearLabel() {
-    return dateLabel({ year: this.year, precision: 'year', calendar: 'proleptic_gregorian' });
+    return dateLabel({
+      year: this.year,
+      precision: 'year',
+      calendar: 'proleptic_gregorian',
+    });
   }
 }
 

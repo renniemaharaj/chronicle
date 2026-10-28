@@ -9,19 +9,34 @@
 
 <section class="progress-card">
   <div class="progress-title">
-    <ShieldCheck size={13} class="coverage-icon" /><strong>Research coverage</strong>
-    <Button icon aria-label="Inspect research coverage" onclick={() => (ws.dialog = 'Coverage')}
-      ><CircleHelp size={13} /></Button
+    <ShieldCheck
+      size={13}
+      class="coverage-icon"
+    />
+    <strong>Research coverage</strong>
+    <Button
+      icon
+      aria-label="Inspect research coverage"
+      onclick={() => (ws.dialog = 'Coverage')}
     >
+      <CircleHelp size={13} />
+    </Button>
   </div>
   {#if ws.run && ws.run.status === 'running'}
     <div class="progress-row">
       <span class="live-dot"></span>
-      <div><strong>{ws.run.phase}</strong><small>{ws.run.question}</small></div>
+      <div>
+        <strong>{ws.run.phase}</strong>
+        <small>{ws.run.question}</small>
+      </div>
     </div>
   {:else}
     <div class="coverage-summary">
-      <strong>{researched}<span> / {total}</span></strong><span>intervals researched</span>
+      <strong>
+        {researched}
+        <span>/ {total}</span>
+      </strong>
+      <span>intervals researched</span>
     </div>
     <p class="coverage-note">
       {ws.project.fixture
@@ -43,12 +58,22 @@
       ></Button>
     {/each}
   </div>
-  <div class="coverage-line"><span>Sources recorded</span><strong>{ws.project.sources.length}</strong></div>
-  <div class="coverage-line"><span>Claims available</span><strong>{ws.project.claims.length}</strong></div>
   <div class="coverage-line">
-    <span>Conflicts preserved</span><strong class="warn">{ws.project.conflicts.length}</strong>
+    <span>Sources recorded</span>
+    <strong>{ws.project.sources.length}</strong>
   </div>
-  <Button class="coverage-details" onclick={() => (ws.dialog = 'Coverage')}
-    >Inspect periods and gaps <GitBranch size={11} /></Button
+  <div class="coverage-line">
+    <span>Claims available</span>
+    <strong>{ws.project.claims.length}</strong>
+  </div>
+  <div class="coverage-line">
+    <span>Conflicts preserved</span>
+    <strong class="warn">{ws.project.conflicts.length}</strong>
+  </div>
+  <Button
+    class="coverage-details"
+    onclick={() => (ws.dialog = 'Coverage')}
   >
+    Inspect periods and gaps <GitBranch size={11} />
+  </Button>
 </section>

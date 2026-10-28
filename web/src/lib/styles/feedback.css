@@ -12,7 +12,7 @@
   border-radius: 7px;
   background: var(--teal-soft);
   color: var(--teal);
-  box-shadow: 0 12px 30px rgb(var(--shadow-rgb) / 0.30);
+  box-shadow: 0 12px 30px rgb(var(--shadow-rgb) / 0.3);
   font-size: var(--font-body);
   animation: toast-in 0.18s ease-out;
 }

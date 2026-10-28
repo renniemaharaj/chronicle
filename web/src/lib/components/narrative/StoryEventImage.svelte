@@ -11,6 +11,9 @@
 {#if image}
   <figure class="story-event-image">
     <MediaPreview asset={image} />
-    <figcaption>{image.caption || image.title} · {image.creator || 'Creator not recorded'} · {image.license || 'Rights unknown'}</figcaption>
+    <figcaption>
+      {image.caption || image.title} · {image.creator || 'Creator not recorded'} · {image.license ||
+        'Rights unknown'}
+    </figcaption>
   </figure>
 {/if}

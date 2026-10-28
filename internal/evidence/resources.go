@@ -19,52 +19,70 @@ func ExtractResources(document, baseAddress string) []domain.Resource {
 	if err != nil {
 		return nil
 	}
+
 	result := []domain.Resource{}
 	add := func(kind, address, label string) {
 		relative, err := url.Parse(strings.TrimSpace(address))
 		if err != nil || address == "" {
 			return
 		}
+
 		resolved := base.ResolveReference(relative)
 		resolved.Fragment = ""
 		if !domain.SafeWebURL(resolved.String()) {
 			return
 		}
+
 		if kind == "link" && videoAddress(resolved.String()) {
 			kind = "video"
 		}
-		result = keepResource(result, domain.Resource{Kind: kind, URL: resolved.String(), Label: NormalizePassage(label)})
+
+		result = keepResource(result, domain.Resource{
+			Kind:  kind,
+			URL:   resolved.String(),
+			Label: NormalizePassage(label),
+		})
 	}
 	tokens := html.NewTokenizer(strings.NewReader(document))
 	var anchor, label string
+
 	for {
 		tokenType := tokens.Next()
 		if tokenType == html.ErrorToken {
 			break
 		}
+
 		token := tokens.Token()
 		attributes := map[string]string{}
+
 		for _, attribute := range token.Attr {
 			attributes[attribute.Key] = attribute.Val
 		}
+
 		if tokenType == html.TextToken && anchor != "" && len(label) < 300 {
 			label += " " + token.Data
 		}
+
 		if tokenType == html.EndTagToken && token.Data == "a" {
 			add("link", anchor, label)
+
 			anchor, label = "", ""
 		}
+
 		if tokenType != html.StartTagToken && tokenType != html.SelfClosingTagToken {
 			continue
 		}
+
 		// Some documented players expose their YouTube ID instead of an iframe URL.
 		id := attributes["data-youtube-id"]
 		if id == "" && strings.Contains(document, "youtube.com") {
 			id = attributes["data-video"]
 		}
+
 		if youtubeID.MatchString(id) {
 			add("video", "https://www.youtube.com/watch?v="+id, attributes["data-title"])
 		}
+
 		switch token.Data {
 		case "a":
 			anchor, label = attributes["href"], attributes["aria-label"]
@@ -94,13 +112,16 @@ func ExtractResources(document, baseAddress string) []domain.Resource {
 			}
 		}
 	}
+
 	for _, match := range markdownResource.FindAllStringSubmatch(document, 180) {
 		kind := "link"
 		if match[1] == "!" {
 			kind = "image"
 		}
+
 		add(kind, match[3], match[2])
 	}
+
 	return result
 }
 
@@ -110,5 +131,6 @@ func videoHost(host string) bool {
 			return true
 		}
 	}
+
 	return false
 }

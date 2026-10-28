@@ -12,13 +12,23 @@
     <span class="eyebrow">Your local research instrument</span>
     <h1>Begin with a subject.</h1>
     <p>Reconstruct a history. Follow its relationships. Examine the evidence.</p>
-    <Button variant="primary" onclick={() => (ws.dialog = 'Research')}>
+    <Button
+      variant="primary"
+      onclick={() => (ws.dialog = 'Research')}
+    >
       <Search size={16} /> Start research <ArrowUpRight size={15} />
     </Button>
-    <Button class="empty-library" onclick={() => (ws.dialog = 'Library')}>
+    <Button
+      class="empty-library"
+      onclick={() => (ws.dialog = 'Library')}
+    >
       <BookOpen size={15} /> Open or import a research project
     </Button>
-    <div class="empty-principle"><Database size={14} /> Saved locally. Every claim stays connected to its sources.</div>
+    <div class="empty-principle">
+      <Database size={14} /> Saved locally. Every claim stays connected to its sources.
+    </div>
   </section>
-  {#if ws.run}<section class="empty-progress"><RunProgress /></section>{/if}
+  {#if ws.run}
+    <section class="empty-progress"><RunProgress /></section>
+  {/if}
 </main>

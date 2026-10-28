@@ -7,9 +7,10 @@ export function storyCoordinates(frame: MapCameraFrame, referenceLongitude = 0):
   if (!frame.places.length) {
     return [];
   }
-  const longitudes = frame.places.map((place) =>
-    (place.location.longitude + 360) % 360,
-  ).sort((a, b) => a - b);
+
+  const longitudes = frame.places
+    .map((place) => (place.location.longitude + 360) % 360)
+    .sort((a, b) => a - b);
   let start = longitudes[0];
   let largestGap = -1;
   for (let index = 0; index < longitudes.length; index++) {
@@ -30,16 +31,25 @@ export function storyCoordinates(frame: MapCameraFrame, referenceLongitude = 0):
     return [location.latitude, longitude];
   });
 
-  const center = (Math.min(...positions.map((point) => point[1])) + Math.max(...positions.map((point) => point[1]))) / 2;
+  const center =
+    (Math.min(...positions.map((point) => point[1])) + Math.max(...positions.map((point) => point[1]))) / 2;
   const shift = Math.round((referenceLongitude - center) / 360) * 360;
+
   return positions.map(([latitude, longitude]) => [latitude, longitude + shift]);
 }
 
-export function moveStoryCamera(L: typeof Leaflet, map: Leaflet.Map, frame: MapCameraFrame, animate: boolean) {
+export function moveStoryCamera(
+  L: typeof Leaflet,
+  map: Leaflet.Map,
+  frame: MapCameraFrame,
+  animate: boolean,
+) {
   map.stop();
+
   const positions = storyCoordinates(frame, map.getCenter().lng);
   if (!positions.length) {
     map.setView([18, -25], 2, { animate });
+
     return;
   }
 
@@ -48,11 +58,17 @@ export function moveStoryCamera(L: typeof Leaflet, map: Leaflet.Map, frame: MapC
   const reader = map.getContainer().closest('.story-scene')?.querySelector('.story-reading');
   const readerWidth = reader?.getBoundingClientRect().width ?? Math.min(400, size.x * 0.4);
   const paddingTopLeft: Leaflet.PointTuple = [48, wide ? 76 : 180];
-  const paddingBottomRight: Leaflet.PointTuple = wide
-    ? [readerWidth + 42, 110]
-    : [40, size.y * 0.53];
-  const maxZoom = frame.overview ? 5 : Math.min(...frame.places.map((place) => locationZoom(place.location.kind)));
-  const options = { paddingTopLeft, paddingBottomRight, maxZoom, animate, duration: 1.2 };
+  const paddingBottomRight: Leaflet.PointTuple = wide ? [readerWidth + 42, 110] : [40, size.y * 0.53];
+  const maxZoom = frame.overview
+    ? 5
+    : Math.min(...frame.places.map((place) => locationZoom(place.location.kind)));
+  const options = {
+    paddingTopLeft,
+    paddingBottomRight,
+    maxZoom,
+    animate,
+    duration: 1.2,
+  };
   const bounds = L.latLngBounds(positions);
   if (animate) {
     map.flyToBounds(bounds, options);

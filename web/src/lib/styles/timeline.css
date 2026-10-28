@@ -44,7 +44,8 @@
   position: relative;
   gap: 8px;
   color: var(--muted);
-  font: var(--font-min) 'DM Mono',
+  font:
+    var(--font-min) 'DM Mono',
     monospace;
 }
 

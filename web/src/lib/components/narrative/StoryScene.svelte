@@ -16,7 +16,10 @@
   const geography = $derived(storyGeography(ws.project, event, events));
 </script>
 
-<div class="story-scene" class:alternate-scene={storyView.scene !== 'Map'}>
+<div
+  class="story-scene"
+  class:alternate-scene={storyView.scene !== 'Map'}
+>
   {#if storyView.scene === 'Map'}
     <MapStage
       places={geography.frame.places}
@@ -24,8 +27,14 @@
       camera={geography.frame}
       followCamera={storyView.followLocation}
     />
-    <div class="story-map-shade" aria-hidden="true"></div>
-    <div class="story-location" aria-live="polite">
+    <div
+      class="story-map-shade"
+      aria-hidden="true"
+    ></div>
+    <div
+      class="story-location"
+      aria-live="polite"
+    >
       <span><MapPin size={15} />{geography.names.join(' / ') || 'Wider story context'}</span>
       <p>{geography.caption}</p>
       <small>Modern geographic references; historical borders are not shown.</small>
@@ -33,7 +42,11 @@
     </div>
   {:else}
     <div class="story-alternate-stage">
-      {#if storyView.scene === 'Timeline'}<StoryChronology />{:else}<StoryGraph />{/if}
+      {#if storyView.scene === 'Timeline'}
+        <StoryChronology />
+      {:else}
+        <StoryGraph />
+      {/if}
     </div>
   {/if}
   <StorySceneToolbar {onfullscreen} />
