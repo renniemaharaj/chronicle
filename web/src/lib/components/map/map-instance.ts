@@ -1,9 +1,10 @@
 import type * as Leaflet from 'leaflet';
+import type { PublicConfig } from '../../api/config';
 
 export function createMap(
   library: typeof Leaflet,
   container: HTMLDivElement,
-  settings: { mapTileUrl: string; mapAttribution: string },
+  settings: PublicConfig,
   onTileError: () => void,
 ) {
   const map = library.map(container, {

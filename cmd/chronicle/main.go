@@ -10,14 +10,32 @@ import (
 	"time"
 
 	"chronicle/internal/api"
+	"chronicle/internal/config"
 	"chronicle/internal/research"
 )
 
 func main() {
+	settings, err := config.Load()
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	if len(os.Args) > 1 {
+		if os.Args[1] != "healthcheck" || len(os.Args) != 2 {
+			log.Fatal("usage: chronicle [healthcheck]")
+		}
+
+		if err := healthcheck(settings.Address); err != nil {
+			log.Fatal(err)
+		}
+
+		return
+	}
+
 	ctx, stop := signal.NotifyContext(context.Background(), syscall.SIGINT, syscall.SIGTERM)
 	defer stop()
 
-	store, err := openWorkspace(ctx)
+	store, err := openWorkspace(ctx, settings)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -29,16 +47,11 @@ func main() {
 
 	manager := research.NewManager(store)
 	mux := http.NewServeMux()
-	mux.Handle("/api/", api.New(store, manager))
-	mux.Handle("/", http.FileServer(http.Dir("web/build")))
-
-	address := os.Getenv("CHRONICLE_ADDR")
-	if address == "" {
-		address = "127.0.0.1:8080"
-	}
+	mux.Handle("/api/", api.New(store, manager, settings))
+	mux.Handle("/", http.FileServer(http.Dir(settings.StaticDir)))
 
 	server := &http.Server{
-		Addr:              address,
+		Addr:              settings.Address,
 		Handler:           mux,
 		ReadHeaderTimeout: 5 * time.Second,
 		IdleTimeout:       60 * time.Second,
@@ -51,7 +64,7 @@ func main() {
 
 		server.Shutdown(timeout)
 	}()
-	log.Printf("Chronicle is available at http://%s", address)
+	log.Printf("Chronicle is available at http://%s", settings.Address)
 	if err := server.ListenAndServe(); err != nil && err != http.ErrServerClosed {
 		log.Print(err)
 	}

@@ -3,16 +3,16 @@ package main
 import (
 	"context"
 	"encoding/json"
-	"os"
 
+	"chronicle/internal/config"
 	"chronicle/internal/domain"
 	"chronicle/internal/narrative"
 	"chronicle/internal/storage"
 )
 
-func openWorkspace(ctx context.Context) (storage.Store, error) {
-	if url := os.Getenv("DATABASE_URL"); url != "" {
-		postgres, err := storage.OpenPostgres(ctx, url)
+func openWorkspace(ctx context.Context, settings config.Config) (storage.Store, error) {
+	if settings.DatabaseURL != "" {
+		postgres, err := storage.OpenPostgres(ctx, settings.DatabaseURL)
 		if err != nil {
 			return nil, err
 		}
@@ -26,12 +26,7 @@ func openWorkspace(ctx context.Context) (storage.Store, error) {
 		return postgres, nil
 	}
 
-	path := os.Getenv("CHRONICLE_WORKSPACE")
-	if path == "" {
-		path = ".chronicle"
-	}
-
-	return storage.OpenFiles(path)
+	return storage.OpenFiles(settings.Workspace)
 }
 
 func prepareWorkspace(ctx context.Context, store storage.Store) error {

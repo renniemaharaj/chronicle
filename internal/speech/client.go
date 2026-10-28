@@ -9,10 +9,6 @@ import (
 	"io"
 	"net/http"
 	"net/url"
-	"time"
-
-	"golang.org/x/oauth2"
-	"golang.org/x/oauth2/google"
 )
 
 type Client struct {
@@ -31,28 +27,6 @@ type Request struct {
 	Text         string `json:"text"`
 	VoiceName    string `json:"voiceName"`
 	LanguageCode string `json:"languageCode"`
-}
-
-func New(ctx context.Context) (*Client, error) {
-	credentials, err := google.FindDefaultCredentials(ctx, "https://www.googleapis.com/auth/cloud-platform")
-	if err != nil {
-		return nil, fmt.Errorf("Google speech needs Application Default Credentials; see docs/speech.md")
-	}
-
-	transport := &oauth2.Transport{Source: credentials.TokenSource}
-	var metadata struct {
-		QuotaProjectID string `json:"quota_project_id"`
-	}
-	_ = json.Unmarshal(credentials.JSON, &metadata)
-
-	return &Client{
-		HTTP: &http.Client{
-			Transport: transport,
-			Timeout:   30 * time.Second,
-		},
-		Endpoint:     "https://texttospeech.googleapis.com/v1",
-		QuotaProject: metadata.QuotaProjectID,
-	}, nil
 }
 
 func (c *Client) call(ctx context.Context, method, path string, input, output any) error {

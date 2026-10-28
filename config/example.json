@@ -1,0 +1,26 @@
+{
+  "address": "127.0.0.1:8080",
+  "workspace": ".chronicle",
+  "staticDir": "web/build",
+  "databaseUrl": "",
+  "allowedOrigins": ["http://localhost:5173", "http://127.0.0.1:5173"],
+  "geocoderUrl": "https://photon.komoot.io/api/",
+  "mapTileUrl": "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+  "mapAttribution": "&copy; <a href=\"https://www.openstreetmap.org/copyright\">OpenStreetMap</a> contributors",
+  "speech": {
+    "endpoint": "https://texttospeech.googleapis.com/v1",
+    "credentialsFile": "",
+    "quotaProject": ""
+  },
+  "research": {
+    "provider": "ollama",
+    "baseUrl": "http://localhost:11434",
+    "model": "",
+    "apiKey": "",
+    "mcpUrl": "",
+    "searchTool": "",
+    "retrieveTool": "",
+    "maxRequests": 40,
+    "concurrency": 2
+  }
+}

@@ -3,7 +3,11 @@ web/.svelte-kit/
 web/build/
 .chronicle/
 .env
+.env.*
+!.env.example
+node_modules/
+secrets/
+config/local.json
 *.log
 web/test-results/
 web/playwright-report/
-node_modules/

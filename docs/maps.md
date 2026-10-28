@@ -74,8 +74,8 @@ providers without changing code. Map records retain OpenStreetMap attribution.
 The map uses Leaflet and browser-cached OpenStreetMap tiles with visible
 attribution. Only the current viewport loads tiles; no offline download or
 prefetch is provided. Follow the [tile usage policy](https://operations.osmfoundation.org/policies/tiles/).
-`VITE_MAP_TILE_URL` can select a compatible OSM-derived raster tile service at
-build time; retain attribution and comply with that provider's terms.
+`CHRONICLE_MAP_TILE_URL` selects a compatible OSM-derived raster tile service at
+runtime; retain attribution and comply with that provider's terms.
 
 ## Travel limits
 

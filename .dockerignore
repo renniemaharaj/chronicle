@@ -1,0 +1,13 @@
+.git
+.chronicle
+node_modules
+**/node_modules
+web/.svelte-kit
+web/build
+web/test-results
+web/playwright-report
+.env
+.env.*
+secrets
+config/local.json
+*.log

@@ -10,6 +10,7 @@
   import type { MapCameraFrame } from '../../utils/story-geography';
   import { storyCoordinates } from './story-camera';
   import { focusSelectedPlace } from './map-selection';
+  import { publicConfig } from '../../api/config';
   import { createMap } from './map-instance';
 
   let {
@@ -35,24 +36,15 @@
   onMount(() => {
     let cancelled = false;
     let observer: ResizeObserver | undefined;
-    import('leaflet')
-      .then((L) => {
+    Promise.all([import('leaflet'), publicConfig()])
+      .then(([L, settings]) => {
         if (cancelled) {
           return;
         }
 
-        const created = createMap(
-          L,
-          container,
-          {
-            mapTileUrl: import.meta.env.VITE_MAP_TILE_URL || 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
-            mapAttribution:
-              '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-          },
-          () => {
-            tilesFailed = true;
-          },
-        );
+        const created = createMap(L, container, settings, () => {
+          tilesFailed = true;
+        });
         layer = created.layer;
         observer = created.observer;
         library = L;

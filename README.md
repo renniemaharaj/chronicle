@@ -62,6 +62,11 @@ modern base map does not reconstruct historical borders. [Story mode guide](docs
 
 ## Start researching
 
+For Docker, create the workspace with `mkdir -p -m 700 .chronicle`,
+then run `docker compose up --build -d` and open
+[localhost:8080](http://localhost:8080). See [Docker](docs/docker.md) and
+[service configuration](docs/configuration.md) for storage, models and environment overrides.
+
 Requires **Node.js 22+** and **Go 1.26+**.
 
 ```sh

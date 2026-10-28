@@ -6,21 +6,29 @@ import (
 	"io"
 	"net/http"
 	"net/url"
-	"os"
 	"strings"
 	"sync"
 	"time"
 )
 
 type Searcher struct {
-	mu    sync.Mutex
-	rate  sync.Mutex
-	last  time.Time
-	cache map[string][]Result
+	endpoint string
+	mu       sync.Mutex
+	rate     sync.Mutex
+	last     time.Time
+	cache    map[string][]Result
 }
 
-func NewSearcher() *Searcher {
-	return &Searcher{cache: make(map[string][]Result)}
+func NewSearcher(endpoints ...string) *Searcher {
+	endpoint := "https://photon.komoot.io/api/"
+	if len(endpoints) > 0 {
+		endpoint = endpoints[0]
+	}
+
+	return &Searcher{
+		cache:    make(map[string][]Result),
+		endpoint: endpoint,
+	}
 }
 
 func (s *Searcher) Search(ctx context.Context, query string) ([]Result, error) {
@@ -53,12 +61,7 @@ func (s *Searcher) Search(ctx context.Context, query string) ([]Result, error) {
 		}
 	}
 
-	endpoint := os.Getenv("CHRONICLE_GEOCODER_URL")
-	if endpoint == "" {
-		endpoint = "https://photon.komoot.io/api/"
-	}
-
-	u, err := url.Parse(endpoint)
+	u, err := url.Parse(s.endpoint)
 	if err != nil || u.Host == "" || (u.Scheme != "https" && u.Scheme != "http") {
 		return nil, fmt.Errorf("the configured map search endpoint is invalid")
 	}

@@ -12,7 +12,7 @@ func (s *Server) speechVoices(w http.ResponseWriter, r *http.Request) {
 	ctx, cancel := context.WithTimeout(r.Context(), 30*time.Second)
 	defer cancel()
 
-	client, err := speech.New(ctx)
+	client, err := speech.New(ctx, s.config.Speech)
 	if err != nil {
 		fail(w, err, 503)
 
@@ -46,7 +46,7 @@ func (s *Server) speechAudio(w http.ResponseWriter, r *http.Request) {
 	ctx, cancel := context.WithTimeout(r.Context(), 30*time.Second)
 	defer cancel()
 
-	client, err := speech.New(ctx)
+	client, err := speech.New(ctx, s.config.Speech)
 	if err != nil {
 		fail(w, err, 503)
 

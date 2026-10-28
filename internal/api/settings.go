@@ -13,12 +13,7 @@ import (
 )
 
 func (s *Server) loadSettings(ctx context.Context) (domain.Settings, error) {
-	settings := domain.Settings{
-		Provider:    "ollama",
-		BaseURL:     "http://localhost:11434",
-		MaxRequests: 40,
-		Concurrency: 2,
-	}
+	settings := s.config.Research
 	data, err := s.store.Get(ctx, "settings", "providers")
 	if errors.Is(err, storage.ErrNotFound) {
 		return settings, nil
@@ -30,7 +25,7 @@ func (s *Server) loadSettings(ctx context.Context) (domain.Settings, error) {
 
 	err = json.Unmarshal(data, &settings)
 
-	return settings, err
+	return s.config.ApplyResearch(settings), err
 }
 
 func (s *Server) settings(w http.ResponseWriter, r *http.Request) {
@@ -91,12 +86,17 @@ func (s *Server) saveSettings(w http.ResponseWriter, r *http.Request) {
 	}
 
 	settings.HasAPIKey = false
+	if s.config.ManagesAPIKey() {
+		settings.APIKey = ""
+	}
+
 	if err := s.store.Put(r.Context(), "settings", "providers", settings); err != nil {
 		fail(w, err, 500)
 
 		return
 	}
 
+	settings = s.config.ApplyResearch(settings)
 	settings.HasAPIKey, settings.APIKey = settings.APIKey != "", ""
 	write(w, 200, settings)
 }

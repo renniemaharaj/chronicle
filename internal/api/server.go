@@ -8,24 +8,34 @@ import (
 	"net/url"
 	"strings"
 
+	"chronicle/internal/config"
 	"chronicle/internal/geography"
 	"chronicle/internal/research"
 	"chronicle/internal/storage"
 )
 
 type Server struct {
+	config    config.Config
 	store     storage.Store
 	research  *research.Manager
 	geography *geography.Searcher
 }
 
-func New(store storage.Store, manager *research.Manager) http.Handler {
+func New(store storage.Store, manager *research.Manager, options ...config.Config) http.Handler {
+	settings := config.Defaults()
+	if len(options) > 0 {
+		settings = options[0]
+	}
+
 	s := &Server{
 		store:     store,
 		research:  manager,
-		geography: geography.NewSearcher(),
+		config:    settings,
+		geography: geography.NewSearcher(settings.GeocoderURL),
 	}
+
 	mux := http.NewServeMux()
+	mux.HandleFunc("GET /api/config", s.publicConfig)
 	mux.HandleFunc("GET /api/places/search", s.searchPlaces)
 	mux.HandleFunc("GET /api/speech/voices", s.speechVoices)
 	mux.HandleFunc("POST /api/speech/synthesize", s.speechAudio)
@@ -51,7 +61,7 @@ func New(store storage.Store, manager *research.Manager) http.Handler {
 		w.Header().Set("Cache-Control", "no-store")
 		if r.Method != http.MethodGet {
 			origin, err := url.Parse(r.Header.Get("Origin"))
-			if err != nil || (origin.Host != "" && origin.Host != r.Host && origin.Host != "localhost:5173" && origin.Host != "127.0.0.1:5173" && origin.Host != "localhost:5174" && origin.Host != "127.0.0.1:5174") {
+			if err != nil || !s.allowsOrigin(origin, r.Host) {
 				fail(w, fmt.Errorf("request origin is not the local Chronicle workspace"), 403)
 
 				return

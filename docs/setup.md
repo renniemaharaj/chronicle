@@ -2,6 +2,9 @@
 
 Run Chronicle locally, configure automatic research, and choose how projects are stored.
 
+See [Docker](docker.md) for containers and [Configuration](configuration.md)
+for JSON settings, environment overrides and service endpoints.
+
 ## Run
 
 Requires Node.js 22+ and Go 1.26+.
