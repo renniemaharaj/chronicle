@@ -6,6 +6,7 @@
   import { workspace as ws } from '../../state/workspace.svelte';
   import { api } from '../../api/client';
   import RunProgress from '../research/RunProgress.svelte';
+  import RefreshStory from '../research/RefreshStory.svelte';
   import type { ResearchRun } from '../../types/project';
 
   let subject = $state('');
@@ -77,3 +78,4 @@
   <Settings size={13} /> Configure model and MCP tools
 </Button>
 <RunProgress />
+<RefreshStory />

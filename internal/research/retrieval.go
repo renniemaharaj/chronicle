@@ -88,11 +88,12 @@ func (j *job) investigate(client *mcp.Client, settings domain.Settings, question
 
 	resources := evidence.ExtractResources(document, selection.URL)
 	batch, err := providers.Structured[extraction](j.ctx, j, extractionInstructions, inputJSON(map[string]any{
-		"question":  question,
-		"subject":   j.snapshot().Project.Entities[0],
-		"sourceUrl": selection.URL,
-		"document":  document,
-		"resources": resources,
+		"question":       question,
+		"subject":        j.snapshot().Project.Entities[0],
+		"sourceUrl":      selection.URL,
+		"document":       document,
+		"resources":      resources,
+		"existingEvents": existingOccurrences(j.snapshot().Project),
 	}))
 	if err != nil {
 		return empty, source, err

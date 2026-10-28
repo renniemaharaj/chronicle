@@ -7,6 +7,7 @@
   import { importProject, saveProject } from '../../state/persistence';
   import { exportFormats, exportProject } from '../../api/exports';
   import CollectionSearch from '../subjects/CollectionSearch.svelte';
+  import { storyCompletion } from '../../utils/completion';
 
   let query = $state('');
   const results = $derived(
@@ -66,6 +67,7 @@
   />
   <div class="library-projects">
     {#each results as project}
+      {@const readiness = storyCompletion(project)}
       {@const subject = project.entities.find((entity) => entity.id === project.subjectId)}<Button
         class="library-project"
         onclick={() => ws.open(project)}
@@ -85,6 +87,12 @@
             {project.events.length} events · {project.claims.length} claims · {project.conflicts.length} conflicts
           </small>
           <small>{project.fixture ? 'Fixture · incomplete coverage' : 'Research project'}</small>
+          <small>
+            Narration text {readiness.narrationPercent}% complete · evidence linked {readiness.evidencePercent}%
+          </small>
+          {#if readiness.research}
+            <small>Research tasks {readiness.research.percent}% complete</small>
+          {/if}
         </span>
         <BookOpen size={15} />
       </Button>

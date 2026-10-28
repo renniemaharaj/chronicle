@@ -121,8 +121,10 @@ func (j *job) execute(settings domain.Settings) {
 		return
 	}
 
-	if err := j.store.Put(j.ctx, "projects", run.Project.ID, run.Project); err != nil {
+	if err := j.saveResult(*run.Project); err != nil {
 		finalError = err
+
+		return
 	}
 
 	j.activity("Research record saved; coverage and unresolved questions are retained", "", nil, "")

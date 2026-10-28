@@ -30,6 +30,7 @@ type Activity struct {
 }
 
 type ResearchRun struct {
+	BaseHash   string     `json:"baseHash,omitempty"`
 	ID         string     `json:"id"`
 	Subject    string     `json:"subject"`
 	SubjectID  string     `json:"subjectId"`

@@ -31,6 +31,15 @@ func (j *job) recordResearchResult(finalError error) {
 			Plan:       run.Plan,
 			Activities: run.Activities,
 		}
+
+		for index, existing := range run.Project.ResearchRecords {
+			if existing.ID == audit.ID {
+				run.Project.ResearchRecords[index] = audit
+
+				return
+			}
+		}
+
 		run.Project.ResearchRecords = append(run.Project.ResearchRecords, audit)
 	})
 }

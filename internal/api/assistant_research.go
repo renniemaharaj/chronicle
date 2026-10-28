@@ -9,7 +9,8 @@ import (
 )
 
 type researchInput struct {
-	Subject string `json:"subject"`
+	Subject   string `json:"subject"`
+	ProjectID string `json:"projectId,omitempty" jsonschema:"Existing project to refresh with current sourced developments instead of starting a new subject"`
 }
 
 type runControlInput struct {
@@ -27,7 +28,12 @@ func (s *Server) addResearchTools(server *mcp.Server) {
 			return nil, domain.ResearchRun{}, err
 		}
 
-		run, err := s.research.Start(ctx, input.Subject, settings)
+		var run domain.ResearchRun
+		if input.ProjectID != "" {
+			run, err = s.research.Refresh(ctx, input.ProjectID, settings)
+		} else {
+			run, err = s.research.Start(ctx, input.Subject, settings)
+		}
 
 		return nil, run, err
 	})

@@ -13,7 +13,7 @@ export function watchRun(id: string) {
       ws.runs.unshift(ws.run);
     }
 
-    if (ws.run.project) {
+    if (ws.run.project && !ws.run.baseHash) {
       const projectIndex = ws.projects.findIndex((project) => project.id === ws.run?.project?.id);
       if (projectIndex < 0) {
         ws.projects.push(ws.run.project);

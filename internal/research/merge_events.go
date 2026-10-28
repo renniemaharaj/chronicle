@@ -19,9 +19,15 @@ func mergeEvents(result *domain.Project, batch extraction, ids map[string]string
 		} else {
 			for i := range result.Events {
 				if result.Events[i].ID == event.ID {
+					previous := len(result.Events[i].ClaimIDs)
 					result.Events[i].ClaimIDs = unique(append(result.Events[i].ClaimIDs, event.ClaimIDs...))
+					if len(result.Events[i].ClaimIDs) > previous {
+						// Rebuild the reading so added or competing evidence reaches the story.
+						result.Events[i].Narration = nil
+					}
 				}
 			}
 		}
 	}
+
 }

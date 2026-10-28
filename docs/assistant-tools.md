@@ -30,6 +30,7 @@ The JSON file contains the tool's arguments, not a JSON-RPC envelope.
 - `chronicle_validate_project`: assess evidence and conflicts without saving.
 - `chronicle_save_project`: save validated research and stream changes into the app.
 - `chronicle_start_research`: start the configured autonomous model/MCP pipeline.
+  Supply `projectId` to refresh an existing story with current sourced developments.
 - `chronicle_get_research`: inspect an autonomous run by `id`.
 - `chronicle_control_research`: `pause`, `cancel`, or `resume` a run.
 

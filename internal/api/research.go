@@ -3,11 +3,14 @@ package api
 import (
 	"encoding/json"
 	"net/http"
+
+	"chronicle/internal/domain"
 )
 
 func (s *Server) startResearch(w http.ResponseWriter, r *http.Request) {
 	var input struct {
-		Subject string `json:"subject"`
+		Subject   string `json:"subject"`
+		ProjectID string `json:"projectId,omitempty"`
 	}
 	if err := decode(w, r, &input); err != nil {
 		fail(w, err, 400)
@@ -22,7 +25,13 @@ func (s *Server) startResearch(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	run, err := s.research.Start(r.Context(), input.Subject, settings)
+	var run domain.ResearchRun
+	if input.ProjectID != "" {
+		run, err = s.research.Refresh(r.Context(), input.ProjectID, settings)
+	} else {
+		run, err = s.research.Start(r.Context(), input.Subject, settings)
+	}
+
 	if err != nil {
 		fail(w, err, 422)
 

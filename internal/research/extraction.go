@@ -19,6 +19,7 @@ type extraction struct {
 }
 
 const extractionInstructions = `Extract historical records relevant to the question using only this retrieved document.
+Reuse existingEvents IDs for the same occurrence; preserve their identityKey. New occurrences need new IDs.
 Use identityKey for a stable occurrence identity independent of a contested date; distinguish recurrent meetings and editions.
 Use short local IDs consistently across all output records. Include the subject entity and all referenced entities.
 Every entity lifespan or origin date needs an explicit claim with entityId and time; preserve competing dates as separate claims.

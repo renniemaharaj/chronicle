@@ -3,6 +3,8 @@
   import { Pause, Play, Square, Check, Activity } from '@lucide/svelte';
   import { api } from '../../api/client';
   import { workspace as ws } from '../../state/workspace.svelte';
+  import { researchCompletion } from '../../utils/completion';
+  const progress = $derived(ws.run ? researchCompletion(ws.run) : null);
 
   async function control(action: string) {
     if (!ws.run) {
@@ -18,6 +20,15 @@
 </script>
 
 {#if ws.run}
+  {#if progress?.total}
+    <p>Research {progress.percent}% complete · {progress.done}/{progress.total} planned questions.</p>
+    <progress
+      aria-label="Research completion"
+      value={progress.percent}
+      max="100"
+    ></progress>
+    <p>Completed tasks measure this investigation, not all available history.</p>
+  {/if}
   <div class="run-status">
     <span
       class="live-dot"
@@ -90,7 +101,7 @@
         <Play size={13} /> Resume
       </Button>
     {/if}
-    {#if ws.run.project}
+    {#if ws.run.project && !ws.run.baseHash}
       <Button
         variant="primary"
         onclick={() => ws.open(ws.run!.project!)}

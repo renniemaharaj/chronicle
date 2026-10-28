@@ -35,6 +35,11 @@ export const api = {
       method: 'POST',
       body: JSON.stringify({ subject }),
     }),
+  refresh: (projectId: string) =>
+    request<ResearchRun>('/research', {
+      method: 'POST',
+      body: JSON.stringify({ projectId }),
+    }),
   runs: () => request<ResearchRun[]>('/research'),
   run: (id: string) => request<ResearchRun>(`/research/${id}`),
   control: (id: string, action: string) =>

@@ -11,6 +11,9 @@ import (
 
 func (j *job) review(client *mcp.Client, settings domain.Settings) error {
 	run := j.snapshot()
+	if run.BaseHash != "" {
+		return nil
+	}
 
 	for _, question := range run.Plan {
 		if question.Interval == "targeted review" {

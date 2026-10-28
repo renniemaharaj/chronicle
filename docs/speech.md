@@ -95,7 +95,12 @@ References: [ElevenLabs voices](https://elevenlabs.io/docs/api-reference/voices/
 [usage](https://elevenlabs.io/docs/api-reference/user/subscription/get),
 [speech](https://elevenlabs.io/docs/api-reference/text-to-speech/convert).
 
-## Preparation progress and limits
+## Preparation progress and updates
+
+Library and **Story preparation status** show evidence-linked events and supported
+narration text as percentages of saved events. They do not imply that all history
+has been researched. Research runs show completed planned questions; final
+validation must succeed before the run can reach 100 percent.
 
 **Voice & playback** shows audio completion for the current story perspective,
 voice and model, plus the names of passages still missing audio. Credit exhaustion,
@@ -103,6 +108,15 @@ key spending limits and temporary rate limits stop generation with actionable
 messages. No automatic paid retry occurs. After renewal or a top-up, choose
 **Generate missing audio** again. Reopening the dialog checks the disk cache,
 including after a restart; previously completed parts are reused.
+
+Choose **Update story**, then **Update current story** in Research to investigate
+recent developments, new scholarship and remaining gaps in the existing project.
+This requires the configured research model and MCP tools. Assistant-led updates
+can instead use capture, validate and save. Refresh is on demand; there is no
+background news polling. New events retain their dates, captured quotations and
+competing claims. Announced future events remain plans. Unchanged narration reuses
+saved audio; changed text needs regeneration. Concurrent story edits detected
+before saving leave findings in the research session instead of replacing edits.
 
 `npm run speech:account` uses the ElevenLabs SDK to inspect the reported allowance
 without generating audio. Provider usage and reset timestamps are account data,

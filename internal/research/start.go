@@ -1,10 +1,11 @@
 package research
 
 import (
-	"chronicle/internal/domain"
 	"context"
 	"fmt"
 	"time"
+
+	"chronicle/internal/domain"
 )
 
 func (m *Manager) Start(ctx context.Context, subject string, settings domain.Settings) (domain.ResearchRun, error) {
@@ -14,6 +15,14 @@ func (m *Manager) Start(ctx context.Context, subject string, settings domain.Set
 
 	if settings.Model == "" || settings.MCPURL == "" || settings.SearchTool == "" || settings.RetrieveTool == "" {
 		return domain.ResearchRun{}, fmt.Errorf("configure a model, MCP endpoint, search tool, and retrieval tool in Settings")
+	}
+
+	return m.startRun(ctx, subject, settings, nil, nil, "")
+}
+
+func (m *Manager) startRun(ctx context.Context, subject string, settings domain.Settings, project *domain.Project, plan []domain.Question, baseHash string) (domain.ResearchRun, error) {
+	if plan == nil {
+		plan = []domain.Question{}
 	}
 
 	now := time.Now().UTC().Format(time.RFC3339Nano)
@@ -29,9 +38,16 @@ func (m *Manager) Start(ctx context.Context, subject string, settings domain.Set
 		UpdatedAt:  now,
 		Model:      settings.Model,
 		Config:     config,
-		Plan:       []domain.Question{},
+		Plan:       plan,
+		Project:    project,
+		BaseHash:   baseHash,
 		Activities: []domain.Activity{},
 	}
+	if project != nil {
+		run.SubjectID = project.SubjectID
+		run.Sources, run.Claims = len(project.Sources), len(project.Claims)
+	}
+
 	if err := m.Store.Put(ctx, "research", id, run); err != nil {
 		return run, err
 	}

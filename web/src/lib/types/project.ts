@@ -70,6 +70,7 @@ export interface ProviderSettings {
 }
 
 export interface ResearchRun {
+  baseHash?: string;
   id: string;
   subject: string;
   subjectId: string;

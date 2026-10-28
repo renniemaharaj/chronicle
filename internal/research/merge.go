@@ -48,6 +48,9 @@ func mergeBatch(project domain.Project, batch extraction, source domain.Source) 
 
 	for _, event := range batch.Events {
 		ids[event.ID] = stableID("event", event.Title+event.Kind+event.IdentityKey+inputJSON(remap(event.Participants, ids)))
+		if existing := existingOccurrence(project, event); existing != "" {
+			ids[event.ID] = existing
+		}
 	}
 
 	for _, claim := range batch.Claims {
