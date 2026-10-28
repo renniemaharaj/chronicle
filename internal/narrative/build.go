@@ -12,17 +12,7 @@ func Build(project *domain.Project) {
 
 	ordered := append([]domain.Event{}, project.Events...)
 	sort.SliceStable(ordered, func(i, j int) bool {
-		left, _, known := ordered[i].Time.Bounds()
-		right, _, otherKnown := ordered[j].Time.Bounds()
-		if !known {
-			return false
-		}
-
-		if !otherKnown {
-			return true
-		}
-
-		return left < right
+		return storyBefore(ordered[i], ordered[j])
 	})
 
 	project.Events = ordered
