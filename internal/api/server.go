@@ -11,10 +11,12 @@ import (
 	"chronicle/internal/config"
 	"chronicle/internal/geography"
 	"chronicle/internal/research"
+	"chronicle/internal/speech"
 	"chronicle/internal/storage"
 )
 
 type Server struct {
+	audio     *speech.Cache
 	config    config.Config
 	store     storage.Store
 	research  *research.Manager
@@ -28,6 +30,7 @@ func New(store storage.Store, manager *research.Manager, options ...config.Confi
 	}
 
 	s := &Server{
+		audio:     speech.NewCache(settings.Workspace),
 		store:     store,
 		research:  manager,
 		config:    settings,
@@ -37,8 +40,7 @@ func New(store storage.Store, manager *research.Manager, options ...config.Confi
 	mux := http.NewServeMux()
 	mux.HandleFunc("GET /api/config", s.publicConfig)
 	mux.HandleFunc("GET /api/places/search", s.searchPlaces)
-	mux.HandleFunc("GET /api/speech/voices", s.speechVoices)
-	mux.HandleFunc("POST /api/speech/synthesize", s.speechAudio)
+	s.speechRoutes(mux)
 	mux.HandleFunc("GET /api/health", func(w http.ResponseWriter, _ *http.Request) {
 		write(w, 200, map[string]string{"status": "ok"})
 	})

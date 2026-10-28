@@ -9,6 +9,7 @@ export interface SpeechInput {
   voice: string;
   language: string;
   speed: number;
+  model?: string;
   done(): void;
   fail(message: string): void;
 }

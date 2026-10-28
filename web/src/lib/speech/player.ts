@@ -1,4 +1,5 @@
 import { browserSession, readingSession, type SpeechInput, type SpeechSession } from './session';
+import { cloudSession } from './cloud-session';
 import { googleSession } from './google-session';
 import type { SpeechProvider } from './preferences.svelte';
 
@@ -56,12 +57,15 @@ export class StoryPlayer {
     };
     try {
       this.paused = false;
-      this.session =
-        provider === 'screen'
-          ? readingSession(guarded)
-          : provider === 'google'
-            ? googleSession(guarded)
-            : browserSession(guarded);
+      if (provider === 'screen') {
+        this.session = readingSession(guarded);
+      } else if (provider === 'google') {
+        this.session = googleSession(guarded);
+      } else if (provider === 'elevenlabs') {
+        this.session = cloudSession(guarded, 'elevenlabs');
+      } else {
+        this.session = browserSession(guarded);
+      }
     } catch (error) {
       guarded.fail((error as Error).message);
     }

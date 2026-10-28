@@ -8,10 +8,17 @@
   import ResearchDialog from './ResearchDialog.svelte';
   import HistoricalContext from '../narrative/HistoricalContext.svelte';
   import SpeechDialog from './SpeechDialog.svelte';
+  import { stopNarrationPreparation } from '../../speech/library.svelte';
   import SubjectsDialog from './SubjectsDialog.svelte';
   import MediaDialog from './MediaDialog.svelte';
   import SubjectLinksDialog from './SubjectLinksDialog.svelte';
   import RecordDialog from './RecordDialog.svelte';
+
+  $effect(() => {
+    if (ws.dialog !== 'Voice & playback') {
+      stopNarrationPreparation();
+    }
+  });
 </script>
 
 {#if ws.dialog}

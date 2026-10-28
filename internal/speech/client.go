@@ -24,6 +24,8 @@ type Voice struct {
 }
 
 type Request struct {
+	Provider     string `json:"provider,omitempty"`
+	ModelID      string `json:"modelId,omitempty"`
 	Text         string `json:"text"`
 	VoiceName    string `json:"voiceName"`
 	LanguageCode string `json:"languageCode"`

@@ -4,16 +4,11 @@
   import { focusChapter } from '../../state/chapter-focus';
   import { speech } from '../../speech/preferences.svelte';
   import { StoryPlayer } from '../../speech/player';
-  import { eventStory, contextFor, contextText } from '../../speech/story';
+  import { storyPassages } from '../../speech/passages';
   import { storyPlayback } from '../../state/story-playback.svelte';
 
   const player = new StoryPlayer();
   let ready = $state(false);
-  let previousChapter = '';
-  let previousProject = '';
-  let previousRestart = 0;
-  let contextIntro = '';
-  let chapterKey = '';
   onMount(() => {
     speech.load();
     ready = true;
@@ -31,42 +26,24 @@
     const provider = speech.provider;
     const voice = speech.voice;
     const language = speech.language;
+    const model = speech.model;
     const speed = ws.speed;
-    const text = eventStory(ws.project, event, ws.activeClaims);
-    const contexts = contextFor(ws.project, event);
+    const passages = storyPassages(ws.project, ws.orderedEvents, ws.activeClaims);
+    const narration = passages.find((passage) => passage.id === event?.id)?.text ?? '';
     const projectId = ws.project.id;
     const restartToken = storyPlayback.restartToken;
     untrack(() => {
-      if (previousProject !== projectId) {
-        player.stop();
-        previousProject = projectId;
-        previousChapter = '';
-        chapterKey = '';
-        contextIntro = '';
-      }
-
-      if (restartToken !== previousRestart) {
-        previousChapter = '';
-        previousRestart = restartToken;
-      }
-
-      if (playing && chapter && chapter.id !== previousChapter) {
-        contextIntro = contexts.map((item) => `${item.title}. ${contextText(ws.project, item)}`).join(' ');
-        chapterKey = event?.id ?? '';
-        previousChapter = chapter.id;
-      }
-
       if (playing && chapter && ws.followChapter && ws.focusedChapterId !== chapter.id) {
         focusChapter(ws, chapter.id, false);
       }
 
-      const narration = `${event?.title ?? ''}. ${event?.id === chapterKey ? contextIntro : ''} ${text}`;
       const key = JSON.stringify([
         projectId,
         event?.id,
         provider,
         voice,
         language,
+        model,
         speed,
         narration,
         restartToken,
@@ -82,6 +59,7 @@
         text: narration,
         voice,
         language,
+        model,
         speed,
         done: () => {
           speech.status = 'Ready to read';

@@ -37,7 +37,7 @@ gcloud auth application-default set-quota-project YOUR_PROJECT_ID
 
 Alternatively set `GOOGLE_APPLICATION_CREDENTIALS` to an authorized credentials file before starting Chronicle.
 Google Cloud service charges and quotas apply. Chronicle does not create projects or enable billing.
-Click **Load Google voices**, select a voice, then Play. Credentials are resolved only when Cloud speech is requested.
+Click **Load Google voices**, select a voice, then generate missing audio before Play. Credentials are resolved only when Cloud speech is requested.
 The backend limits text to 5,000 UTF-8 bytes, bounds responses, times out requests and propagates cancellation.
 
 Local endpoints: `GET /api/speech/voices?language=en-US` and `POST /api/speech/synthesize`.
@@ -47,3 +47,65 @@ References: [Google authentication](https://docs.cloud.google.com/text-to-speech
 [voice discovery](https://docs.cloud.google.com/text-to-speech/docs/reference/rest/v1/voices/list),
 [synthesis](https://docs.cloud.google.com/text-to-speech/docs/reference/rest/v1/text/synthesize),
 [browser speech](https://developer.mozilla.org/en-US/docs/Web/API/SpeechSynthesis).
+
+## ElevenLabs
+
+Choose **Voice & playback > ElevenLabs**. Set `ELEVENLABS_API_KEY` in the server environment
+or enter a key in the dialog. Environment/server configuration takes precedence over workspace keys.
+The UI detects the key without receiving its value, and automatically loads the account's paginated
+voice catalog, text-to-speech models and subscription usage. Restricted keys may allow speech while
+blocking usage or voice discovery; those failures are shown independently. Refresh usage after generation.
+Workspace keys are stored on the backend, outside portable projects and browser preferences.
+An empty key removes a workspace credential. `CHRONICLE_ELEVENLABS_URL` overrides the API endpoint.
+
+ElevenLabs audio uses 44.1 kHz, 128 kbps MP3, stability 0.5 and similarity 0.75.
+The selected model is sent to the provider; model availability comes from its API, not screenshots.
+Usage shows account-wide provider counters and reset dates. Missing text characters are a generation
+estimate, not a credit quote: pricing and credit multipliers vary by model and subscription.
+
+## Saved narration
+
+For Google and ElevenLabs, select a voice and choose **Generate missing audio** before Play.
+The dialog checks each story passage and shows saved parts, missing parts and missing text characters.
+Long passages are split on Unicode-safe boundaries below 4,500 UTF-8 bytes. Generation saves each part
+before continuing. Stop lets the current part finish; closing the dialog also stops after that part.
+Completed parts survive interruption and provider failures. Retry generates only parts still missing.
+
+Files live in `WORKSPACE/audio/` as private MP3 files, persisted across server restarts, including
+PostgreSQL deployments (retain the workspace volume). Audio is not embedded in project exports.
+The cache identity includes exact narration, provider endpoint, voice, language, model and the fixed
+encoding/synthesis settings version. Playback speed is applied locally and does not regenerate audio.
+Changing a voice keeps previous versions; switching back reuses them. Changed text needs new audio.
+Concurrent generation within one server rechecks the cache to avoid duplicate provider charges.
+Keep one Chronicle server per workspace when generating audio. Cache files remain until removed from
+that directory; do not remove files while generation is active. Retain them to avoid regeneration charges.
+
+Playback checks local saved audio and streams files with byte-range support. Missing files pause with
+an instruction to generate them; Play never silently starts paid synthesis. Browser Web Speech cannot
+export reusable audio through this API, so browser voices continue speaking on demand.
+
+Local endpoints: `GET/PUT /api/speech/settings`, `GET /api/speech/voices?provider=elevenlabs`,
+`GET /api/speech/models`, `GET /api/speech/usage`, `POST /api/speech/prepare` and
+`GET /api/speech/audio/{id}`. Prepare accepts the synthesis fields plus `provider`, `modelId` and
+`generate`; false only inspects the cache, true generates missing files and returns their local URL.
+The legacy synthesis endpoint now also persists and reuses audio.
+
+References: [ElevenLabs voices](https://elevenlabs.io/docs/api-reference/voices/search),
+[models](https://elevenlabs.io/docs/api-reference/models/list),
+[usage](https://elevenlabs.io/docs/api-reference/user/subscription/get),
+[speech](https://elevenlabs.io/docs/api-reference/text-to-speech/convert).
+
+## Preparation progress and limits
+
+**Voice & playback** shows audio completion for the current story perspective,
+voice and model, plus the names of passages still missing audio. Credit exhaustion,
+key spending limits and temporary rate limits stop generation with actionable
+messages. No automatic paid retry occurs. After renewal or a top-up, choose
+**Generate missing audio** again. Reopening the dialog checks the disk cache,
+including after a restart; previously completed parts are reused.
+
+`npm run speech:account` uses the ElevenLabs SDK to inspect the reported allowance
+without generating audio. Provider usage and reset timestamps are account data,
+not a guarantee that the selected model or key limit can fund a complete story.
+
+Reference: [ElevenLabs error codes](https://elevenlabs.io/docs/eleven-api/resources/errors).

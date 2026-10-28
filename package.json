@@ -6,6 +6,7 @@
     "postinstall": "node scripts/install.mjs",
     "dev": "node --env-file-if-exists=.env.local scripts/dev.mjs",
     "start": "node --env-file-if-exists=.env.local scripts/start.mjs",
+    "speech:account": "node --env-file-if-exists=.env.local scripts/elevenlabs-account.mjs",
     "build": "npm --prefix web run build && go build -o .chronicle/bin/chronicle ./cmd/chronicle",
     "format": "node scripts/readable-javascript.mjs && prettier --write 'web/**/*.{ts,svelte,css,js}' 'scripts/*.mjs' '*.json' 'config/*.json' 'compose*.yaml' && go run ./tools/readable-go",
     "format:check": "node scripts/readable-javascript.mjs --check && prettier --check 'web/**/*.{ts,svelte,css,js}' 'scripts/*.mjs' '*.json' 'config/*.json' 'compose*.yaml' && go run ./tools/readable-go --check",
@@ -16,5 +17,8 @@
   "devDependencies": {
     "prettier": "^3.9.10",
     "prettier-plugin-svelte": "^4.1.1"
+  },
+  "dependencies": {
+    "@elevenlabs/elevenlabs-js": "^2.75.0"
   }
 }
