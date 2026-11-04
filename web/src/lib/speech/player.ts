@@ -38,6 +38,11 @@ export class StoryPlayer {
     const generation = ++this.generation;
     const guarded = {
       ...input,
+      progress: (seconds: number) => {
+        if (generation === this.generation) {
+          input.progress?.(seconds);
+        }
+      },
       done: () => {
         if (generation !== this.generation) {
           return;

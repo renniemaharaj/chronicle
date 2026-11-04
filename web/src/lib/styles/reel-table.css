@@ -1,0 +1,125 @@
+.reel-table-toolbar {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding: 14px 0;
+}
+
+.reel-episode-search {
+  display: flex;
+  align-items: center;
+  position: relative;
+  width: 220px;
+}
+
+.reel-episode-search > svg {
+  position: absolute;
+  left: 10px;
+  z-index: 1;
+  color: var(--quiet);
+}
+
+.reel-episode-search input {
+  padding-left: 32px;
+}
+
+.reel-table-toolbar select {
+  width: 150px;
+}
+
+.reel-table-toolbar > :not(.reel-episode-search):not(.reel-order-note) {
+  width: 150px;
+  flex: 0 0 150px;
+}
+
+.reel-order-note {
+  display: flex;
+  gap: 6px;
+  margin-left: auto;
+  color: var(--quiet);
+  font-size: 12px;
+}
+
+.reel-table-scroll {
+  overflow: auto;
+  border: 1px solid var(--line);
+  border-radius: 9px;
+}
+
+.reel-episode-table {
+  width: 100%;
+  min-width: 780px;
+  border-collapse: separate;
+  border-spacing: 0;
+  font-size: 13px;
+}
+
+.reel-episode-table th {
+  padding: 12px 10px;
+  text-align: left;
+  font-weight: 500;
+  color: var(--muted);
+  background: var(--surface-raised);
+  white-space: nowrap;
+}
+
+.reel-episode-table td {
+  border-top: 1px solid var(--line-soft);
+  padding: 12px 10px;
+  vertical-align: middle;
+}
+
+.reel-episode-table tr.selected td {
+  background: color-mix(in srgb, var(--blue-soft) 35%, var(--surface));
+  border-top-color: var(--line-strong);
+}
+
+.reel-episode-table tr.selected td:first-child {
+  box-shadow: inset 3px 0 var(--primary);
+}
+
+.reel-episode-table tbody tr:hover td {
+  background: var(--surface-raised);
+}
+
+.reel-number {
+  color: var(--muted);
+  text-align: center;
+  font-weight: 600;
+  width: 34px;
+}
+
+.reel-episode-cell {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 210px;
+}
+
+.reel-episode-button {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0;
+  gap: 4px;
+  text-align: left;
+  min-width: 0;
+  width: 100%;
+  white-space: normal;
+}
+
+.reel-episode-button strong {
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.reel-episode-button > span {
+  font-size: 12px;
+  color: var(--muted);
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  line-height: 1.55;
+}

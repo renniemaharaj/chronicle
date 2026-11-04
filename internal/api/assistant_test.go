@@ -47,8 +47,8 @@ func TestAssistantResearchTools(t *testing.T) {
 	defer session.Close()
 
 	tools, err := session.ListTools(ctx, nil)
-	if err != nil || len(tools.Tools) != 9 {
-		t.Fatalf("expected nine discoverable research tools: %v", err)
+	if err != nil || len(tools.Tools) != 14 {
+		t.Fatalf("expected fourteen discoverable research and campaign tools: %v", err)
 	}
 
 	call := assistantCaller(t, ctx, session)

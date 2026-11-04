@@ -78,3 +78,7 @@ Open [localhost:5173](http://localhost:5173). Connect your AI model and MCP sear
 tools in **Settings**, then choose **New Research** and enter a subject.
 
 [Setup](docs/setup.md) · [Research standards](docs/research-standards.md) · [Assistant/MCP tools](docs/assistant-tools.md) · [Maps](docs/maps.md) · [Speech](docs/speech.md) · [Image credits](docs/assets.md)
+
+## License
+
+Chronicle is licensed under the [MIT License](LICENSE).

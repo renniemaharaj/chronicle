@@ -4,6 +4,8 @@
   import StoryScene from './StoryScene.svelte';
   import StoryControls from './StoryControls.svelte';
   import StoryTimeline from './StoryTimeline.svelte';
+  import StoryProductionControls from './StoryProductionControls.svelte';
+  import StoryCaptureClock from './StoryCaptureClock.svelte';
   import DialogHost from '../dialogs/DialogHost.svelte';
   import { workspace as ws } from '../../state/workspace.svelte';
   import { storyView } from '../../state/story-view.svelte';
@@ -49,9 +51,11 @@
     <StorySidebar />
   {/if}
   <div class="story-player-main">
+    <StoryProductionControls />
     <StoryScene onfullscreen={fullscreen} />
     <StoryControls />
     <StoryTimeline />
   </div>
   <DialogHost />
+  <StoryCaptureClock />
 </main>

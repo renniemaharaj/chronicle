@@ -1,0 +1,107 @@
+.reel-section-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.reel-section-heading h2,
+.reel-content-card h3,
+.reel-detail-card h3 {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.reel-section-heading p,
+.reel-detail-note,
+.reel-table-footnote {
+  font-size: 13px;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+.reel-table-footnote {
+  margin: 12px 0;
+}
+
+.reel-muted {
+  color: var(--quiet);
+}
+
+.reel-status,
+.reel-mode-label {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  white-space: nowrap;
+  border: 1px solid var(--line-strong);
+  border-radius: 20px;
+  padding: 2px 8px;
+  font-size: 13px;
+  color: var(--muted);
+  background: var(--surface-soft);
+}
+
+.reel-status[data-status='published'] {
+  background: var(--teal-soft);
+  color: var(--teal);
+  border-color: color-mix(in srgb, var(--teal) 25%, transparent);
+}
+
+.reel-status[data-status='recorded'] {
+  background: var(--blue-soft);
+  color: var(--blue);
+  border-color: color-mix(in srgb, var(--blue) 25%, transparent);
+}
+
+.reel-status[data-status='recording'] {
+  background: var(--gold-soft);
+  color: var(--gold);
+}
+
+.reel-status-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+.reel-content-card,
+.reel-create-card {
+  padding: 20px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--surface);
+}
+
+.reel-content-card h3 {
+  margin-bottom: 16px;
+}
+
+.reel-empty-inline {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  padding: 44px 20px;
+  text-align: center;
+  color: var(--muted);
+}
+
+.reel-empty-inline > svg {
+  color: var(--blue);
+}
+
+.reel-empty-inline h3 {
+  color: var(--text);
+  font-size: 17px;
+}
+
+.reel-empty-inline p {
+  font-size: 13px;
+  max-width: 420px;
+}

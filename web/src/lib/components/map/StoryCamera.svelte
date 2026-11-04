@@ -35,10 +35,24 @@
     if (previousKey !== frame.key) {
       const animate = previousKey !== '' && !reducedMotion;
       previousKey = frame.key;
-      untrack(() => moveStoryCamera(L, instance, frame, animate));
+      untrack(() => {
+        instance.stop();
+        instance.fire('story-camera-start');
+        if (animate) {
+          instance.once('moveend', () => instance.fire('story-camera-ready'));
+        }
+
+        moveStoryCamera(L, instance, frame, animate);
+        if (!animate) {
+          instance.fire('story-camera-ready');
+        }
+      });
     }
 
-    const resize = () => moveStoryCamera(L, instance, frame, false);
+    const resize = () => {
+      moveStoryCamera(L, instance, frame, false);
+      instance.fire('story-camera-ready');
+    };
 
     instance.on('resize', resize);
 

@@ -6,6 +6,8 @@
   import StoryMapSources from './StoryMapSources.svelte';
   import StoryChronology from './StoryChronology.svelte';
   import StoryGraph from './StoryGraph.svelte';
+  import StoryVisualOverlay from './StoryVisualOverlay.svelte';
+  import StoryReelCaption from './StoryReelCaption.svelte';
   import { workspace as ws } from '../../state/workspace.svelte';
   import { storyView } from '../../state/story-view.svelte';
   import { storyGeography } from '../../utils/story-geography';
@@ -19,6 +21,7 @@
 <div
   class="story-scene"
   class:alternate-scene={storyView.scene !== 'Map'}
+  class:portrait-stage={storyView.portrait}
 >
   {#if storyView.scene === 'Map'}
     <MapStage
@@ -31,13 +34,14 @@
       class="story-map-shade"
       aria-hidden="true"
     ></div>
+    <StoryVisualOverlay />
     <div
       class="story-location"
       aria-live="polite"
     >
       <span><MapPin size={15} />{geography.names.join(' / ') || 'Wider story context'}</span>
       <p>{geography.caption}</p>
-      <small>Modern geographic references; historical borders are not shown.</small>
+      <small>Modern geographic references. Focus rings are not historical borders.</small>
       <StoryMapSources places={geography.frame.places} />
     </div>
   {:else}
@@ -51,4 +55,15 @@
   {/if}
   <StorySceneToolbar {onfullscreen} />
   <StoryReading {event} />
+  {#if storyView.portrait}
+    <StoryReelCaption />
+    {#if storyView.safeAreas}
+      <div
+        class="story-safe-guide"
+        aria-label="Reel safe area guide"
+      >
+        <span>Keep essential content inside this area</span>
+      </div>
+    {/if}
+  {/if}
 </div>

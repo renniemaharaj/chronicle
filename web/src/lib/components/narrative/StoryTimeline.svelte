@@ -1,6 +1,7 @@
 <script lang="ts">
   import { onMount, tick } from 'svelte';
   import { workspace as ws } from '../../state/workspace.svelte';
+  import { storyView } from '../../state/story-view.svelte';
   import { focusChapter } from '../../state/chapter-focus';
   import { activeStoryChapter, nearbyPassages, storyOutline } from '../../utils/story-outline';
   import { intervalLabel } from '../../types/temporal';
@@ -59,6 +60,7 @@
 
 <section
   class="story-timeline"
+  class:compact={!storyView.eventCards}
   aria-label="Story event navigation"
 >
   <nav

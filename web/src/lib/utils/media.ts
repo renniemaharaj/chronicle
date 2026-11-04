@@ -2,6 +2,7 @@ import { safeSourceURL } from '../api/links';
 import type { HistoricalEvent } from '../types/knowledge';
 import type { MediaAsset } from '../types/media';
 import type { Project } from '../types/project';
+import { usableImage } from './story-visual';
 
 function youtubeId(address: string): string | undefined {
   try {
@@ -36,6 +37,10 @@ export function youtubeThumbnail(address: string): string | undefined {
 }
 
 export function mediaSourceURL(address: string): string | undefined {
+  if (/^\/api\/media\/images\/[a-f0-9]{64}\.(png|jpg|gif)$/.test(address)) {
+    return address;
+  }
+
   const id = youtubeId(address);
 
   return id ? `https://www.youtube.com/watch?v=${id}` : safeSourceURL(address);
@@ -50,6 +55,7 @@ export function mediaEvents(project: Project, asset: MediaAsset): HistoricalEven
 
   return project.events.filter(
     (event) =>
+      event.visual?.mediaId === asset.id ||
       eventIds.has(event.id) ||
       [...event.claimIds, ...(event.narration?.claimIds ?? [])].some((id) => claims.has(id)),
   );
@@ -62,8 +68,7 @@ export function mediaForEvent(project: Project, event?: HistoricalEvent): MediaA
 
   return (project.media ?? []).filter(
     (asset) =>
-      asset.retrieved &&
-      safeSourceURL(asset.url) &&
+      (asset.kind === 'image' ? usableImage(asset) : asset.retrieved && safeSourceURL(asset.url)) &&
       mediaEvents(project, asset).some((item) => item.id === event.id),
   );
 }

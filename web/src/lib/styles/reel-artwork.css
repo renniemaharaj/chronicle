@@ -1,0 +1,83 @@
+.reel-artwork {
+  position: relative;
+  overflow: hidden;
+  border-radius: 7px;
+  background: var(--blue-soft);
+  border: 1px solid var(--line);
+}
+
+.reel-artwork img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.reel-artwork-fallback {
+  width: 100%;
+  height: 100%;
+  min-height: 55px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  color: var(--blue);
+  background:
+    radial-gradient(ellipse at 100% 0%, color-mix(in srgb, var(--blue) 18%, transparent), transparent 60%),
+    repeating-linear-gradient(
+      130deg,
+      transparent 0 22px,
+      color-mix(in srgb, var(--blue) 7%, transparent) 23px 24px
+    ),
+    var(--surface-raised);
+}
+
+.reel-artwork-fallback span {
+  font-size: 9px;
+  letter-spacing: 0.2em;
+}
+
+.reel-cover {
+  min-height: 255px;
+}
+
+.reel-episode-art {
+  width: 46px;
+  height: 59px;
+  flex-shrink: 0;
+}
+
+.reel-episode-art .reel-artwork-fallback span {
+  display: none;
+}
+
+.reel-episode-art .reel-artwork-fallback svg {
+  width: 20px;
+}
+
+.reel-inspector-art {
+  position: relative;
+}
+
+.reel-inspector-art .reel-artwork {
+  height: 170px;
+}
+
+.reel-art-duration,
+.reel-art-label {
+  position: absolute;
+  bottom: 8px;
+  padding: 3px 6px;
+  border-radius: 4px;
+  font-size: 11px;
+  background: #081323dd;
+  color: #e7edf8;
+}
+
+.reel-art-duration {
+  right: 8px;
+}
+
+.reel-art-label {
+  left: 8px;
+}

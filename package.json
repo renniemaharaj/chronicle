@@ -2,6 +2,7 @@
   "name": "chronicle",
   "private": true,
   "version": "0.1.0",
+  "license": "MIT",
   "scripts": {
     "postinstall": "node scripts/install.mjs",
     "dev": "node --env-file-if-exists=.env.local scripts/dev.mjs",

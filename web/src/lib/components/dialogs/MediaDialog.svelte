@@ -8,6 +8,8 @@
   import { mediaEvents, mediaSourceURL } from '../../utils/media';
   import CollectionSearch from '../subjects/CollectionSearch.svelte';
   import MediaPreview from '../subjects/MediaPreview.svelte';
+  import { usableImage } from '../../utils/story-visual';
+  import ImageProvenance from '../subjects/ImageProvenance.svelte';
   let query = $state('');
   let related = $state(false);
   const entity = $derived(ws.entity ?? ws.subject);
@@ -16,8 +18,7 @@
     (ws.project.media ?? []).filter(
       (asset) =>
         asset.kind === kind &&
-        asset.retrieved &&
-        safeSourceURL(asset.url) &&
+        (asset.kind === 'image' ? usableImage(asset) : asset.retrieved && safeSourceURL(asset.url)) &&
         (related || asset.entityId === entity.id) &&
         searchText(`${asset.title} ${asset.caption} ${asset.creator}`).includes(searchText(query)),
     ),
@@ -35,8 +36,8 @@
   {/snippet}
 </CollectionSearch>
 <p class="subject-search-note">
-  Collected from research sources. Open the source for context and reuse terms. Videos link to their
-  publisher.
+  Research images and labeled AI illustrations. Open source images for their context and reuse terms. Videos
+  link to their publisher.
 </p>
 <div class="media-grid">
   {#each results as asset (asset.id)}
@@ -49,6 +50,10 @@
       <MediaPreview {asset} />
       <div class="media-copy">
         <strong>{asset.title}</strong>
+        <ImageProvenance
+          {asset}
+          project={ws.project}
+        />
         {#if asset.caption}
           <p>{asset.caption}</p>
         {/if}

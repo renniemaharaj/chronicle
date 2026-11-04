@@ -108,6 +108,10 @@ func ValidateProject(p Project) error {
 		return err
 	}
 
+	if err := validateStoryVisuals(p); err != nil {
+		return err
+	}
+
 	return validateLinks(p, entities, events, claims, evidence)
 }
 

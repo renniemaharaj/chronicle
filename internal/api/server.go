@@ -8,6 +8,7 @@ import (
 	"net/url"
 	"strings"
 
+	"chronicle/internal/campaign"
 	"chronicle/internal/config"
 	"chronicle/internal/geography"
 	"chronicle/internal/research"
@@ -16,6 +17,7 @@ import (
 )
 
 type Server struct {
+	campaigns *campaign.Manager
 	audio     *speech.Cache
 	config    config.Config
 	store     storage.Store
@@ -30,6 +32,7 @@ func New(store storage.Store, manager *research.Manager, options ...config.Confi
 	}
 
 	s := &Server{
+		campaigns: campaign.New(store),
 		audio:     speech.NewCache(settings.Workspace),
 		store:     store,
 		research:  manager,
@@ -41,6 +44,8 @@ func New(store storage.Store, manager *research.Manager, options ...config.Confi
 	mux.HandleFunc("GET /api/config", s.publicConfig)
 	mux.HandleFunc("GET /api/places/search", s.searchPlaces)
 	s.speechRoutes(mux)
+	s.campaignRoutes(mux)
+	s.storyImageRoutes(mux)
 	mux.HandleFunc("GET /api/health", func(w http.ResponseWriter, _ *http.Request) {
 		write(w, 200, map[string]string{"status": "ok"})
 	})

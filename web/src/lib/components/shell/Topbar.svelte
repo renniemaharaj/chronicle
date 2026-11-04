@@ -54,6 +54,16 @@
   </form>
   <div class="top-actions">
     <Button
+      class="header-action"
+      disabled={!ws.hasProject}
+      onclick={() => {
+        ws.playing = false;
+        ws.view = 'Campaigns';
+      }}
+    >
+      Campaigns
+    </Button>
+    <Button
       class="header-action primary-soft"
       onclick={research}
     >

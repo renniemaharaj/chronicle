@@ -11,6 +11,7 @@ export interface Entity {
 }
 
 export interface HistoricalEvent {
+  visual?: import('./media').StoryVisual;
   narration?: { text: string; claimIds: string[]; interpretation: boolean };
   identityKey?: string;
   id: string;

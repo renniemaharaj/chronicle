@@ -7,6 +7,7 @@
   import ContextEvidence from './ContextEvidence.svelte';
   import HistoricalContext from './HistoricalContext.svelte';
   import StoryEventImage from './StoryEventImage.svelte';
+  import StoryVisualEditor from './StoryVisualEditor.svelte';
   import Button from '../ui/Button.svelte';
   import { List, MapPin } from '@lucide/svelte';
   import { storyView } from '../../state/story-view.svelte';
@@ -72,6 +73,12 @@
     <details class="story-provenance">
       <summary>Story evidence</summary>
       <ContextEvidence {claimIds} />
+    </details>
+    <details class="story-visual-settings">
+      <summary>Passage image & timing</summary>
+      {#key event.id}
+        <StoryVisualEditor {event} />
+      {/key}
     </details>
     <HistoricalContext />
     <footer class="story-reading-footer">

@@ -4,6 +4,7 @@
   import EraStrip from '$lib/components/narrative/EraStrip.svelte';
   import StoryPlayback from '$lib/components/narrative/StoryPlayback.svelte';
   import StoryMode from '$lib/components/narrative/StoryMode.svelte';
+  import CampaignView from '$lib/components/campaign/CampaignView.svelte';
   import EmptyWorkspace from '$lib/components/shell/EmptyWorkspace.svelte';
   import { watchWorkspace } from '$lib/api/workspace-stream';
   import { watchRun } from '$lib/api/stream';
@@ -57,7 +58,11 @@
 >
   <Topbar />
   <StoryPlayback />
-  {#if ws.hasProject && ws.view === 'Story'}
+  {#if ws.hasProject && ws.view === 'Campaigns'}
+    {#key ws.project.id}
+      <CampaignView />
+    {/key}
+  {:else if ws.hasProject && ws.view === 'Story'}
     <StoryMode />
   {:else if ws.hasProject}
     <div

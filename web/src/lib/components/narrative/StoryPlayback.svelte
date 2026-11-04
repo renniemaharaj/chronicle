@@ -48,6 +48,14 @@
         narration,
         restartToken,
       ]);
+      if (storyPlayback.passageId !== key) {
+        storyPlayback.passageId = key;
+        storyPlayback.eventId = event?.id ?? '';
+        storyPlayback.projectId = projectId;
+        storyPlayback.elapsed = 0;
+        storyPlayback.duration = 0;
+      }
+
       if (playing) {
         speech.status = provider === 'screen' ? 'Reading on screen' : 'Reading aloud';
         speech.error = '';
@@ -61,6 +69,12 @@
         language,
         model,
         speed,
+        progress: (seconds) => {
+          storyPlayback.elapsed = seconds;
+        },
+        duration: (seconds) => {
+          storyPlayback.duration = seconds;
+        },
         done: () => {
           speech.status = 'Ready to read';
           ws.step(1);

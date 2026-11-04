@@ -6,4 +6,9 @@ export const storyView = $state({
   panel: 'Chapters' as StoryPanel,
   sidebarOpen: true,
   followLocation: true,
+  showImages: true,
+  motion: true,
+  portrait: false,
+  safeAreas: true,
+  eventCards: false,
 });

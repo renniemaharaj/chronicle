@@ -1,0 +1,124 @@
+.reel-clips,
+.reel-analytics {
+  padding-top: 24px;
+}
+
+.reel-clips > .reel-section-heading,
+.reel-analytics > .reel-section-heading {
+  margin-bottom: 22px;
+}
+
+.reel-clips-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 16px;
+}
+
+.reel-clip-card {
+  padding: 20px;
+  border: 1px solid var(--line);
+  border-radius: 9px;
+  background: var(--surface);
+}
+
+.reel-clip-header,
+.reel-clip-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.reel-clip-icon {
+  color: var(--blue);
+}
+
+.reel-clip-card > small {
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.reel-clip-card h3 {
+  margin: 8px 0 14px;
+  font-size: 16px;
+}
+
+.reel-file-path {
+  padding: 10px;
+  border: 1px solid var(--line-soft);
+  border-radius: 6px;
+  background: var(--bg);
+  font-size: 12px;
+  overflow-wrap: anywhere;
+  color: var(--muted);
+}
+
+.reel-clip-actions {
+  margin: 18px 0 0;
+}
+
+.reel-bar-chart {
+  display: grid;
+  gap: 6px;
+}
+
+.reel-chart-row {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 48px 1fr 46px;
+  gap: 12px;
+  align-items: center;
+  padding: 9px 0;
+  text-align: left;
+  font-size: 13px;
+}
+
+.reel-bar-track {
+  display: block;
+  height: 10px;
+  border-radius: 3px;
+  background: var(--surface-soft);
+  overflow: hidden;
+}
+
+.reel-bar-track > span {
+  display: block;
+  height: 100%;
+  background: linear-gradient(90deg, var(--primary), var(--blue));
+  border-radius: inherit;
+}
+
+.reel-distribution-banner,
+.reel-distribution-row {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  padding: 18px 0;
+  border-bottom: 1px solid var(--line-soft);
+}
+
+.reel-distribution-banner > div,
+.reel-distribution-row > div {
+  flex: 1;
+}
+
+.reel-distribution-row small,
+.reel-distribution-banner p {
+  display: block;
+  color: var(--muted);
+  font-size: 13px;
+  margin-top: 5px;
+}
+
+.reel-distribution > .reel-detail-note {
+  margin-top: 16px;
+}
+
+.reel-library-video {
+  width: 100%;
+  max-height: 300px;
+  margin-bottom: 16px;
+  background: #071323;
+  border-radius: 6px;
+}

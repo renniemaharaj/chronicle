@@ -90,6 +90,8 @@ func (s *Server) assistantHandler() http.Handler {
 	})
 	s.addCaptureTools(server)
 	s.addResearchTools(server)
+	s.addCampaignTools(server)
+	s.addAudioCampaignTool(server)
 
 	return mcp.NewStreamableHTTPHandler(func(*http.Request) *mcp.Server {
 		return server

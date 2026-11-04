@@ -1,5 +1,6 @@
 import {
   BookOpen,
+  Clapperboard,
   Clock3,
   Download,
   GitBranch,
@@ -29,6 +30,10 @@ export const explorerItems = [
   {
     name: 'Story',
     icon: BookOpen,
+  },
+  {
+    name: 'Campaigns',
+    icon: Clapperboard,
   },
   {
     name: 'Family & Relationships',

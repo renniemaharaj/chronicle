@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { ArrowLeft, BookOpen, Clock3, LocateFixed, Map, Maximize, Network } from '@lucide/svelte';
+  import { ArrowLeft, BookOpen, Clock3, Image, LocateFixed, Map, Maximize, Network } from '@lucide/svelte';
   import Button from '../ui/Button.svelte';
   import { storyView, type StoryScene } from '../../state/story-view.svelte';
   import { closeStoryMode } from '../../state/story-mode';
@@ -67,6 +67,17 @@
   </div>
   <div class="story-mode-actions">
     {#if storyView.scene === 'Map'}
+      <Button
+        icon
+        aria-label="Show passage images"
+        title="Passage images"
+        pressed={storyView.showImages}
+        onclick={() => {
+          storyView.showImages = !storyView.showImages;
+        }}
+      >
+        <Image size={16} />
+      </Button>
       <Button
         pressed={storyView.followLocation}
         aria-label="Follow location"

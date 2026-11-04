@@ -1,0 +1,70 @@
+.campaign-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 20px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--surface);
+  min-width: 0;
+}
+
+.campaign-panel h2 {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.campaign-panel p {
+  font-size: 13px;
+  line-height: 1.6;
+  overflow-wrap: anywhere;
+  color: var(--muted);
+}
+
+.campaign-panel label {
+  display: grid;
+  gap: 6px;
+  font-size: 13px;
+}
+
+.campaign-panel input,
+.campaign-panel textarea {
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 8px;
+  width: 100%;
+  background: var(--surface);
+  color: inherit;
+}
+
+.campaign-panel a,
+.campaign-link {
+  color: var(--blue);
+  text-decoration: underline;
+}
+
+.campaign-actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.campaign-metrics {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.campaign-error {
+  padding: 12px 16px;
+  margin: 12px 0;
+  border: 1px solid var(--red);
+  background: var(--red-soft);
+  border-radius: 8px;
+  font-size: 13px;
+}
+
+.campaign-observation {
+  border-top: 1px solid var(--line);
+  padding-top: 12px;
+}

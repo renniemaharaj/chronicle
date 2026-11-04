@@ -18,7 +18,7 @@
   }
 
   .story-mode .story-player-main {
-    grid-template-rows: minmax(420px, 1fr) auto auto;
+    grid-template-rows: auto minmax(420px, 1fr) auto auto;
   }
 
   .story-scene-toolbar {
@@ -52,8 +52,9 @@
   .story-location {
     top: 64px;
     bottom: auto;
-    left: 54px;
-    max-width: calc(100% - 68px);
+    left: calc(24px + var(--story-image-space, 0px));
+    right: 10px;
+    max-width: none;
     max-height: 30%;
     padding: 8px 10px;
   }

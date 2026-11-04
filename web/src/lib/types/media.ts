@@ -5,6 +5,13 @@ export interface Resource {
 }
 
 export interface MediaAsset {
+  generated?: {
+    tool: string;
+    prompt: string;
+    createdAt: string;
+    referenceSourceIds: string[];
+  };
+  depicts?: import('./temporal').HistoricalInterval;
   id: string;
   entityId: string;
   sourceId: string;
@@ -18,6 +25,13 @@ export interface MediaAsset {
   claimIds: string[];
   useAsAvatar: boolean;
   retrieved: boolean;
+}
+
+export interface StoryVisual {
+  mediaId: string;
+  startSeconds: number;
+  durationSeconds: number;
+  transitionSeconds: number;
 }
 
 export interface SubjectLink {

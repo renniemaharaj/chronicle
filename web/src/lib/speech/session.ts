@@ -1,3 +1,5 @@
+import { passageClock } from './passage-clock';
+
 export interface SpeechSession {
   pause(): void;
   resume(): void;
@@ -10,6 +12,8 @@ export interface SpeechInput {
   language: string;
   speed: number;
   model?: string;
+  progress?(seconds: number): void;
+  duration?(seconds: number): void;
   done(): void;
   fail(message: string): void;
 }
@@ -33,12 +37,23 @@ export function browserSession(input: SpeechInput): SpeechSession {
   utterance.rate = input.speed;
 
   let cancelled = false;
+  let paused = false;
+  let started = false;
+  const clock = passageClock(input);
+  utterance.onstart = () => {
+    started = true;
+    if (!paused) {
+      clock.resume();
+    }
+  };
   utterance.onend = () => {
+    clock.pause();
     if (!cancelled) {
       input.done();
     }
   };
   utterance.onerror = (event) => {
+    clock.pause();
     if (!cancelled) {
       input.fail(`Speech stopped: ${event.error}`);
     }
@@ -46,9 +61,21 @@ export function browserSession(input: SpeechInput): SpeechSession {
   speechSynthesis.speak(utterance);
 
   return {
-    pause: () => speechSynthesis.pause(),
-    resume: () => speechSynthesis.resume(),
+    pause: () => {
+      paused = true;
+      clock.pause();
+      speechSynthesis.pause();
+    },
+    resume: () => {
+      paused = false;
+      if (started) {
+        clock.resume();
+      }
+
+      speechSynthesis.resume();
+    },
     cancel: () => {
+      clock.pause();
       cancelled = true;
       speechSynthesis.cancel();
     },
@@ -56,11 +83,15 @@ export function browserSession(input: SpeechInput): SpeechSession {
 }
 
 export function readingSession(input: SpeechInput): SpeechSession {
+  const clock = passageClock(input);
   let remaining = Math.max(3000, (input.text.split(/\s+/).length * 400) / input.speed);
+  input.duration?.((remaining / 1000) * input.speed);
+
   let started = 0;
   let timer: ReturnType<typeof setTimeout>;
 
   const resume = () => {
+    clock.resume();
     started = Date.now();
     timer = setTimeout(input.done, remaining);
   };
@@ -69,10 +100,14 @@ export function readingSession(input: SpeechInput): SpeechSession {
 
   return {
     pause: () => {
+      clock.pause();
       clearTimeout(timer);
       remaining = Math.max(0, remaining - (Date.now() - started));
     },
     resume,
-    cancel: () => clearTimeout(timer),
+    cancel: () => {
+      clock.pause();
+      clearTimeout(timer);
+    },
   };
 }

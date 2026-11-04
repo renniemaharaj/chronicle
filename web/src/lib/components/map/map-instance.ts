@@ -6,12 +6,14 @@ export function createMap(
   container: HTMLDivElement,
   settings: PublicConfig,
   onTileError: () => void,
+  story = false,
 ) {
   const map = library.map(container, {
     center: [18, -25],
     zoom: 2,
     minZoom: 1,
     maxZoom: 19,
+    zoomSnap: story ? 0 : 1,
   });
 
   library

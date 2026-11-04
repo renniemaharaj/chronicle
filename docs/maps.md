@@ -10,8 +10,28 @@ require the subject's physical presence. **Through [year]** follows the timeline
 
 Choose **Story** in Explorer or **Story mode** above the Story pane. Narration
 plays over a map that follows the current event's canonical `locationIds`.
-Multiple recorded locations are framed together. Repeated locations keep the
-camera steady, and reduced motion preferences disable animated map movement.
+Multiple recorded locations are framed together. Repeated locations avoid another
+camera flight; ambient motion continues during narration unless reduced motion is enabled.
+
+Story production tools include Map motion, a 9:16 Reel and Shorts preview, safe-area guides and an
+Event cards toggle. Collapsing event cards leaves more space for the map while chapter navigation
+and passage controls remain available. Floating artwork keeps its natural proportions and reserves
+space beside the location card. The reading panel retains the complete caption and provenance.
+
+During playback, location rings pulse and their dashed outlines move. Gentle drift and zoom transform
+the existing Leaflet pane; they do not repeatedly reset its view or reload tiles. Effects use the
+narration clock, freeze on pause, and respect reduced motion. Manual map interaction suspends drift
+until the camera follows a location again. Rings show geographic emphasis, not territorial extent.
+Between audio progress samples, a refresh-rate animation loop interpolates motion for up to 100 ms;
+loading stalls do not leave the effects running indefinitely. Artwork can be up to 10% wider while
+retaining its aspect ratio and the space needed by captions, location context and the reading panel.
+
+The portrait preview places titles, location context and short caption groups within shared safe
+areas. Caption timing uses measured duration for a single saved audio segment, otherwise a word-rate
+estimate. Guides are editorial margins rather than a guarantee about every platform overlay.
+
+FFmpeg map capture records the entire saved reading with a visual-only clock and stores moving
+footage in `map-motion-v1`. It neither plays nor generates paid speech during map capture.
 **Follow location** can be switched off to explore the map manually.
 
 ![Céline Dion's Story mode at Birth in Québec, with Charlemagne on the map and chapter and event navigation below the reading panel](images/chronicle-celine-dion-story-mode.png)

@@ -1,0 +1,42 @@
+.reel-studio-heading,
+.reel-preview-controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 20px 0;
+}
+
+.reel-studio-title h2 {
+  font-size: 20px;
+  margin-top: 5px;
+}
+
+.reel-studio-layout {
+  display: grid;
+  grid-template-columns: minmax(340px, 420px) minmax(300px, 1fr);
+  gap: 32px;
+  margin-top: 22px;
+}
+
+.reel-studio-preview {
+  min-width: 0;
+}
+
+.reel-studio-preview .campaign-stage {
+  border: 1px solid var(--line-strong);
+  border-radius: 8px;
+  box-shadow: 0 18px 50px rgb(var(--shadow-rgb) / 0.25);
+}
+
+.reel-studio-settings {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  min-width: 0;
+}
+
+.reel-studio-settings > .campaign-panel {
+  padding: 22px;
+}

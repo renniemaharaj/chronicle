@@ -18,6 +18,11 @@ func Assess(project *domain.Project) {
 
 	for index := range project.Media {
 		asset := &project.Media[index]
+		if asset.Generated != nil {
+			asset.Retrieved, asset.UseAsAvatar = false, false
+			continue
+		}
+
 		asset.Retrieved = contains(sources[asset.SourceID], asset.URL, asset.Kind)
 		if asset.UseAsAvatar && (!asset.Retrieved || !supportedIdentity(*project, asset.EntityID, asset.SourceID, asset.ClaimIDs)) {
 			asset.UseAsAvatar = false

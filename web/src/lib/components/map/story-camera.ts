@@ -54,20 +54,31 @@ export function moveStoryCamera(
   }
 
   const size = map.getSize();
-  const wide = window.matchMedia('(min-width: 760px)').matches;
+  const portrait = size.y > size.x * 1.2;
+  const wide = window.matchMedia('(min-width: 760px)').matches && !portrait;
   const reader = map.getContainer().closest('.story-scene')?.querySelector('.story-reading');
   const readerWidth = reader?.getBoundingClientRect().width ?? Math.min(400, size.x * 0.4);
-  const paddingTopLeft: Leaflet.PointTuple = [48, wide ? 76 : 180];
-  const paddingBottomRight: Leaflet.PointTuple = wide ? [readerWidth + 42, 110] : [40, size.y * 0.53];
+  const readerBottom =
+    portrait && reader
+      ? reader.getBoundingClientRect().bottom - map.getContainer().getBoundingClientRect().top
+      : 180;
+  const paddingTopLeft: Leaflet.PointTuple = [
+    48,
+    portrait ? Math.min(readerBottom + 40, size.y * 0.4) : wide ? 76 : 180,
+  ];
+  const paddingBottomRight: Leaflet.PointTuple = wide
+    ? [readerWidth + 42, 110]
+    : [40, size.y * (portrait ? 0.3 : 0.53)];
   const maxZoom = frame.overview
     ? 5
-    : Math.min(...frame.places.map((place) => locationZoom(place.location.kind)));
+    : Math.min(...frame.places.map((place) => Math.min(13, locationZoom(place.location.kind) + 2)));
   const options = {
     paddingTopLeft,
     paddingBottomRight,
     maxZoom,
     animate,
-    duration: 1.2,
+    duration: 1.8,
+    easeLinearity: 0.15,
   };
   const bounds = L.latLngBounds(positions);
   if (animate) {

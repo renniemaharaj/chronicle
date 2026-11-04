@@ -1,0 +1,123 @@
+.story-visual-anchor {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.story-visual-overlay {
+  position: absolute;
+  top: 62px;
+  left: 14px;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border: 1px solid var(--line-strong);
+  border-radius: 12px;
+  background: #071523;
+  box-shadow: 0 18px 60px #0005;
+  pointer-events: none;
+}
+
+.story-visual-overlay img {
+  display: block;
+  width: 100%;
+  height: var(--story-image-height, auto);
+  flex: none;
+  object-fit: cover;
+}
+
+.story-visual-overlay figcaption {
+  display: grid;
+  gap: 5px;
+  padding: 8px 10px;
+  background: #071523;
+  color: #eaf0f6;
+  font-size: 11px;
+  line-height: 1.45;
+}
+
+.story-visual-overlay figcaption > strong {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+}
+
+.story-visual-overlay figcaption {
+  max-height: 70px;
+  overflow: hidden;
+}
+
+.story-visual-overlay figcaption > span:not(.story-visual-kind),
+.story-visual-overlay figcaption > small {
+  display: none;
+}
+
+.story-visual-kind {
+  color: #eac382;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+}
+
+.story-visual-overlay small {
+  color: #aebed0;
+}
+
+.story-visual-editor,
+.story-visual-editor label {
+  display: grid;
+  gap: 7px;
+}
+
+.story-visual-settings summary {
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 650;
+}
+
+.story-visual-editor {
+  margin-top: 12px;
+  font-size: 12px;
+}
+
+.story-visual-editor select,
+.story-visual-editor input {
+  width: 100%;
+  min-width: 0;
+  padding: 7px 9px;
+  border: 1px solid var(--line-strong);
+  border-radius: 6px;
+  background: var(--surface);
+  color: var(--text);
+}
+
+.story-visual-time-fields {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.story-visual-editor-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+@media (max-width: 759px) {
+  .story-visual-overlay {
+    top: 64px;
+    left: 10px;
+    z-index: 3;
+  }
+
+  .story-visual-overlay figcaption > span:not(.story-visual-kind) {
+    display: none;
+  }
+}
+
+.media-copy .story-visual-kind {
+  color: var(--text);
+}

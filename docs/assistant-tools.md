@@ -33,6 +33,12 @@ The JSON file contains the tool's arguments, not a JSON-RPC envelope.
   Supply `projectId` to refresh an existing story with current sourced developments.
 - `chronicle_get_research`: inspect an autonomous run by `id`.
 - `chronicle_control_research`: `pause`, `cancel`, or `resume` a run.
+- `chronicle_list_campaigns` / `chronicle_get_campaign`: inspect saved reel series and checkpoints.
+- `chronicle_create_campaign`: freeze a researched story into contiguous reel passages.
+- `chronicle_create_audio_campaign`: plan consecutive episodes from existing saved narration only,
+  stopping at the first missing reading. Select `facebook` and/or `youtube` as publishing targets.
+- `chronicle_update_campaign`: checkpoint takes, save manual publication receipts, append observed metrics.
+  These tools do not upload to Facebook or operate OBS. See [Campaigns](campaigns.md).
 
 ## Assistant-led workflow
 
@@ -57,6 +63,10 @@ The JSON file contains the tool's arguments, not a JSON-RPC envelope.
    claim IDs. `subjectLinks` preserves official references and social links with the verification method.
    The backend recomputes link verification; it never trusts submitted flags or fabricated resources.
    Follow [Research standards](research-standards.md), including origin context and documented endings/aftermath.
+
+For timed passage images and generated illustrations, follow [Story images](story-images.md). Import
+generated PNG/JPEG files through the local image endpoint, then validate and save their explicit generation
+provenance and event cue. Generated illustrations are separate from historical evidence.
 11. Report coverage and limitations. The app opens the first saved project or announces additions in Library.
 
 Only quotations found in backend-captured text become newly verified through assistant tools. Unchanged evidence

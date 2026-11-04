@@ -1,0 +1,109 @@
+@container (max-width: 760px) {
+  .reel-heading-actions {
+    width: 100%;
+    justify-content: flex-end;
+  }
+
+  .reel-studio-layout {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .reel-studio-preview {
+    max-width: 420px;
+    width: 100%;
+    margin: auto;
+  }
+
+  .reel-order-note {
+    display: none;
+  }
+
+  .reel-analytics-grid,
+  .reel-overview-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 1000px) {
+  .reel-shell {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .reel-shell > .resize-handle {
+    display: none;
+  }
+
+  .reel-shell > .left-panel {
+    position: absolute;
+    left: 8px;
+    top: 8px;
+    bottom: 8px;
+    width: min(270px, calc(100% - 16px));
+    z-index: 21;
+    box-shadow: 20px 0 70px rgb(var(--shadow-rgb) / 0.5);
+  }
+
+  .reel-content {
+    grid-column: 1;
+    padding: 8px 10px 30px;
+  }
+
+  .reel-inspector {
+    position: absolute;
+    right: 8px;
+    top: 8px;
+    bottom: 8px;
+    width: min(340px, calc(100% - 16px));
+    z-index: 20;
+    box-shadow: -20px 0 70px rgb(var(--shadow-rgb) / 0.5);
+  }
+
+  .app-shell:has(.reel-shell) .brand-lockup {
+    min-width: 0;
+  }
+
+  .app-shell:has(.reel-shell) .top-actions :is(.header-action, .new-research, .inspector-reveal) {
+    display: none;
+  }
+
+  .app-shell:has(.reel-shell) .global-search {
+    flex: 1;
+    width: auto;
+  }
+
+  .app-shell:has(.reel-shell) .global-search kbd {
+    display: none;
+  }
+}
+
+@media (max-width: 520px) {
+  .app-shell:has(.reel-shell) .brand-name {
+    display: none;
+  }
+
+  .reel-heading-actions > button {
+    flex: 1;
+    justify-content: center;
+  }
+
+  .reel-welcome {
+    padding: 40px 14px;
+  }
+
+  .reel-series-card {
+    padding: 14px;
+    grid-template-columns: 60px minmax(0, 1fr);
+  }
+
+  .reel-series-copy h2 {
+    font-size: 17px;
+  }
+
+  .reel-create-form > div:first-child {
+    width: 100%;
+  }
+
+  .reel-distribution-row {
+    flex-wrap: wrap;
+  }
+}

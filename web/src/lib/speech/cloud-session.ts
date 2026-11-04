@@ -10,19 +10,50 @@ export function cloudSession(input: SpeechInput, provider: CloudProvider): Speec
   let cancelled = false;
   let paused = false;
   let loaded = false;
+  let completedSeconds = 0;
+  let progressTimer: ReturnType<typeof setInterval> | undefined;
+
+  const progress = () => {
+    if (!cancelled && !paused && loaded && Number.isFinite(audio.currentTime)) {
+      input.progress?.(completedSeconds + audio.currentTime);
+    }
+  };
+
+  audio.ontimeupdate = progress;
+  audio.onloadedmetadata = () => {
+    if (!cancelled && chunks.length === 1 && Number.isFinite(audio.duration)) {
+      input.duration?.(audio.duration);
+    }
+  };
+
+  const reportProgress = () => {
+    if (!cancelled && !paused && loaded && !progressTimer) {
+      progressTimer = setInterval(progress, 50);
+    }
+  };
+
+  const stopProgress = () => {
+    clearInterval(progressTimer);
+    progressTimer = undefined;
+  };
 
   const play = () =>
-    audio.play().catch(() => {
-      if (!cancelled && !paused) {
-        input.fail('Audio playback was blocked. Press Play to try again.');
-      }
-    });
+    audio
+      .play()
+      .then(reportProgress)
+      .catch(() => {
+        if (!cancelled && !paused) {
+          input.fail('Audio playback was blocked. Press Play to try again.');
+        }
+      });
 
   audio.onended = () => {
+    stopProgress();
     if (cancelled) {
       return;
     }
 
+    completedSeconds += Number.isFinite(audio.duration) ? audio.duration : audio.currentTime;
     if (index < chunks.length) {
       void loadNext();
     } else {
@@ -30,6 +61,7 @@ export function cloudSession(input: SpeechInput, provider: CloudProvider): Speec
     }
   };
   audio.onerror = () => {
+    stopProgress();
     if (!cancelled) {
       input.fail('Saved narration could not be played. Check the server connection.');
     }
@@ -64,6 +96,7 @@ export function cloudSession(input: SpeechInput, provider: CloudProvider): Speec
 
   return {
     pause: () => {
+      stopProgress();
       paused = true;
       audio.pause();
     },
@@ -74,6 +107,7 @@ export function cloudSession(input: SpeechInput, provider: CloudProvider): Speec
       }
     },
     cancel: () => {
+      stopProgress();
       cancelled = true;
       request.abort();
       audio.pause();

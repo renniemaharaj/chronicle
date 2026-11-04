@@ -2,6 +2,7 @@
   "name": "chronicle-web",
   "private": true,
   "version": "0.1.0",
+  "license": "MIT",
   "type": "module",
   "scripts": {
     "dev": "vite dev",
@@ -14,6 +15,7 @@
     "@lucide/svelte": "^1.57.0",
     "@xyflow/svelte": "^1.4.0",
     "leaflet": "^1.9.4",
+    "obs-websocket-js": "^5.0.8",
     "svelte": "^5.0.0"
   },
   "devDependencies": {

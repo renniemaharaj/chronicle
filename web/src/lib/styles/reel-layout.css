@@ -1,0 +1,108 @@
+.reel-shell {
+  position: relative;
+  height: calc(100dvh - 74px);
+  display: grid;
+  grid-template-columns: var(--left-width) minmax(0, 1fr) var(--right-width);
+  gap: 8px;
+  padding: 8px;
+  overflow: hidden;
+}
+
+.reel-content {
+  grid-column: 2;
+  min-width: 0;
+  overflow: auto;
+  padding: 6px 18px 32px;
+  scrollbar-width: thin;
+  container-type: inline-size;
+}
+
+.reel-breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  color: var(--quiet);
+  font-size: 13px;
+  margin-bottom: 10px;
+}
+
+.reel-breadcrumb strong {
+  color: var(--text);
+  font-weight: 400;
+}
+
+.reel-heading,
+.reel-heading-copy,
+.reel-heading-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.reel-heading {
+  justify-content: space-between;
+  flex-wrap: wrap;
+  margin-bottom: 16px;
+}
+
+.reel-heading h1 {
+  font-size: 25px;
+  font-weight: 650;
+}
+
+.reel-heading p {
+  font-size: 13px;
+  color: var(--muted);
+  margin-top: 5px;
+}
+
+.reel-heading-icon {
+  color: var(--blue);
+}
+
+.reel-heading-actions {
+  gap: 8px;
+}
+
+.reel-explorer {
+  display: flex;
+  flex-direction: column;
+}
+
+.reel-explorer .side-nav {
+  order: 1;
+  border-top: 0;
+  overflow: auto;
+  min-height: 0;
+}
+
+.reel-explorer .subject-card {
+  order: 2;
+  margin-top: auto;
+  padding: 15px 8px 8px;
+  border-top: 1px solid var(--line);
+}
+
+.reel-explorer .subject-role {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.reel-explorer .panel-toggle {
+  position: static;
+  align-self: flex-end;
+  flex-shrink: 0;
+}
+
+.reel-inspector {
+  grid-column: 3;
+  min-width: 0;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 9px;
+  background: var(--surface);
+  display: flex;
+  flex-direction: column;
+}

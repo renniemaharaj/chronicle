@@ -1,0 +1,105 @@
+.reel-cell-note {
+  display: block;
+  color: var(--quiet);
+  font-size: 11px;
+  margin-top: 5px;
+  white-space: nowrap;
+}
+
+.reel-duration {
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.reel-platform {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--blue);
+}
+
+.reel-publication-badges {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.reel-pending-platform {
+  color: var(--quiet);
+  font-size: 11px;
+  opacity: 0.65;
+}
+
+.reel-youtube-mark {
+  border-radius: 4px;
+  padding: 0 3px;
+  background: #e52122;
+  color: white;
+  font-size: 12px;
+}
+
+.reel-preview-button {
+  color: var(--blue);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  font-size: 12px;
+  padding: 6px 9px;
+}
+
+.reel-view-count {
+  font-size: 12px;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.reel-trend {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-top: 4px;
+  font-size: 12px;
+  color: var(--teal);
+}
+
+.reel-trend.negative {
+  color: var(--red);
+}
+
+.reel-progress-row,
+.reel-revenue {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  margin: 16px 0 8px;
+  font-size: 13px;
+}
+
+.reel-content-card progress {
+  width: 100%;
+  height: 6px;
+  border-radius: 4px;
+  accent-color: var(--primary);
+}
+
+.reel-gap {
+  font-size: 13px;
+  padding: 10px 0;
+  color: var(--muted);
+  border-bottom: 1px solid var(--line-soft);
+}
+
+.reel-overview-grid,
+.reel-analytics-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+  padding: 18px 0;
+}
+
+.reel-overview-sources {
+  grid-column: 1 / -1;
+}
+
+.reel-revenue strong {
+  font-size: 22px;
+}

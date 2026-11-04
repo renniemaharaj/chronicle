@@ -94,4 +94,28 @@ describe('story map camera', () => {
     current.move(frame([], 'city', true), false);
     expect(current.map.setView).toHaveBeenCalledWith([18, -25], 2, { animate: false });
   });
+
+  it('reserves vertical space for a portrait reading without hiding the map to its left', () => {
+    const current = camera();
+    current.map.getSize = () => ({
+      x: 1080,
+      y: 1920,
+    });
+    current.map.getContainer = () => ({
+      getBoundingClientRect: () => ({ top: 0 }),
+      closest: () => ({
+        querySelector: () => ({
+          getBoundingClientRect: () => ({
+            width: 950,
+            bottom: 500,
+          }),
+        }),
+      }),
+    });
+    current.move(frame([-62]), false);
+
+    const options = current.map.fitBounds.mock.calls[0][1];
+    expect(options.paddingBottomRight[0]).toBe(40);
+    expect(options.paddingTopLeft[1]).toBe(540);
+  });
 });

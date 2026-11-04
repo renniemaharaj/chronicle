@@ -13,6 +13,7 @@ type Entity struct {
 }
 
 type Event struct {
+	Visual           *StoryVisual      `json:"visual,omitempty"`
 	Narration        *EventNarration   `json:"narration,omitempty"`
 	IdentityKey      string            `json:"identityKey,omitempty"`
 	ID               string            `json:"id"`

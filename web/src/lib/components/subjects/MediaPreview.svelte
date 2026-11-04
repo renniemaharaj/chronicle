@@ -1,12 +1,12 @@
 <script lang="ts">
   import { ExternalLink, Image, Play } from '@lucide/svelte';
-  import { safeSourceURL } from '../../api/links';
   import { mediaSourceURL, youtubeThumbnail } from '../../utils/media';
   import type { MediaAsset } from '../../types/media';
+  import { imageURL } from '../../utils/story-visual';
 
   let { asset }: { asset: MediaAsset } = $props();
   let failed = $state('');
-  const preview = $derived(asset.kind === 'image' ? safeSourceURL(asset.url) : youtubeThumbnail(asset.url));
+  const preview = $derived(asset.kind === 'image' ? imageURL(asset) : youtubeThumbnail(asset.url));
 </script>
 
 <a

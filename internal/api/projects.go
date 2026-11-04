@@ -42,6 +42,12 @@ func (s *Server) saveProject(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	if err := s.validateGeneratedImages(project); err != nil {
+		fail(w, err, 422)
+
+		return
+	}
+
 	if !project.Fixture {
 		evidence.Assess(&project)
 		conflicts.Analyze(&project)

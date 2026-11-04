@@ -23,6 +23,10 @@ func (s *Server) prepareAssistantProject(ctx context.Context, input projectInput
 		return project, err
 	}
 
+	if err := s.validateGeneratedImages(project); err != nil {
+		return project, err
+	}
+
 	trusted := s.existingVerifiedEvidence(ctx, project)
 	captures := map[string]evidence.Capture{}
 

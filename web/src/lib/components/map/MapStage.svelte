@@ -6,7 +6,7 @@
   import type { HistoricalEvent } from '../../types/knowledge';
   import type { MapPlace } from '../../utils/map-projection';
   import { drawMap } from './map-layers';
-  import StoryCamera from './StoryCamera.svelte';
+  import StoryMapEffects from './StoryMapEffects.svelte';
   import type { MapCameraFrame } from '../../utils/story-geography';
   import { storyCoordinates } from './story-camera';
   import { focusSelectedPlace } from './map-selection';
@@ -42,9 +42,15 @@
           return;
         }
 
-        const created = createMap(L, container, settings, () => {
-          tilesFailed = true;
-        });
+        const created = createMap(
+          L,
+          container,
+          settings,
+          () => {
+            tilesFailed = true;
+          },
+          !!camera,
+        );
         layer = created.layer;
         observer = created.observer;
         library = L;
@@ -112,7 +118,7 @@
   role="region"
 ></div>
 {#if camera}
-  <StoryCamera
+  <StoryMapEffects
     {map}
     {library}
     frame={camera}

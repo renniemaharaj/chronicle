@@ -1,6 +1,9 @@
 package domain
 
-import "fmt"
+import (
+	"chronicle/internal/temporal"
+	"fmt"
+)
 
 // Resources are links observed in retrieved documents, not statements of identity.
 type Resource struct {
@@ -10,19 +13,21 @@ type Resource struct {
 }
 
 type MediaAsset struct {
-	ID          string   `json:"id"`
-	EntityID    string   `json:"entityId"`
-	SourceID    string   `json:"sourceId"`
-	Kind        string   `json:"kind"`
-	URL         string   `json:"url"`
-	Title       string   `json:"title"`
-	Caption     string   `json:"caption"`
-	Creator     string   `json:"creator"`
-	License     string   `json:"license"`
-	LicenseURL  string   `json:"licenseUrl,omitempty"`
-	ClaimIDs    []string `json:"claimIds"`
-	UseAsAvatar bool     `json:"useAsAvatar"`
-	Retrieved   bool     `json:"retrieved"`
+	Generated   *ImageGeneration   `json:"generated,omitempty"`
+	Depicts     *temporal.Interval `json:"depicts,omitempty"`
+	ID          string             `json:"id"`
+	EntityID    string             `json:"entityId"`
+	SourceID    string             `json:"sourceId"`
+	Kind        string             `json:"kind"`
+	URL         string             `json:"url"`
+	Title       string             `json:"title"`
+	Caption     string             `json:"caption"`
+	Creator     string             `json:"creator"`
+	License     string             `json:"license"`
+	LicenseURL  string             `json:"licenseUrl,omitempty"`
+	ClaimIDs    []string           `json:"claimIds"`
+	UseAsAvatar bool               `json:"useAsAvatar"`
+	Retrieved   bool               `json:"retrieved"`
 }
 
 type SubjectLink struct {
@@ -57,6 +62,29 @@ func validateMedia(p Project, entities, sources, claims map[string]bool) error {
 	}
 
 	for _, asset := range p.Media {
+		if asset.Depicts != nil {
+			if err := asset.Depicts.Validate(); err != nil {
+				return err
+			}
+		}
+
+		if asset.LicenseURL != "" && !SafeWebURL(asset.LicenseURL) {
+			return fmt.Errorf("invalid media license URL")
+		}
+
+		if asset.Generated != nil {
+			if err := validateGeneratedImage(asset, entities, sources, claims); err != nil {
+				return err
+			}
+
+			if seen[asset.ID] {
+				return fmt.Errorf("duplicate media identity: %s", asset.ID)
+			}
+
+			seen[asset.ID] = true
+			continue
+		}
+
 		if err := check(asset.ID, asset.EntityID, asset.SourceID, asset.URL, asset.ClaimIDs); err != nil {
 			return err
 		}
@@ -65,9 +93,6 @@ func validateMedia(p Project, entities, sources, claims map[string]bool) error {
 			return fmt.Errorf("invalid media kind, title or avatar evidence: %s", asset.ID)
 		}
 
-		if asset.LicenseURL != "" && !SafeWebURL(asset.LicenseURL) {
-			return fmt.Errorf("invalid media license URL")
-		}
 	}
 
 	for _, link := range p.SubjectLinks {

@@ -23,7 +23,12 @@ export function handleKeyboard(event: KeyboardEvent) {
   }
 
   const target = event.target as HTMLElement;
-  if (!ws.hasProject || ws.dialog || target?.closest('input, textarea, select, [contenteditable="true"]')) {
+  if (
+    !ws.hasProject ||
+    ws.view === 'Campaigns' ||
+    ws.dialog ||
+    target?.closest('input, textarea, select, [contenteditable="true"]')
+  ) {
     return;
   }
 

@@ -8,6 +8,8 @@
   import SubjectAvatar from '../subjects/SubjectAvatar.svelte';
   import CoverageCard from '../research/CoverageCard.svelte';
 
+  let { compact = false }: { compact?: boolean } = $props();
+
   const counts = $derived<Record<string, number>>({
     'Family & Relationships': ws.project.relationships.length,
     Places: ws.project.entities.filter((entity) => entity.kind === 'place').length,
@@ -19,7 +21,10 @@
   });
 </script>
 
-<aside class="left-panel">
+<aside
+  class="left-panel"
+  class:reel-explorer={compact}
+>
   <Button
     class="panel-toggle left-toggle"
     aria-label="Collapse explorer"
@@ -58,39 +63,41 @@
           size={16}
           strokeWidth={1.7}
         />
-        <span>{item.name}</span>
+        <span>{item.name === 'Campaigns' ? 'Reel Series' : item.name}</span>
         {#if counts[item.name] !== undefined}
           <small>{counts[item.name]}</small>
         {/if}
       </Button>
     {/each}
   </nav>
-  <section class="related-section">
-    <h2>
-      Related subjects <span>Explore the connections</span>
-    </h2>
-    {#each ws.project.entities.filter((entity) => entity.id !== ws.subject.id).slice(0, 5) as entity}
+  {#if !compact}
+    <section class="related-section">
+      <h2>
+        Related subjects <span>Explore the connections</span>
+      </h2>
+      {#each ws.project.entities.filter((entity) => entity.id !== ws.subject.id).slice(0, 5) as entity}
+        <Button
+          class="related-item"
+          onclick={() => ws.select(entity.id, 'entity')}
+        >
+          <SubjectAvatar
+            {entity}
+            project={ws.project}
+            size={38}
+          />
+          <span>
+            <strong>{entity.name}</strong>
+            <small>{entity.kind}{entity.time.start ? ` · ${intervalLabel(entity.time)}` : ''}</small>
+          </span>
+        </Button>
+      {/each}
       <Button
-        class="related-item"
-        onclick={() => ws.select(entity.id, 'entity')}
+        class="explore-related"
+        onclick={() => (ws.dialog = 'Related Subjects')}
       >
-        <SubjectAvatar
-          {entity}
-          project={ws.project}
-          size={38}
-        />
-        <span>
-          <strong>{entity.name}</strong>
-          <small>{entity.kind}{entity.time.start ? ` · ${intervalLabel(entity.time)}` : ''}</small>
-        </span>
+        <Network size={13} /> Explore related subjects
       </Button>
-    {/each}
-    <Button
-      class="explore-related"
-      onclick={() => (ws.dialog = 'Related Subjects')}
-    >
-      <Network size={13} /> Explore related subjects
-    </Button>
-  </section>
-  <CoverageCard />
+    </section>
+    <CoverageCard />
+  {/if}
 </aside>

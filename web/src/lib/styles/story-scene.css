@@ -1,4 +1,5 @@
 .story-scene {
+  container-type: size;
   position: relative;
   min-width: 0;
   min-height: 0;
@@ -57,9 +58,11 @@
 .story-location {
   position: absolute;
   z-index: 1;
-  left: 14px;
+  left: calc(14px + var(--story-image-space, 0px));
   bottom: 24px;
-  max-width: min(420px, calc(100% - var(--story-reader-width) - 44px));
+  max-width: min(420px, calc(100% - var(--story-reader-width) - var(--story-image-space, 0px) - 44px));
+  max-height: calc(100% - 90px);
+  overflow: auto;
   padding: 10px 14px;
   border: 1px solid var(--line-strong);
   border-radius: 9px;
